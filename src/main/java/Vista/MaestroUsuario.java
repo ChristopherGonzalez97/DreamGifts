@@ -433,13 +433,15 @@ public class MaestroUsuario extends javax.swing.JPanel {
         if(u.Habilitado().equals("Si"))
         {
             u.setHabilitado(Short.parseShort("1"));
+             lblMensaje.setText("Usuario desactivado");
         }
         else{
             u.setHabilitado(Short.parseShort("0"));
+             lblMensaje.setText("Usuario activado");
         }
         CUsuario.EditarUsuario(u);
         lblMensaje.setForeground(Color.YELLOW.darker());
-        lblMensaje.setText("Usuario desactivado");
+       
         lblMensaje.setVisible(true);
         btnGuardar.setVisible(true);
         btnConfirmarEdicion.setVisible(false);
