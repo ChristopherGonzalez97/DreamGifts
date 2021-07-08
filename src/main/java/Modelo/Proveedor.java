@@ -16,6 +16,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -35,18 +37,26 @@ public class Proveedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "PRO_ID_PROVEEDOR")
     private Integer proIdProveedor;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "PRO_NOMBRE")
     private String proNombre;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "PRO_TELEFONO")
     private int proTelefono;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "PRO_CORREO")
     private String proCorreo;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "PRO_DIRECCION")
     private String proDireccion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proIdProveedor")

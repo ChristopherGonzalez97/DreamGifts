@@ -53,4 +53,21 @@ public class ControladorUsuario {
                 }
         return id;
     }
+    public ArrayList<Usuario> ListaUsuarios()
+    {
+        
+        ArrayList<Usuario> usuarios = new ArrayList();
+        try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         Query q = em.createQuery("SELECT COUNT(u.usuIdUsuario) FROM Usuario u");
+         Object s = q.getSingleResult();
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        return usuarios;
+    }
 }

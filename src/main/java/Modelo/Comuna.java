@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -28,10 +30,14 @@ public class Comuna implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "COM_DESCRIPCION")
     private String comDescripcion;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "ID_COMUNA")
     private String idComuna;
 

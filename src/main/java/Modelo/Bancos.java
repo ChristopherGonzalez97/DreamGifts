@@ -6,13 +6,18 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -29,11 +34,16 @@ public class Bancos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "BAN_ID_BANCO")
     private Integer banIdBanco;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "BAN_DESCRIPCION")
     private String banDescripcion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "banIdBanco")
+    private List<Venta> ventaList;
 
     public Bancos() {
     }
@@ -61,6 +71,14 @@ public class Bancos implements Serializable {
 
     public void setBanDescripcion(String banDescripcion) {
         this.banDescripcion = banDescripcion;
+    }
+
+    public List<Venta> getVentaList() {
+        return ventaList;
+    }
+
+    public void setVentaList(List<Venta> ventaList) {
+        this.ventaList = ventaList;
     }
 
     @Override

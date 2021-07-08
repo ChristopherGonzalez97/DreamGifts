@@ -24,53 +24,54 @@ import javax.validation.constraints.Size;
  * @author MADICAP
  */
 @Entity
-@Table(name = "rrss")
+@Table(name = "comunas")
 @NamedQueries({
-    @NamedQuery(name = "Rrss.findAll", query = "SELECT r FROM Rrss r"),
-    @NamedQuery(name = "Rrss.findByRrsIdRrss", query = "SELECT r FROM Rrss r WHERE r.rrsIdRrss = :rrsIdRrss"),
-    @NamedQuery(name = "Rrss.findByRrsNombre", query = "SELECT r FROM Rrss r WHERE r.rrsNombre = :rrsNombre")})
-public class Rrss implements Serializable {
+    @NamedQuery(name = "Comunas.findAll", query = "SELECT c FROM Comunas c"),
+    @NamedQuery(name = "Comunas.findByIdComuna", query = "SELECT c FROM Comunas c WHERE c.idComuna = :idComuna"),
+    @NamedQuery(name = "Comunas.findByComDescripcion", query = "SELECT c FROM Comunas c WHERE c.comDescripcion = :comDescripcion")})
+public class Comunas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "RRS_ID_RRSS")
-    private Integer rrsIdRrss;
+    @Size(min = 1, max = 45)
+    @Column(name = "ID_COMUNA")
+    private String idComuna;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "RRS_NOMBRE")
-    private String rrsNombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rrssRrsIdRrss")
+    @Column(name = "COM_DESCRIPCION")
+    private String comDescripcion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "comunasIDCOMUNA")
     private List<Venta> ventaList;
 
-    public Rrss() {
+    public Comunas() {
     }
 
-    public Rrss(Integer rrsIdRrss) {
-        this.rrsIdRrss = rrsIdRrss;
+    public Comunas(String idComuna) {
+        this.idComuna = idComuna;
     }
 
-    public Rrss(Integer rrsIdRrss, String rrsNombre) {
-        this.rrsIdRrss = rrsIdRrss;
-        this.rrsNombre = rrsNombre;
+    public Comunas(String idComuna, String comDescripcion) {
+        this.idComuna = idComuna;
+        this.comDescripcion = comDescripcion;
     }
 
-    public Integer getRrsIdRrss() {
-        return rrsIdRrss;
+    public String getIdComuna() {
+        return idComuna;
     }
 
-    public void setRrsIdRrss(Integer rrsIdRrss) {
-        this.rrsIdRrss = rrsIdRrss;
+    public void setIdComuna(String idComuna) {
+        this.idComuna = idComuna;
     }
 
-    public String getRrsNombre() {
-        return rrsNombre;
+    public String getComDescripcion() {
+        return comDescripcion;
     }
 
-    public void setRrsNombre(String rrsNombre) {
-        this.rrsNombre = rrsNombre;
+    public void setComDescripcion(String comDescripcion) {
+        this.comDescripcion = comDescripcion;
     }
 
     public List<Venta> getVentaList() {
@@ -84,18 +85,18 @@ public class Rrss implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (rrsIdRrss != null ? rrsIdRrss.hashCode() : 0);
+        hash += (idComuna != null ? idComuna.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Rrss)) {
+        if (!(object instanceof Comunas)) {
             return false;
         }
-        Rrss other = (Rrss) object;
-        if ((this.rrsIdRrss == null && other.rrsIdRrss != null) || (this.rrsIdRrss != null && !this.rrsIdRrss.equals(other.rrsIdRrss))) {
+        Comunas other = (Comunas) object;
+        if ((this.idComuna == null && other.idComuna != null) || (this.idComuna != null && !this.idComuna.equals(other.idComuna))) {
             return false;
         }
         return true;
@@ -103,7 +104,7 @@ public class Rrss implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.Rrss[ rrsIdRrss=" + rrsIdRrss + " ]";
+        return "Modelo.Comunas[ idComuna=" + idComuna + " ]";
     }
     
 }

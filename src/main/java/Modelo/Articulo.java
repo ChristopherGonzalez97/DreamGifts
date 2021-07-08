@@ -7,15 +7,22 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -28,28 +35,36 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Articulo.findByArtIdArticulo", query = "SELECT a FROM Articulo a WHERE a.artIdArticulo = :artIdArticulo"),
     @NamedQuery(name = "Articulo.findByArtDescripcion", query = "SELECT a FROM Articulo a WHERE a.artDescripcion = :artDescripcion"),
     @NamedQuery(name = "Articulo.findByArtStock", query = "SELECT a FROM Articulo a WHERE a.artStock = :artStock"),
-    @NamedQuery(name = "Articulo.findByArtFechaVencimiento", query = "SELECT a FROM Articulo a WHERE a.artFechaVencimiento = :artFechaVencimiento"),
-    @NamedQuery(name = "Articulo.findByCategoriaArticuloCatIdCategoria", query = "SELECT a FROM Articulo a WHERE a.categoriaArticuloCatIdCategoria = :categoriaArticuloCatIdCategoria")})
+    @NamedQuery(name = "Articulo.findByArtFechaVencimiento", query = "SELECT a FROM Articulo a WHERE a.artFechaVencimiento = :artFechaVencimiento")})
 public class Articulo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "ART_ID_ARTICULO")
     private Integer artIdArticulo;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "ART_DESCRIPCION")
     private String artDescripcion;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "ART_STOCK")
     private int artStock;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "ART_FECHA_VENCIMIENTO")
     @Temporal(TemporalType.DATE)
     private Date artFechaVencimiento;
-    @Basic(optional = false)
-    @Column(name = "CATEGORIA_ARTICULO_CAT_ID_CATEGORIA")
-    private String categoriaArticuloCatIdCategoria;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private List<DetalleFactura> detalleFacturaList;
+    @JoinColumn(name = "CATEGORIA_ARTICULO_CATEGORIA_ARTICULO", referencedColumnName = "CATEGORIA_ARTICULO")
+    @ManyToOne(optional = false)
+    private CategoriaArticulo categoriaArticuloCategoriaArticulo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private List<DetallePack> detallePackList;
 
     public Articulo() {
     }
@@ -58,12 +73,11 @@ public class Articulo implements Serializable {
         this.artIdArticulo = artIdArticulo;
     }
 
-    public Articulo(Integer artIdArticulo, String artDescripcion, int artStock, Date artFechaVencimiento, String categoriaArticuloCatIdCategoria) {
+    public Articulo(Integer artIdArticulo, String artDescripcion, int artStock, Date artFechaVencimiento) {
         this.artIdArticulo = artIdArticulo;
         this.artDescripcion = artDescripcion;
         this.artStock = artStock;
         this.artFechaVencimiento = artFechaVencimiento;
-        this.categoriaArticuloCatIdCategoria = categoriaArticuloCatIdCategoria;
     }
 
     public Integer getArtIdArticulo() {
@@ -98,12 +112,28 @@ public class Articulo implements Serializable {
         this.artFechaVencimiento = artFechaVencimiento;
     }
 
-    public String getCategoriaArticuloCatIdCategoria() {
-        return categoriaArticuloCatIdCategoria;
+    public List<DetalleFactura> getDetalleFacturaList() {
+        return detalleFacturaList;
     }
 
-    public void setCategoriaArticuloCatIdCategoria(String categoriaArticuloCatIdCategoria) {
-        this.categoriaArticuloCatIdCategoria = categoriaArticuloCatIdCategoria;
+    public void setDetalleFacturaList(List<DetalleFactura> detalleFacturaList) {
+        this.detalleFacturaList = detalleFacturaList;
+    }
+
+    public CategoriaArticulo getCategoriaArticuloCategoriaArticulo() {
+        return categoriaArticuloCategoriaArticulo;
+    }
+
+    public void setCategoriaArticuloCategoriaArticulo(CategoriaArticulo categoriaArticuloCategoriaArticulo) {
+        this.categoriaArticuloCategoriaArticulo = categoriaArticuloCategoriaArticulo;
+    }
+
+    public List<DetallePack> getDetallePackList() {
+        return detallePackList;
+    }
+
+    public void setDetallePackList(List<DetallePack> detallePackList) {
+        this.detallePackList = detallePackList;
     }
 
     @Override

@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -25,20 +27,29 @@ import javax.persistence.Table;
     @NamedQuery(name = "Usuario.findByUsuIdUsuario", query = "SELECT u FROM Usuario u WHERE u.usuIdUsuario = :usuIdUsuario"),
     @NamedQuery(name = "Usuario.findByUsuNombre", query = "SELECT u FROM Usuario u WHERE u.usuNombre = :usuNombre"),
     @NamedQuery(name = "Usuario.findByUsuClave", query = "SELECT u FROM Usuario u WHERE u.usuClave = :usuClave"),
-    @NamedQuery(name = "Usuario.nextId", query = "SELECT COUNT(u.usuIdUsuario) FROM Usuario u")})
+    @NamedQuery(name = "Usuario.findByHabilitado", query = "SELECT u FROM Usuario u WHERE u.habilitado = :habilitado")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "USU_ID_USUARIO")
     private Integer usuIdUsuario;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "USU_NOMBRE")
     private String usuNombre;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "USU_CLAVE")
     private String usuClave;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "HABILITADO")
+    private short habilitado;
 
     public Usuario() {
     }
@@ -47,10 +58,11 @@ public class Usuario implements Serializable {
         this.usuIdUsuario = usuIdUsuario;
     }
 
-    public Usuario(Integer usuIdUsuario, String usuNombre, String usuClave) {
+    public Usuario(Integer usuIdUsuario, String usuNombre, String usuClave, short habilitado) {
         this.usuIdUsuario = usuIdUsuario;
         this.usuNombre = usuNombre;
         this.usuClave = usuClave;
+        this.habilitado = habilitado;
     }
 
     public Integer getUsuIdUsuario() {
@@ -75,6 +87,24 @@ public class Usuario implements Serializable {
 
     public void setUsuClave(String usuClave) {
         this.usuClave = usuClave;
+    }
+
+    public short getHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(short habilitado) {
+        this.habilitado = habilitado;
+    }
+    public String Habilitado()
+    {
+        boolean myBoolean = false;
+        if(getHabilitado()==Short.valueOf("0"))
+        {
+            myBoolean=true;
+        }
+        String result = myBoolean ? "Si" : "No";
+        return result;
     }
 
     @Override

@@ -6,13 +6,18 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -33,23 +38,35 @@ public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "CLI_ID_CLIENTE")
     private Integer cliIdCliente;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "CLI_NOMBRE")
     private String cliNombre;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "CLI_APELLIDO")
     private String cliApellido;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "CLI_DIRECCION")
     private String cliDireccion;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "CLI_TELEFONO")
     private int cliTelefono;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "CLI_CORREO")
     private String cliCorreo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliIdCliente")
+    private List<Venta> ventaList;
 
     public Cliente() {
     }
@@ -113,6 +130,14 @@ public class Cliente implements Serializable {
 
     public void setCliCorreo(String cliCorreo) {
         this.cliCorreo = cliCorreo;
+    }
+
+    public List<Venta> getVentaList() {
+        return ventaList;
+    }
+
+    public void setVentaList(List<Venta> ventaList) {
+        this.ventaList = ventaList;
     }
 
     @Override

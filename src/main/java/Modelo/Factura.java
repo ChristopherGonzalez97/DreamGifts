@@ -7,7 +7,9 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,9 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -35,15 +39,20 @@ public class Factura implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "FAC_ID_FACTURA")
-    private String facIdFactura;
+    private Integer facIdFactura;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "FAC_NUMERO")
     private int facNumero;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "FAC_FECHA_FACTURA")
     @Temporal(TemporalType.DATE)
     private Date facFechaFactura;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "factura")
+    private List<DetalleFactura> detalleFacturaList;
     @JoinColumn(name = "PRO_ID_PROVEEDOR", referencedColumnName = "PRO_ID_PROVEEDOR")
     @ManyToOne(optional = false)
     private Proveedor proIdProveedor;
@@ -51,21 +60,21 @@ public class Factura implements Serializable {
     public Factura() {
     }
 
-    public Factura(String facIdFactura) {
+    public Factura(Integer facIdFactura) {
         this.facIdFactura = facIdFactura;
     }
 
-    public Factura(String facIdFactura, int facNumero, Date facFechaFactura) {
+    public Factura(Integer facIdFactura, int facNumero, Date facFechaFactura) {
         this.facIdFactura = facIdFactura;
         this.facNumero = facNumero;
         this.facFechaFactura = facFechaFactura;
     }
 
-    public String getFacIdFactura() {
+    public Integer getFacIdFactura() {
         return facIdFactura;
     }
 
-    public void setFacIdFactura(String facIdFactura) {
+    public void setFacIdFactura(Integer facIdFactura) {
         this.facIdFactura = facIdFactura;
     }
 
@@ -83,6 +92,14 @@ public class Factura implements Serializable {
 
     public void setFacFechaFactura(Date facFechaFactura) {
         this.facFechaFactura = facFechaFactura;
+    }
+
+    public List<DetalleFactura> getDetalleFacturaList() {
+        return detalleFacturaList;
+    }
+
+    public void setDetalleFacturaList(List<DetalleFactura> detalleFacturaList) {
+        this.detalleFacturaList = detalleFacturaList;
     }
 
     public Proveedor getProIdProveedor() {
