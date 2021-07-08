@@ -61,13 +61,38 @@ public class ControladorUsuario {
          EntityManagerFactory emf;
          emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
          EntityManager em = emf.createEntityManager();
-         Query q = em.createQuery("SELECT COUNT(u.usuIdUsuario) FROM Usuario u");
-         Object s = q.getSingleResult();
+         List<Usuario> us = em.createNamedQuery("Usuario.findAll").getResultList();
+         for(Usuario u : us)
+         {
+             usuarios.add(u);
+         }
         }
         catch(Exception e)
         {
             e.getMessage();
         }
         return usuarios;
+    }
+    public Usuario BuscarPorId(int id)
+    {
+        Usuario user = new Usuario();
+        EntityManagerFactory emf;
+        emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+        EntityManager em = emf.createEntityManager();
+        user = em.find(Usuario.class, id);
+        return user;
+    }
+    
+    public void EditarUsuario(Usuario u)
+    {
+        Usuario user = new Usuario();
+        EntityManagerFactory emf;
+        emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+        EntityManager em = emf.createEntityManager();
+        user = em.find(Usuario.class, u.getUsuIdUsuario());
+        user = u;
+        em.getTransaction().begin();
+        em.merge(user);
+        em.getTransaction().commit();
     }
 }

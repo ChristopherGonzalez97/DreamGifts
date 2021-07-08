@@ -50,8 +50,9 @@ public class Cliente extends javax.swing.JFrame {
         informeDevolucionYCambio1 = new Vista.InformeDevolucionYCambio();
         jLabel122 = new javax.swing.JLabel();
         Maestros = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         PestanaMaestros = new javax.swing.JTabbedPane();
-        maestroUsuario1 = new Vista.MaestroUsuario();
         maestroCategoria1 = new Vista.MaestroCategoria();
         maestroArticulo1 = new Vista.MaestroArticulo();
         maestroCategoriaArticulo1 = new Vista.MaestroCategoriaArticulo();
@@ -61,7 +62,7 @@ public class Cliente extends javax.swing.JFrame {
         maestroPack1 = new Vista.MaestroPack();
         maestroProveedor1 = new Vista.MaestroProveedor();
         maestroRRSS1 = new Vista.MaestroRRSS();
-        jLabel23 = new javax.swing.JLabel();
+        maestroUsuario1 = new Vista.MaestroUsuario();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,7 +134,7 @@ public class Cliente extends javax.swing.JFrame {
         Compras.setLayout(ComprasLayout);
         ComprasLayout.setHorizontalGroup(
             ComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 932, Short.MAX_VALUE)
+            .addGap(0, 1023, Short.MAX_VALUE)
             .addGroup(ComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ComprasLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -187,9 +188,11 @@ public class Cliente extends javax.swing.JFrame {
 
         Principal.addTab("Informes", Informes);
 
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel23.setText("DREAM GIFTS");
+
         PestanaMaestros.setMinimumSize(new java.awt.Dimension(128, 60));
         PestanaMaestros.setPreferredSize(new java.awt.Dimension(912, 590));
-        PestanaMaestros.addTab("Usuario", maestroUsuario1);
         PestanaMaestros.addTab("Categoria venta", maestroCategoria1);
         PestanaMaestros.addTab("Articulo", maestroArticulo1);
         PestanaMaestros.addTab("Categoria articulo", maestroCategoriaArticulo1);
@@ -199,31 +202,31 @@ public class Cliente extends javax.swing.JFrame {
         PestanaMaestros.addTab("Pack", maestroPack1);
         PestanaMaestros.addTab("Proveedor", maestroProveedor1);
         PestanaMaestros.addTab("RRSS", maestroRRSS1);
+        PestanaMaestros.addTab("Usuario", maestroUsuario1);
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel23.setText("DREAM GIFTS");
+        jScrollPane1.setViewportView(PestanaMaestros);
 
         javax.swing.GroupLayout MaestrosLayout = new javax.swing.GroupLayout(Maestros);
         Maestros.setLayout(MaestrosLayout);
         MaestrosLayout.setHorizontalGroup(
             MaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MaestrosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PestanaMaestros, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MaestrosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel23)
-                .addGap(347, 347, 347))
+                .addGap(386, 386, 386))
+            .addGroup(MaestrosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE)
+                .addContainerGap())
         );
         MaestrosLayout.setVerticalGroup(
             MaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MaestrosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(PestanaMaestros, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
         );
 
         Principal.addTab("Maestros", Maestros);
@@ -299,6 +302,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JScrollPane jScrollPane1;
     private Vista.MaestroArticulo maestroArticulo1;
     private Vista.MaestroBanco maestroBanco1;
     private Vista.MaestroCategoria maestroCategoria1;

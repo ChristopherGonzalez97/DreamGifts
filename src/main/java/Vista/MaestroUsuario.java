@@ -7,12 +7,17 @@ package Vista;
 
 import Controlador.ControladorUsuario;
 import Modelo.Usuario;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
@@ -34,6 +39,8 @@ public class MaestroUsuario extends javax.swing.JPanel {
     public MaestroUsuario() {
         initComponents();
         LlenarTablaUsuarios();
+        lblMensaje.setVisible(false);
+        btnConfirmarEdicion.setVisible(false);
     }
     public void LlenarTablaUsuarios()
     {
@@ -80,6 +87,13 @@ public class MaestroUsuario extends javax.swing.JPanel {
     private void initComponents() {
 
         SubUsuarios = new javax.swing.JPanel();
+        jPanel35 = new javax.swing.JPanel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        tblUsuarios = new javax.swing.JTable();
+        btnDesactivar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        jLabel71 = new javax.swing.JLabel();
+        jTextField48 = new javax.swing.JTextField();
         jPanel34 = new javax.swing.JPanel();
         jLabel68 = new javax.swing.JLabel();
         jLabel69 = new javax.swing.JLabel();
@@ -91,13 +105,102 @@ public class MaestroUsuario extends javax.swing.JPanel {
         txtPasswordConfirmar = new javax.swing.JPasswordField();
         btnConfirmarEdicion = new javax.swing.JButton();
         lblMensaje = new javax.swing.JLabel();
-        jPanel35 = new javax.swing.JPanel();
-        jScrollPane13 = new javax.swing.JScrollPane();
-        tblUsuarios = new javax.swing.JTable();
-        btnDesactivar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        jLabel71 = new javax.swing.JLabel();
-        jTextField48 = new javax.swing.JTextField();
+
+        jPanel35.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nombre Usuario", "Habilitado", "Acción"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane13.setViewportView(tblUsuarios);
+
+        btnDesactivar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnDesactivar.setText("Activar/Desactivar");
+        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesactivarActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
+        jPanel35.setLayout(jPanel35Layout);
+        jPanel35Layout.setHorizontalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane13)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel35Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDesactivar)
+                .addContainerGap())
+        );
+        jPanel35Layout.setVerticalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel35Layout.createSequentialGroup()
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDesactivar)
+                    .addComponent(btnEditar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel71.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel71.setText("Usuarios Registrados");
+
+        javax.swing.GroupLayout SubUsuariosLayout = new javax.swing.GroupLayout(SubUsuarios);
+        SubUsuarios.setLayout(SubUsuariosLayout);
+        SubUsuariosLayout.setHorizontalGroup(
+            SubUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SubUsuariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(SubUsuariosLayout.createSequentialGroup()
+                .addGap(326, 326, 326)
+                .addComponent(jLabel71)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addComponent(jTextField48, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        SubUsuariosLayout.setVerticalGroup(
+            SubUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SubUsuariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SubUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField48, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jPanel34.setBackground(new java.awt.Color(255, 255, 255));
         jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Categorías De Venta"));
@@ -110,15 +213,30 @@ public class MaestroUsuario extends javax.swing.JPanel {
 
         btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel70.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel70.setText("Verifique Clave");
 
         btnConfirmarEdicion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnConfirmarEdicion.setText("Confirmar edicion");
+        btnConfirmarEdicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarEdicionActionPerformed(evt);
+            }
+        });
 
         lblMensaje.setText("jLabel1");
 
@@ -177,119 +295,156 @@ public class MaestroUsuario extends javax.swing.JPanel {
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        jPanel35.setBackground(new java.awt.Color(255, 255, 255));
-
-        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Nombre Usuario", "Habilitado", "Acción"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane13.setViewportView(tblUsuarios);
-
-        btnDesactivar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnDesactivar.setText("Desactivar");
-
-        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnEditar.setText("Editar");
-
-        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
-        jPanel35.setLayout(jPanel35Layout);
-        jPanel35Layout.setHorizontalGroup(
-            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane13)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel35Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDesactivar)
-                .addContainerGap())
-        );
-        jPanel35Layout.setVerticalGroup(
-            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel35Layout.createSequentialGroup()
-                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDesactivar)
-                    .addComponent(btnEditar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel71.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel71.setText("Usuarios Registrados");
-
-        javax.swing.GroupLayout SubUsuariosLayout = new javax.swing.GroupLayout(SubUsuarios);
-        SubUsuarios.setLayout(SubUsuariosLayout);
-        SubUsuariosLayout.setHorizontalGroup(
-            SubUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SubUsuariosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(SubUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(SubUsuariosLayout.createSequentialGroup()
-                .addGap(326, 326, 326)
-                .addComponent(jLabel71)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                .addComponent(jTextField48, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        SubUsuariosLayout.setVerticalGroup(
-            SubUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SubUsuariosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(SubUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SubUsuariosLayout.createSequentialGroup()
-                        .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))
-                    .addComponent(jTextField48, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(182, 182, 182))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 918, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SubUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(21, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel34, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(SubUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 11, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 668, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SubUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SubUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        String nombreUsuario;
+        char[] contrasena,confirmarContrasena;
+        nombreUsuario= txtNombre.getText();
+        contrasena= txtPassword.getPassword();
+        confirmarContrasena= txtPasswordConfirmar.getPassword();
+        if(Arrays.equals(contrasena, confirmarContrasena))
+        {
+            Usuario user = new Usuario();
+            String pass = new String(contrasena);
+            int id = CUsuario.CountUsers()+1;
+            user.setUsuNombre(nombreUsuario);
+            user.setUsuClave(pass);
+            user.setUsuIdUsuario(id);
+            CUsuario.AgregarUsuario(user);
+            lblMensaje.setForeground(Color.GREEN.darker().darker());
+            lblMensaje.setText("Usuario registrado");
+            lblMensaje.setVisible(true);
+            txtNombre.setText("");
+            txtPassword.setText("");
+            txtPasswordConfirmar.setText("");
+        }
+        else
+        {
+            lblMensaje.setForeground(Color.red);
+            lblMensaje.setText("Las contraseñas deben ser iguales");
+            txtPassword.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtPasswordConfirmar.setBorder(BorderFactory.createLineBorder(Color.RED));
+            txtPassword.setText("");
+            txtPasswordConfirmar.setText("");
+            lblMensaje.setVisible(true);
+        }
+        LlenarTablaUsuarios();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        txtNombre.setText("");
+        txtPassword.setText("");
+        txtPasswordConfirmar.setText("");
+        btnConfirmarEdicion.setVisible(false);
+        btnGuardar.setVisible(true);
+        
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;
+        int i=1;
+        do{
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=i;
+            }
+            i++;
+        }
+        while(enumButtons.hasMoreElements()==true);
+
+        Usuario u = CUsuario.BuscarPorId(id);
+        txtNombre.setText(u.getUsuNombre());
+        btnGuardar.setVisible(false);
+        btnConfirmarEdicion.setVisible(true);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnConfirmarEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEdicionActionPerformed
+        // TODO add your handling code here:
+         Enumeration enumButtons = btnGroup.getElements();
+        int id=0;
+        int i=1;
+        do{
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=i;
+            }
+            i++;
+        }
+        while(enumButtons.hasMoreElements()==true);
+
+        Usuario u = CUsuario.BuscarPorId(id);
+        String pass = new String(txtPassword.getPassword());
+        u.setUsuNombre(txtNombre.getText());
+        u.setUsuClave(pass);
+        CUsuario.EditarUsuario(u);
+        lblMensaje.setForeground(Color.orange.darker());
+        lblMensaje.setText("Usuario modificado");
+        lblMensaje.setVisible(true);
+        btnGuardar.setVisible(true);
+        btnConfirmarEdicion.setVisible(false);
+        LlenarTablaUsuarios();
+    }//GEN-LAST:event_btnConfirmarEdicionActionPerformed
+
+    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
+        // TODO add your handling code here:
+         Enumeration enumButtons = btnGroup.getElements();
+        int id=0;
+        int i=1;
+        do{
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=i;
+            }
+            i++;
+        }
+        while(enumButtons.hasMoreElements()==true);
+
+        Usuario u = CUsuario.BuscarPorId(id);
+        if(u.Habilitado().equals("Si"))
+        {
+            u.setHabilitado(Short.parseShort("1"));
+        }
+        else{
+            u.setHabilitado(Short.parseShort("0"));
+        }
+        CUsuario.EditarUsuario(u);
+        lblMensaje.setForeground(Color.YELLOW.darker());
+        lblMensaje.setText("Usuario desactivado");
+        lblMensaje.setVisible(true);
+        btnGuardar.setVisible(true);
+        btnConfirmarEdicion.setVisible(false);
+        LlenarTablaUsuarios();
+    }//GEN-LAST:event_btnDesactivarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
