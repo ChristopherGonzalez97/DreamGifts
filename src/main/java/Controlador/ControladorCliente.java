@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import Modelo.Usuario;
+import Modelo.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,19 +17,16 @@ import javax.persistence.Query;
  *
  * @author MADICAP
  */
-public class ControladorUsuario {
-
-    public ControladorUsuario() {
-    }
+public class ControladorCliente {
     
-    public void AgregarUsuario(Usuario user)
+    public void AgregarCliente(Cliente cliente)
     {
         try{
          EntityManagerFactory emf;
          emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
          EntityManager em = emf.createEntityManager();
          em.getTransaction().begin();
-         em.persist(user);
+         em.persist(cliente);
          em.getTransaction().commit();}
         catch(Exception e)
         {
@@ -37,14 +34,14 @@ public class ControladorUsuario {
         }
     }
     
-    public int CountUsers()
+    public int CountClientes()
     {
         int id=-1;
         try{
          EntityManagerFactory emf;
          emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
          EntityManager em = emf.createEntityManager();
-         Query q = em.createQuery("SELECT COUNT(u.usuIdUsuario) FROM Usuario u");
+         Query q = em.createQuery("SELECT COUNT(c.cliIdCliente) FROM Cliente c");
          Object s = q.getSingleResult();
          id=Integer.parseInt(s.toString());
         }catch(Exception e)
@@ -53,46 +50,24 @@ public class ControladorUsuario {
                 }
         return id+1;
     }
-    public ArrayList<Usuario> ListaUsuarios()
+    public ArrayList<Cliente> ListaClientes()
     {
         
-        ArrayList<Usuario> usuarios = new ArrayList();
+        ArrayList<Cliente> listaClientes = new ArrayList();
         try{
          EntityManagerFactory emf;
          emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
          EntityManager em = emf.createEntityManager();
-         List<Usuario> us = em.createNamedQuery("Usuario.findAll").getResultList();
-         for(Usuario u : us)
+         List<Cliente> clientes = em.createNamedQuery("Cliente.findAll").getResultList();
+         for(Cliente cli : clientes)
          {
-             usuarios.add(u);
+             listaClientes.add(cli);
          }
         }
         catch(Exception e)
         {
             e.getMessage();
         }
-        return usuarios;
-    }
-    public Usuario BuscarPorId(int id)
-    {
-        Usuario user = new Usuario();
-        EntityManagerFactory emf;
-        emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
-        EntityManager em = emf.createEntityManager();
-        user = em.find(Usuario.class, id);
-        return user;
-    }
-    
-    public void EditarUsuario(Usuario u)
-    {
-        Usuario user = new Usuario();
-        EntityManagerFactory emf;
-        emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
-        EntityManager em = emf.createEntityManager();
-        user = em.find(Usuario.class, u.getUsuIdUsuario());
-        user = u;
-        em.getTransaction().begin();
-        em.merge(user);
-        em.getTransaction().commit();
+        return listaClientes;
     }
 }

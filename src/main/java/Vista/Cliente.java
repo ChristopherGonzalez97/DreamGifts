@@ -57,12 +57,13 @@ public class Cliente extends javax.swing.JFrame {
         maestroArticulo1 = new Vista.MaestroArticulo();
         maestroCategoriaArticulo1 = new Vista.MaestroCategoriaArticulo();
         maestroBanco1 = new Vista.MaestroBanco();
-        maestroCliente1 = new Vista.MaestroCliente();
         maestroComuna1 = new Vista.MaestroComuna();
         maestroPack1 = new Vista.MaestroPack();
         maestroProveedor1 = new Vista.MaestroProveedor();
         maestroRRSS1 = new Vista.MaestroRRSS();
         maestroUsuario1 = new Vista.MaestroUsuario();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        maestroCliente1 = new Vista.MaestroCliente();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -197,12 +198,15 @@ public class Cliente extends javax.swing.JFrame {
         PestanaMaestros.addTab("Articulo", maestroArticulo1);
         PestanaMaestros.addTab("Categoria articulo", maestroCategoriaArticulo1);
         PestanaMaestros.addTab("Banco", maestroBanco1);
-        PestanaMaestros.addTab("Cliente", maestroCliente1);
         PestanaMaestros.addTab("Comuna", maestroComuna1);
         PestanaMaestros.addTab("Pack", maestroPack1);
         PestanaMaestros.addTab("Proveedor", maestroProveedor1);
         PestanaMaestros.addTab("RRSS", maestroRRSS1);
         PestanaMaestros.addTab("Usuario", maestroUsuario1);
+
+        jScrollPane2.setViewportView(maestroCliente1);
+
+        PestanaMaestros.addTab("Cliente", jScrollPane2);
 
         jScrollPane1.setViewportView(PestanaMaestros);
 
@@ -303,6 +307,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private Vista.MaestroArticulo maestroArticulo1;
     private Vista.MaestroBanco maestroBanco1;
     private Vista.MaestroCategoria maestroCategoria1;
