@@ -446,6 +446,7 @@ public class MaestroUsuario extends javax.swing.JPanel {
         btnGuardar.setVisible(true);
         btnConfirmarEdicion.setVisible(false);
         LlenarTablaUsuarios();
+        tblUsuarios.repaint();
     }//GEN-LAST:event_btnDesactivarActionPerformed
 
 

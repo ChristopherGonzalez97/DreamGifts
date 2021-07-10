@@ -24,53 +24,53 @@ import javax.validation.constraints.Size;
  * @author MADICAP
  */
 @Entity
-@Table(name = "comuna")
+@Table(name = "banco")
 @NamedQueries({
-    @NamedQuery(name = "Comuna.findAll", query = "SELECT c FROM Comuna c"),
-    @NamedQuery(name = "Comuna.findByIdComuna", query = "SELECT c FROM Comuna c WHERE c.idComuna = :idComuna"),
-    @NamedQuery(name = "Comuna.findByComNombre", query = "SELECT c FROM Comuna c WHERE c.comNombre = :comNombre")})
-public class Comuna implements Serializable {
+    @NamedQuery(name = "Banco.findAll", query = "SELECT b FROM Banco b"),
+    @NamedQuery(name = "Banco.findByBanIdBanco", query = "SELECT b FROM Banco b WHERE b.banIdBanco = :banIdBanco"),
+    @NamedQuery(name = "Banco.findByBanNombre", query = "SELECT b FROM Banco b WHERE b.banNombre = :banNombre")})
+public class Banco implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ID_COMUNA")
-    private Integer idComuna;
+    @Column(name = "BAN_ID_BANCO")
+    private Integer banIdBanco;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "COM_NOMBRE")
-    private String comNombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "comunaIdComuna")
+    @Column(name = "BAN_NOMBRE")
+    private String banNombre;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "banIdBanco")
     private List<Venta> ventaList;
 
-    public Comuna() {
+    public Banco() {
     }
 
-    public Comuna(Integer idComuna) {
-        this.idComuna = idComuna;
+    public Banco(Integer banIdBanco) {
+        this.banIdBanco = banIdBanco;
     }
 
-    public Comuna(Integer idComuna, String comNombre) {
-        this.idComuna = idComuna;
-        this.comNombre = comNombre;
+    public Banco(Integer banIdBanco, String banNombre) {
+        this.banIdBanco = banIdBanco;
+        this.banNombre = banNombre;
     }
 
-    public Integer getIdComuna() {
-        return idComuna;
+    public Integer getBanIdBanco() {
+        return banIdBanco;
     }
 
-    public void setIdComuna(Integer idComuna) {
-        this.idComuna = idComuna;
+    public void setBanIdBanco(Integer banIdBanco) {
+        this.banIdBanco = banIdBanco;
     }
 
-    public String getComNombre() {
-        return comNombre;
+    public String getBanNombre() {
+        return banNombre;
     }
 
-    public void setComNombre(String comNombre) {
-        this.comNombre = comNombre;
+    public void setBanNombre(String banNombre) {
+        this.banNombre = banNombre;
     }
 
     public List<Venta> getVentaList() {
@@ -84,18 +84,18 @@ public class Comuna implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idComuna != null ? idComuna.hashCode() : 0);
+        hash += (banIdBanco != null ? banIdBanco.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Comuna)) {
+        if (!(object instanceof Banco)) {
             return false;
         }
-        Comuna other = (Comuna) object;
-        if ((this.idComuna == null && other.idComuna != null) || (this.idComuna != null && !this.idComuna.equals(other.idComuna))) {
+        Banco other = (Banco) object;
+        if ((this.banIdBanco == null && other.banIdBanco != null) || (this.banIdBanco != null && !this.banIdBanco.equals(other.banIdBanco))) {
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ public class Comuna implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.Comuna[ idComuna=" + idComuna + " ]";
+        return "Modelo.Banco[ banIdBanco=" + banIdBanco + " ]";
     }
     
 }

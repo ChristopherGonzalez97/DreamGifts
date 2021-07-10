@@ -28,7 +28,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "CategoriaArticulo.findAll", query = "SELECT c FROM CategoriaArticulo c"),
     @NamedQuery(name = "CategoriaArticulo.findByCategoriaArticulo", query = "SELECT c FROM CategoriaArticulo c WHERE c.categoriaArticulo = :categoriaArticulo"),
-    @NamedQuery(name = "CategoriaArticulo.findByCatDescripcion", query = "SELECT c FROM CategoriaArticulo c WHERE c.catDescripcion = :catDescripcion")})
+    @NamedQuery(name = "CategoriaArticulo.findByCatNombre", query = "SELECT c FROM CategoriaArticulo c WHERE c.catNombre = :catNombre")})
 public class CategoriaArticulo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,8 +40,8 @@ public class CategoriaArticulo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "CAT_DESCRIPCION")
-    private String catDescripcion;
+    @Column(name = "CAT_NOMBRE")
+    private String catNombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoriaArticuloCategoriaArticulo")
     private List<Articulo> articuloList;
 
@@ -52,9 +52,9 @@ public class CategoriaArticulo implements Serializable {
         this.categoriaArticulo = categoriaArticulo;
     }
 
-    public CategoriaArticulo(Integer categoriaArticulo, String catDescripcion) {
+    public CategoriaArticulo(Integer categoriaArticulo, String catNombre) {
         this.categoriaArticulo = categoriaArticulo;
-        this.catDescripcion = catDescripcion;
+        this.catNombre = catNombre;
     }
 
     public Integer getCategoriaArticulo() {
@@ -65,12 +65,12 @@ public class CategoriaArticulo implements Serializable {
         this.categoriaArticulo = categoriaArticulo;
     }
 
-    public String getCatDescripcion() {
-        return catDescripcion;
+    public String getCatNombre() {
+        return catNombre;
     }
 
-    public void setCatDescripcion(String catDescripcion) {
-        this.catDescripcion = catDescripcion;
+    public void setCatNombre(String catNombre) {
+        this.catNombre = catNombre;
     }
 
     public List<Articulo> getArticuloList() {

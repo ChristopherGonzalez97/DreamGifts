@@ -20,8 +20,8 @@ public class DetalleFacturaPK implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "Factura_FAC_ID_FACTURA")
-    private int facturaFACIDFACTURA;
+    @Column(name = "FACTURA_FAC_ID_FACTURA")
+    private int facturaFacIdFactura;
     @Basic(optional = false)
     @NotNull
     @Column(name = "ARTICULO_ART_ID_ARTICULO")
@@ -30,17 +30,17 @@ public class DetalleFacturaPK implements Serializable {
     public DetalleFacturaPK() {
     }
 
-    public DetalleFacturaPK(int facturaFACIDFACTURA, int articuloArtIdArticulo) {
-        this.facturaFACIDFACTURA = facturaFACIDFACTURA;
+    public DetalleFacturaPK(int facturaFacIdFactura, int articuloArtIdArticulo) {
+        this.facturaFacIdFactura = facturaFacIdFactura;
         this.articuloArtIdArticulo = articuloArtIdArticulo;
     }
 
-    public int getFacturaFACIDFACTURA() {
-        return facturaFACIDFACTURA;
+    public int getFacturaFacIdFactura() {
+        return facturaFacIdFactura;
     }
 
-    public void setFacturaFACIDFACTURA(int facturaFACIDFACTURA) {
-        this.facturaFACIDFACTURA = facturaFACIDFACTURA;
+    public void setFacturaFacIdFactura(int facturaFacIdFactura) {
+        this.facturaFacIdFactura = facturaFacIdFactura;
     }
 
     public int getArticuloArtIdArticulo() {
@@ -54,7 +54,7 @@ public class DetalleFacturaPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) facturaFACIDFACTURA;
+        hash += (int) facturaFacIdFactura;
         hash += (int) articuloArtIdArticulo;
         return hash;
     }
@@ -66,7 +66,7 @@ public class DetalleFacturaPK implements Serializable {
             return false;
         }
         DetalleFacturaPK other = (DetalleFacturaPK) object;
-        if (this.facturaFACIDFACTURA != other.facturaFACIDFACTURA) {
+        if (this.facturaFacIdFactura != other.facturaFacIdFactura) {
             return false;
         }
         if (this.articuloArtIdArticulo != other.articuloArtIdArticulo) {
@@ -77,7 +77,7 @@ public class DetalleFacturaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.DetalleFacturaPK[ facturaFACIDFACTURA=" + facturaFACIDFACTURA + ", articuloArtIdArticulo=" + articuloArtIdArticulo + " ]";
+        return "Modelo.DetalleFacturaPK[ facturaFacIdFactura=" + facturaFacIdFactura + ", articuloArtIdArticulo=" + articuloArtIdArticulo + " ]";
     }
     
 }

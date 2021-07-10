@@ -6,6 +6,7 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,11 +31,13 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
     @NamedQuery(name = "Cliente.findByCliIdCliente", query = "SELECT c FROM Cliente c WHERE c.cliIdCliente = :cliIdCliente"),
+    @NamedQuery(name = "Cliente.findByCliRut", query = "SELECT c FROM Cliente c WHERE c.cliRut = :cliRut"),
     @NamedQuery(name = "Cliente.findByCliNombre", query = "SELECT c FROM Cliente c WHERE c.cliNombre = :cliNombre"),
     @NamedQuery(name = "Cliente.findByCliApellido", query = "SELECT c FROM Cliente c WHERE c.cliApellido = :cliApellido"),
     @NamedQuery(name = "Cliente.findByCliDireccion", query = "SELECT c FROM Cliente c WHERE c.cliDireccion = :cliDireccion"),
     @NamedQuery(name = "Cliente.findByCliTelefono", query = "SELECT c FROM Cliente c WHERE c.cliTelefono = :cliTelefono"),
-    @NamedQuery(name = "Cliente.findByCliCorreo", query = "SELECT c FROM Cliente c WHERE c.cliCorreo = :cliCorreo")})
+    @NamedQuery(name = "Cliente.findByCliCorreo", query = "SELECT c FROM Cliente c WHERE c.cliCorreo = :cliCorreo"),
+    @NamedQuery(name = "Cliente.findByCliFechaNacimiento", query = "SELECT c FROM Cliente c WHERE c.cliFechaNacimiento = :cliFechaNacimiento")})
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,6 +46,11 @@ public class Cliente implements Serializable {
     @NotNull
     @Column(name = "CLI_ID_CLIENTE")
     private Integer cliIdCliente;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "CLI_RUT")
+    private String cliRut;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -65,6 +75,11 @@ public class Cliente implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "CLI_CORREO")
     private String cliCorreo;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "CLI_FECHA_NACIMIENTO")
+    @Temporal(TemporalType.DATE)
+    private Date cliFechaNacimiento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliIdCliente")
     private List<Venta> ventaList;
 
@@ -75,13 +90,15 @@ public class Cliente implements Serializable {
         this.cliIdCliente = cliIdCliente;
     }
 
-    public Cliente(Integer cliIdCliente, String cliNombre, String cliApellido, String cliDireccion, int cliTelefono, String cliCorreo) {
+    public Cliente(Integer cliIdCliente, String cliRut, String cliNombre, String cliApellido, String cliDireccion, int cliTelefono, String cliCorreo, Date cliFechaNacimiento) {
         this.cliIdCliente = cliIdCliente;
+        this.cliRut = cliRut;
         this.cliNombre = cliNombre;
         this.cliApellido = cliApellido;
         this.cliDireccion = cliDireccion;
         this.cliTelefono = cliTelefono;
         this.cliCorreo = cliCorreo;
+        this.cliFechaNacimiento = cliFechaNacimiento;
     }
 
     public Integer getCliIdCliente() {
@@ -90,6 +107,14 @@ public class Cliente implements Serializable {
 
     public void setCliIdCliente(Integer cliIdCliente) {
         this.cliIdCliente = cliIdCliente;
+    }
+
+    public String getCliRut() {
+        return cliRut;
+    }
+
+    public void setCliRut(String cliRut) {
+        this.cliRut = cliRut;
     }
 
     public String getCliNombre() {
@@ -130,6 +155,14 @@ public class Cliente implements Serializable {
 
     public void setCliCorreo(String cliCorreo) {
         this.cliCorreo = cliCorreo;
+    }
+
+    public Date getCliFechaNacimiento() {
+        return cliFechaNacimiento;
+    }
+
+    public void setCliFechaNacimiento(Date cliFechaNacimiento) {
+        this.cliFechaNacimiento = cliFechaNacimiento;
     }
 
     public List<Venta> getVentaList() {

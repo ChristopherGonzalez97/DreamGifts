@@ -53,6 +53,9 @@ public class Factura implements Serializable {
     private Date facFechaFactura;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "factura")
     private List<DetalleFactura> detalleFacturaList;
+    @JoinColumn(name = "ESTADO_FACTURA_idESTADO_FACTURA", referencedColumnName = "idESTADO_FACTURA")
+    @ManyToOne(optional = false)
+    private EstadoFactura eSTADOFACTURAidESTADOFACTURA;
     @JoinColumn(name = "PRO_ID_PROVEEDOR", referencedColumnName = "PRO_ID_PROVEEDOR")
     @ManyToOne(optional = false)
     private Proveedor proIdProveedor;
@@ -100,6 +103,14 @@ public class Factura implements Serializable {
 
     public void setDetalleFacturaList(List<DetalleFactura> detalleFacturaList) {
         this.detalleFacturaList = detalleFacturaList;
+    }
+
+    public EstadoFactura getESTADOFACTURAidESTADOFACTURA() {
+        return eSTADOFACTURAidESTADOFACTURA;
+    }
+
+    public void setESTADOFACTURAidESTADOFACTURA(EstadoFactura eSTADOFACTURAidESTADOFACTURA) {
+        this.eSTADOFACTURAidESTADOFACTURA = eSTADOFACTURAidESTADOFACTURA;
     }
 
     public Proveedor getProIdProveedor() {

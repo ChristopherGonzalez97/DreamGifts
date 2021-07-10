@@ -35,7 +35,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Articulo.findByArtIdArticulo", query = "SELECT a FROM Articulo a WHERE a.artIdArticulo = :artIdArticulo"),
     @NamedQuery(name = "Articulo.findByArtDescripcion", query = "SELECT a FROM Articulo a WHERE a.artDescripcion = :artDescripcion"),
     @NamedQuery(name = "Articulo.findByArtStock", query = "SELECT a FROM Articulo a WHERE a.artStock = :artStock"),
-    @NamedQuery(name = "Articulo.findByArtFechaVencimiento", query = "SELECT a FROM Articulo a WHERE a.artFechaVencimiento = :artFechaVencimiento")})
+    @NamedQuery(name = "Articulo.findByArtFechaVencimiento", query = "SELECT a FROM Articulo a WHERE a.artFechaVencimiento = :artFechaVencimiento"),
+    @NamedQuery(name = "Articulo.findByArtInhabilitado", query = "SELECT a FROM Articulo a WHERE a.artInhabilitado = :artInhabilitado")})
 public class Articulo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,6 +59,10 @@ public class Articulo implements Serializable {
     @Column(name = "ART_FECHA_VENCIMIENTO")
     @Temporal(TemporalType.DATE)
     private Date artFechaVencimiento;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ART_INHABILITADO")
+    private short artInhabilitado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
     private List<DetalleFactura> detalleFacturaList;
     @JoinColumn(name = "CATEGORIA_ARTICULO_CATEGORIA_ARTICULO", referencedColumnName = "CATEGORIA_ARTICULO")
@@ -73,11 +78,12 @@ public class Articulo implements Serializable {
         this.artIdArticulo = artIdArticulo;
     }
 
-    public Articulo(Integer artIdArticulo, String artDescripcion, int artStock, Date artFechaVencimiento) {
+    public Articulo(Integer artIdArticulo, String artDescripcion, int artStock, Date artFechaVencimiento, short artInhabilitado) {
         this.artIdArticulo = artIdArticulo;
         this.artDescripcion = artDescripcion;
         this.artStock = artStock;
         this.artFechaVencimiento = artFechaVencimiento;
+        this.artInhabilitado = artInhabilitado;
     }
 
     public Integer getArtIdArticulo() {
@@ -110,6 +116,14 @@ public class Articulo implements Serializable {
 
     public void setArtFechaVencimiento(Date artFechaVencimiento) {
         this.artFechaVencimiento = artFechaVencimiento;
+    }
+
+    public short getArtInhabilitado() {
+        return artInhabilitado;
+    }
+
+    public void setArtInhabilitado(short artInhabilitado) {
+        this.artInhabilitado = artInhabilitado;
     }
 
     public List<DetalleFactura> getDetalleFacturaList() {

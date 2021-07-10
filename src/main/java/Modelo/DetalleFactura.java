@@ -25,9 +25,10 @@ import javax.validation.constraints.NotNull;
 @Table(name = "detalle_factura")
 @NamedQueries({
     @NamedQuery(name = "DetalleFactura.findAll", query = "SELECT d FROM DetalleFactura d"),
-    @NamedQuery(name = "DetalleFactura.findByFacturaFACIDFACTURA", query = "SELECT d FROM DetalleFactura d WHERE d.detalleFacturaPK.facturaFACIDFACTURA = :facturaFACIDFACTURA"),
+    @NamedQuery(name = "DetalleFactura.findByFacturaFacIdFactura", query = "SELECT d FROM DetalleFactura d WHERE d.detalleFacturaPK.facturaFacIdFactura = :facturaFacIdFactura"),
     @NamedQuery(name = "DetalleFactura.findByArticuloArtIdArticulo", query = "SELECT d FROM DetalleFactura d WHERE d.detalleFacturaPK.articuloArtIdArticulo = :articuloArtIdArticulo"),
-    @NamedQuery(name = "DetalleFactura.findByCantidad", query = "SELECT d FROM DetalleFactura d WHERE d.cantidad = :cantidad")})
+    @NamedQuery(name = "DetalleFactura.findByCantidad", query = "SELECT d FROM DetalleFactura d WHERE d.cantidad = :cantidad"),
+    @NamedQuery(name = "DetalleFactura.findByValor", query = "SELECT d FROM DetalleFactura d WHERE d.valor = :valor")})
 public class DetalleFactura implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,10 +38,14 @@ public class DetalleFactura implements Serializable {
     @NotNull
     @Column(name = "CANTIDAD")
     private int cantidad;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "VALOR")
+    private int valor;
     @JoinColumn(name = "ARTICULO_ART_ID_ARTICULO", referencedColumnName = "ART_ID_ARTICULO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Articulo articulo;
-    @JoinColumn(name = "Factura_FAC_ID_FACTURA", referencedColumnName = "FAC_ID_FACTURA", insertable = false, updatable = false)
+    @JoinColumn(name = "FACTURA_FAC_ID_FACTURA", referencedColumnName = "FAC_ID_FACTURA", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Factura factura;
 
@@ -51,13 +56,14 @@ public class DetalleFactura implements Serializable {
         this.detalleFacturaPK = detalleFacturaPK;
     }
 
-    public DetalleFactura(DetalleFacturaPK detalleFacturaPK, int cantidad) {
+    public DetalleFactura(DetalleFacturaPK detalleFacturaPK, int cantidad, int valor) {
         this.detalleFacturaPK = detalleFacturaPK;
         this.cantidad = cantidad;
+        this.valor = valor;
     }
 
-    public DetalleFactura(int facturaFACIDFACTURA, int articuloArtIdArticulo) {
-        this.detalleFacturaPK = new DetalleFacturaPK(facturaFACIDFACTURA, articuloArtIdArticulo);
+    public DetalleFactura(int facturaFacIdFactura, int articuloArtIdArticulo) {
+        this.detalleFacturaPK = new DetalleFacturaPK(facturaFacIdFactura, articuloArtIdArticulo);
     }
 
     public DetalleFacturaPK getDetalleFacturaPK() {
@@ -74,6 +80,14 @@ public class DetalleFactura implements Serializable {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
     }
 
     public Articulo getArticulo() {

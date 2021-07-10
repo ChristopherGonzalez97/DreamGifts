@@ -30,8 +30,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Pack.findByPckIdPack", query = "SELECT p FROM Pack p WHERE p.pckIdPack = :pckIdPack"),
     @NamedQuery(name = "Pack.findByPckNombre", query = "SELECT p FROM Pack p WHERE p.pckNombre = :pckNombre"),
     @NamedQuery(name = "Pack.findByPckCosto", query = "SELECT p FROM Pack p WHERE p.pckCosto = :pckCosto"),
-    @NamedQuery(name = "Pack.findByCatIdCategoria", query = "SELECT p FROM Pack p WHERE p.catIdCategoria = :catIdCategoria"),
-    @NamedQuery(name = "Pack.findByPckStock", query = "SELECT p FROM Pack p WHERE p.pckStock = :pckStock")})
+    @NamedQuery(name = "Pack.findByPckStock", query = "SELECT p FROM Pack p WHERE p.pckStock = :pckStock"),
+    @NamedQuery(name = "Pack.findByPckInhabilitado", query = "SELECT p FROM Pack p WHERE p.pckInhabilitado = :pckInhabilitado")})
 public class Pack implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,12 +52,12 @@ public class Pack implements Serializable {
     private String pckCosto;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "CAT_ID_CATEGORIA")
-    private int catIdCategoria;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "PCK_STOCK")
     private int pckStock;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PCK_INHABILITADO")
+    private short pckInhabilitado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pckIdPack")
     private List<Venta> ventaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pack")
@@ -70,12 +70,12 @@ public class Pack implements Serializable {
         this.pckIdPack = pckIdPack;
     }
 
-    public Pack(Integer pckIdPack, String pckNombre, String pckCosto, int catIdCategoria, int pckStock) {
+    public Pack(Integer pckIdPack, String pckNombre, String pckCosto, int pckStock, short pckInhabilitado) {
         this.pckIdPack = pckIdPack;
         this.pckNombre = pckNombre;
         this.pckCosto = pckCosto;
-        this.catIdCategoria = catIdCategoria;
         this.pckStock = pckStock;
+        this.pckInhabilitado = pckInhabilitado;
     }
 
     public Integer getPckIdPack() {
@@ -102,20 +102,20 @@ public class Pack implements Serializable {
         this.pckCosto = pckCosto;
     }
 
-    public int getCatIdCategoria() {
-        return catIdCategoria;
-    }
-
-    public void setCatIdCategoria(int catIdCategoria) {
-        this.catIdCategoria = catIdCategoria;
-    }
-
     public int getPckStock() {
         return pckStock;
     }
 
     public void setPckStock(int pckStock) {
         this.pckStock = pckStock;
+    }
+
+    public short getPckInhabilitado() {
+        return pckInhabilitado;
+    }
+
+    public void setPckInhabilitado(short pckInhabilitado) {
+        this.pckInhabilitado = pckInhabilitado;
     }
 
     public List<Venta> getVentaList() {

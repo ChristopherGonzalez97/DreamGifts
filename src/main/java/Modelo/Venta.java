@@ -109,16 +109,16 @@ public class Venta implements Serializable {
     private String vtaSaludo;
     @JoinColumn(name = "BAN_ID_BANCO", referencedColumnName = "BAN_ID_BANCO")
     @ManyToOne(optional = false)
-    private Bancos banIdBanco;
+    private Banco banIdBanco;
     @JoinColumn(name = "CLI_ID_CLIENTE", referencedColumnName = "CLI_ID_CLIENTE")
     @ManyToOne(optional = false)
     private Cliente cliIdCliente;
-    @JoinColumn(name = "Comunas_ID_COMUNA", referencedColumnName = "ID_COMUNA")
+    @JoinColumn(name = "COMUNA_ID_COMUNA", referencedColumnName = "ID_COMUNA")
     @ManyToOne(optional = false)
-    private Comunas comunasIDCOMUNA;
-    @JoinColumn(name = "ESTADOS_VENTA_ID_ESTADO", referencedColumnName = "ID_ESTADO")
+    private Comuna comunaIdComuna;
+    @JoinColumn(name = "ESTADO_VENTA_ID_ESTADO", referencedColumnName = "ID_ESTADO")
     @ManyToOne(optional = false)
-    private EstadosVenta estadosVentaIdEstado;
+    private EstadoVenta estadoVentaIdEstado;
     @JoinColumn(name = "PCK_ID_PACK", referencedColumnName = "PCK_ID_PACK")
     @ManyToOne(optional = false)
     private Pack pckIdPack;
@@ -253,11 +253,11 @@ public class Venta implements Serializable {
         this.vtaSaludo = vtaSaludo;
     }
 
-    public Bancos getBanIdBanco() {
+    public Banco getBanIdBanco() {
         return banIdBanco;
     }
 
-    public void setBanIdBanco(Bancos banIdBanco) {
+    public void setBanIdBanco(Banco banIdBanco) {
         this.banIdBanco = banIdBanco;
     }
 
@@ -269,20 +269,20 @@ public class Venta implements Serializable {
         this.cliIdCliente = cliIdCliente;
     }
 
-    public Comunas getComunasIDCOMUNA() {
-        return comunasIDCOMUNA;
+    public Comuna getComunaIdComuna() {
+        return comunaIdComuna;
     }
 
-    public void setComunasIDCOMUNA(Comunas comunasIDCOMUNA) {
-        this.comunasIDCOMUNA = comunasIDCOMUNA;
+    public void setComunaIdComuna(Comuna comunaIdComuna) {
+        this.comunaIdComuna = comunaIdComuna;
     }
 
-    public EstadosVenta getEstadosVentaIdEstado() {
-        return estadosVentaIdEstado;
+    public EstadoVenta getEstadoVentaIdEstado() {
+        return estadoVentaIdEstado;
     }
 
-    public void setEstadosVentaIdEstado(EstadosVenta estadosVentaIdEstado) {
-        this.estadosVentaIdEstado = estadosVentaIdEstado;
+    public void setEstadoVentaIdEstado(EstadoVenta estadoVentaIdEstado) {
+        this.estadoVentaIdEstado = estadoVentaIdEstado;
     }
 
     public Pack getPckIdPack() {
