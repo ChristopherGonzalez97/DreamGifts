@@ -9,7 +9,6 @@ import Controlador.ControladorUsuario;
 import Modelo.Usuario;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -20,7 +19,10 @@ import java.util.Enumeration;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -39,11 +41,13 @@ public class MaestroUsuario extends javax.swing.JPanel {
     public MaestroUsuario() {
         initComponents();
         LlenarTablaUsuarios();
-        lblMensaje.setVisible(false);
         btnConfirmarEdicion.setVisible(false);
+        
+        
     }
     public void LlenarTablaUsuarios()
     {
+        
         ArrayList<Usuario> usuarios = CUsuario.ListaUsuarios();
         Object matriz[][]= new Object[usuarios.size()][3];
         btnGroup = new ButtonGroup();
@@ -104,7 +108,6 @@ public class MaestroUsuario extends javax.swing.JPanel {
         txtPassword = new javax.swing.JPasswordField();
         txtPasswordConfirmar = new javax.swing.JPasswordField();
         btnConfirmarEdicion = new javax.swing.JButton();
-        lblMensaje = new javax.swing.JLabel();
 
         jPanel35.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -155,13 +158,13 @@ public class MaestroUsuario extends javax.swing.JPanel {
         jPanel35.setLayout(jPanel35Layout);
         jPanel35Layout.setHorizontalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane13)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel35Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(587, Short.MAX_VALUE)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDesactivar)
                 .addContainerGap())
+            .addComponent(jScrollPane13)
         );
         jPanel35Layout.setVerticalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,13 +185,13 @@ public class MaestroUsuario extends javax.swing.JPanel {
         SubUsuariosLayout.setHorizontalGroup(
             SubUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SubUsuariosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(SubUsuariosLayout.createSequentialGroup()
                 .addGap(326, 326, 326)
                 .addComponent(jLabel71)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                 .addComponent(jTextField48, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(SubUsuariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         SubUsuariosLayout.setVerticalGroup(
             SubUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,8 +241,6 @@ public class MaestroUsuario extends javax.swing.JPanel {
             }
         });
 
-        lblMensaje.setText("jLabel1");
-
         javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
         jPanel34.setLayout(jPanel34Layout);
         jPanel34Layout.setHorizontalGroup(
@@ -257,42 +258,36 @@ public class MaestroUsuario extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnConfirmarEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel34Layout.createSequentialGroup()
                         .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                             .addComponent(txtPassword)
                             .addComponent(txtPasswordConfirmar))
-                        .addGap(155, 155, 155)
-                        .addComponent(lblMensaje)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel34Layout.setVerticalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel34Layout.createSequentialGroup()
-                .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel68)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel69)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(lblMensaje)))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel68)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel69)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel70)
                     .addComponent(txtPasswordConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnGuardar)
                     .addComponent(btnConfirmarEdicion))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -305,7 +300,7 @@ public class MaestroUsuario extends javax.swing.JPanel {
                     .addComponent(jPanel34, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(SubUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 11, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -335,22 +330,18 @@ public class MaestroUsuario extends javax.swing.JPanel {
             user.setUsuClave(pass);
             user.setUsuIdUsuario(id);
             CUsuario.AgregarUsuario(user);
-            lblMensaje.setForeground(Color.GREEN.darker().darker());
-            lblMensaje.setText("Usuario registrado");
-            lblMensaje.setVisible(true);
+            JOptionPane.showMessageDialog(SubUsuarios.getParent(),"Usuario registrado","Aviso",JOptionPane.INFORMATION_MESSAGE);
             txtNombre.setText("");
             txtPassword.setText("");
             txtPasswordConfirmar.setText("");
         }
         else
         {
-            lblMensaje.setForeground(Color.red);
-            lblMensaje.setText("Las contraseñas deben ser iguales");
+            JOptionPane.showMessageDialog(SubUsuarios.getParent(),"Las contraseñas deben ser iguales","Aviso",JOptionPane.ERROR_MESSAGE);
             txtPassword.setBorder(BorderFactory.createLineBorder(Color.RED));
             txtPasswordConfirmar.setBorder(BorderFactory.createLineBorder(Color.RED));
             txtPassword.setText("");
             txtPasswordConfirmar.setText("");
-            lblMensaje.setVisible(true);
         }
         LlenarTablaUsuarios();
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -406,9 +397,7 @@ public class MaestroUsuario extends javax.swing.JPanel {
         u.setUsuNombre(txtNombre.getText());
         u.setUsuClave(pass);
         CUsuario.EditarUsuario(u);
-        lblMensaje.setForeground(Color.orange.darker());
-        lblMensaje.setText("Usuario modificado");
-        lblMensaje.setVisible(true);
+        JOptionPane.showMessageDialog(SubUsuarios.getParent(),"Usuario modificado","Aviso",JOptionPane.WARNING_MESSAGE);
         btnGuardar.setVisible(true);
         btnConfirmarEdicion.setVisible(false);
         LlenarTablaUsuarios();
@@ -433,16 +422,13 @@ public class MaestroUsuario extends javax.swing.JPanel {
         if(u.Habilitado().equals("Si"))
         {
             u.setHabilitado(Short.parseShort("1"));
-             lblMensaje.setText("Usuario desactivado");
+            JOptionPane.showMessageDialog(SubUsuarios.getParent(),"Usuario desactivado","Aviso",JOptionPane.WARNING_MESSAGE);
         }
         else{
             u.setHabilitado(Short.parseShort("0"));
-             lblMensaje.setText("Usuario activado");
+            JOptionPane.showMessageDialog(SubUsuarios.getParent(),"Usuario activado","Aviso",JOptionPane.WARNING_MESSAGE);
         }
         CUsuario.EditarUsuario(u);
-        lblMensaje.setForeground(Color.YELLOW.darker());
-       
-        lblMensaje.setVisible(true);
         btnGuardar.setVisible(true);
         btnConfirmarEdicion.setVisible(false);
         LlenarTablaUsuarios();
@@ -465,7 +451,6 @@ public class MaestroUsuario extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel35;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JTextField jTextField48;
-    private javax.swing.JLabel lblMensaje;
     private javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JPasswordField txtPassword;
