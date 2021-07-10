@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Modelo;
 
 import java.io.Serializable;
@@ -116,5 +117,5 @@ public class DetallePack implements Serializable {
     public String toString() {
         return "Modelo.DetallePack[ detallePackPK=" + detallePackPK + " ]";
     }
-    
+
 }

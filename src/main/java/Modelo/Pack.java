@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -60,6 +62,9 @@ public class Pack implements Serializable {
     private short pckInhabilitado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pckIdPack")
     private List<Venta> ventaList;
+    @JoinColumn(name = "CATEGORIA_PACK_idCATEGORIA_PACK", referencedColumnName = "idCATEGORIA_PACK")
+    @ManyToOne(optional = false)
+    private CategoriaPack cATEGORIAPACKidCATEGORIAPACK;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pack")
     private List<DetallePack> detallePackList;
 
@@ -124,6 +129,14 @@ public class Pack implements Serializable {
 
     public void setVentaList(List<Venta> ventaList) {
         this.ventaList = ventaList;
+    }
+
+    public CategoriaPack getCATEGORIAPACKidCATEGORIAPACK() {
+        return cATEGORIAPACKidCATEGORIAPACK;
+    }
+
+    public void setCATEGORIAPACKidCATEGORIAPACK(CategoriaPack cATEGORIAPACKidCATEGORIAPACK) {
+        this.cATEGORIAPACKidCATEGORIAPACK = cATEGORIAPACKidCATEGORIAPACK;
     }
 
     public List<DetallePack> getDetallePackList() {

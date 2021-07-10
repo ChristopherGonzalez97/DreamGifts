@@ -6,6 +6,7 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -28,7 +31,8 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "DetalleFactura.findByFacturaFacIdFactura", query = "SELECT d FROM DetalleFactura d WHERE d.detalleFacturaPK.facturaFacIdFactura = :facturaFacIdFactura"),
     @NamedQuery(name = "DetalleFactura.findByArticuloArtIdArticulo", query = "SELECT d FROM DetalleFactura d WHERE d.detalleFacturaPK.articuloArtIdArticulo = :articuloArtIdArticulo"),
     @NamedQuery(name = "DetalleFactura.findByCantidad", query = "SELECT d FROM DetalleFactura d WHERE d.cantidad = :cantidad"),
-    @NamedQuery(name = "DetalleFactura.findByValor", query = "SELECT d FROM DetalleFactura d WHERE d.valor = :valor")})
+    @NamedQuery(name = "DetalleFactura.findByValor", query = "SELECT d FROM DetalleFactura d WHERE d.valor = :valor"),
+    @NamedQuery(name = "DetalleFactura.findByDetFechaVencimiento", query = "SELECT d FROM DetalleFactura d WHERE d.detFechaVencimiento = :detFechaVencimiento")})
 public class DetalleFactura implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,6 +46,11 @@ public class DetalleFactura implements Serializable {
     @NotNull
     @Column(name = "VALOR")
     private int valor;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DET_FECHA_VENCIMIENTO")
+    @Temporal(TemporalType.DATE)
+    private Date detFechaVencimiento;
     @JoinColumn(name = "ARTICULO_ART_ID_ARTICULO", referencedColumnName = "ART_ID_ARTICULO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Articulo articulo;
@@ -56,10 +65,11 @@ public class DetalleFactura implements Serializable {
         this.detalleFacturaPK = detalleFacturaPK;
     }
 
-    public DetalleFactura(DetalleFacturaPK detalleFacturaPK, int cantidad, int valor) {
+    public DetalleFactura(DetalleFacturaPK detalleFacturaPK, int cantidad, int valor, Date detFechaVencimiento) {
         this.detalleFacturaPK = detalleFacturaPK;
         this.cantidad = cantidad;
         this.valor = valor;
+        this.detFechaVencimiento = detFechaVencimiento;
     }
 
     public DetalleFactura(int facturaFacIdFactura, int articuloArtIdArticulo) {
@@ -88,6 +98,14 @@ public class DetalleFactura implements Serializable {
 
     public void setValor(int valor) {
         this.valor = valor;
+    }
+
+    public Date getDetFechaVencimiento() {
+        return detFechaVencimiento;
+    }
+
+    public void setDetFechaVencimiento(Date detFechaVencimiento) {
+        this.detFechaVencimiento = detFechaVencimiento;
     }
 
     public Articulo getArticulo() {

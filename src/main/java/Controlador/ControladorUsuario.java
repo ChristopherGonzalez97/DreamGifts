@@ -51,7 +51,7 @@ public class ControladorUsuario {
                 {
                 e.getMessage();
                 }
-        return id+1;
+        return id;
     }
     public ArrayList<Usuario> ListaUsuarios()
     {
