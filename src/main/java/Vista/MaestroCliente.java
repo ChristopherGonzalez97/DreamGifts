@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
@@ -36,6 +37,7 @@ public class MaestroCliente extends javax.swing.JPanel {
     public MaestroCliente() {
         initComponents();
         LlenarTabla();
+        btnConfirmarEdicion.setVisible(false);
     }
     
     public void LlenarTabla()
@@ -44,7 +46,7 @@ public class MaestroCliente extends javax.swing.JPanel {
         Object matriz[][]= new Object[clientes.size()][6];
         btnGroup = new ButtonGroup();
         for (int i = 0; i < clientes.size(); i++) {
-            matriz[i][0]= clientes.get(i).getCliNombre()+clientes.get(i).getCliApellido();
+            matriz[i][0]= clientes.get(i).getCliNombre()+" "+clientes.get(i).getCliApellido();
             matriz[i][1]= clientes.get(i).getCliRut();
             matriz[i][2]= clientes.get(i).getCliTelefono();
             matriz[i][3]= clientes.get(i).getCliCorreo();
@@ -95,9 +97,7 @@ public class MaestroCliente extends javax.swing.JPanel {
         jPanel17 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
-        btnActivar = new javax.swing.JButton();
         BtnEditar = new javax.swing.JButton();
-        btnVenta = new javax.swing.JButton();
         jLabel31 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
@@ -158,27 +158,22 @@ public class MaestroCliente extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblClientes);
 
-        btnActivar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnActivar.setText("Activar/Desactivar");
-
         BtnEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         BtnEditar.setText("Editar");
-
-        btnVenta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnVenta.setText("Venta");
+        BtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(BtnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnActivar)
                 .addContainerGap())
         );
         jPanel17Layout.setVerticalGroup(
@@ -186,10 +181,7 @@ public class MaestroCliente extends javax.swing.JPanel {
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActivar)
-                    .addComponent(BtnEditar)
-                    .addComponent(btnVenta))
+                .addComponent(BtnEditar)
                 .addContainerGap())
         );
 
@@ -254,9 +246,19 @@ public class MaestroCliente extends javax.swing.JPanel {
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnConfirmarEdicion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnConfirmarEdicion.setText("Confirmar edicion");
+        btnConfirmarEdicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarEdicionActionPerformed(evt);
+            }
+        });
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel22.setText("Nombre ");
@@ -372,12 +374,11 @@ public class MaestroCliente extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(SubClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,15 +423,94 @@ public class MaestroCliente extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
+        // TODO add your handling code here:
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;
+        int i=1;
+        do{
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=i;
+            }
+            i++;
+        }
+        while(enumButtons.hasMoreElements()==true);
+
+        Cliente c = CCliente.BuscarPorId(id);
+        txtApellido.setText(c.getCliApellido());
+        txtCelular.setText(Integer.toString(c.getCliTelefono()));
+        txtDVRut.setText(c.getCliRut().substring(c.getCliRut().length()-1));
+        txtDireccion.setText(c.getCliDireccion());
+        txtEmail.setText(c.getCliCorreo());
+        txtFechaNacimiento.setDate(c.getCliFechaNacimiento());
+        txtNombreCliente.setText(c.getCliNombre());
+        txtRut.setText(c.getCliRut().substring(0, c.getCliRut().length()-2));
+        btnGuardar.setVisible(false);
+        btnConfirmarEdicion.setVisible(true);
+    }//GEN-LAST:event_BtnEditarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        txtApellido.setText("");
+        txtCelular.setText("");
+        txtDVRut.setText("");
+        txtDireccion.setText("");
+        txtEmail.setText("");
+        txtFechaNacimiento.setDate(null);
+        txtNombreCliente.setText("");
+        txtRut.setText("");
+        btnConfirmarEdicion.setVisible(false);
+        btnGuardar.setVisible(true);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnConfirmarEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEdicionActionPerformed
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;
+        int i=1;
+        do{
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=i;
+            }
+            i++;
+        }
+        while(enumButtons.hasMoreElements()==true);
+        Cliente cliente = CCliente.BuscarPorId(id);
+        String nombre,apellido,rut,digitoVerificadorRut,direccion,correo;
+        int telefono;
+        nombre = txtNombreCliente.getText();
+        apellido = txtApellido.getText();
+        rut = txtRut.getText();
+        digitoVerificadorRut = txtDVRut.getText();
+        direccion = txtDireccion.getText();
+        telefono = Integer.parseInt(txtCelular.getText());
+        correo = txtEmail.getText();
+        Date fecha = txtFechaNacimiento.getCalendar().getTime();
+        cliente.setCliApellido(apellido);
+        cliente.setCliCorreo(correo);
+        cliente.setCliDireccion(direccion);
+        cliente.setCliNombre(nombre);
+        cliente.setCliRut(rut+"-"+digitoVerificadorRut);
+        cliente.setCliTelefono(telefono);
+        cliente.setCliFechaNacimiento(fecha);
+        CCliente.EditarCliente(cliente);
+        btnGuardar.setVisible(false);
+        btnConfirmarEdicion.setVisible(true);
+        JOptionPane.showMessageDialog(SubClientes.getParent(),"Cliente modificado","Aviso",JOptionPane.WARNING_MESSAGE);
+        btnCancelarActionPerformed(evt);
+        LlenarTabla();
+    }//GEN-LAST:event_btnConfirmarEdicionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnEditar;
     private javax.swing.JPanel SubClientes;
-    private javax.swing.JButton btnActivar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmarEdicion;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

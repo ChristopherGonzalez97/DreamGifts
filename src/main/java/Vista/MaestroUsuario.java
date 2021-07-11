@@ -375,6 +375,8 @@ public class MaestroUsuario extends javax.swing.JPanel {
         txtNombre.setText(u.getUsuNombre());
         btnGuardar.setVisible(false);
         btnConfirmarEdicion.setVisible(true);
+        
+        
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnConfirmarEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEdicionActionPerformed

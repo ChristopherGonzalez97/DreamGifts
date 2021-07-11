@@ -70,4 +70,36 @@ public class ControladorCliente {
         }
         return listaClientes;
     }
+    public Cliente BuscarPorId(int id)
+    {
+        Cliente cli = new Cliente();
+         try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         cli =  em.find(Cliente.class, id);
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        return cli;
+    }
+    
+    public void EditarCliente(Cliente c)
+    {
+        try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         em.getTransaction().begin();
+         em.merge(c);
+         em.getTransaction().commit();
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+    }        
+            
 }

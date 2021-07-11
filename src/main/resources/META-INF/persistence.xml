@@ -17,6 +17,10 @@
     <class>Modelo.Bancos</class>
     <class>Modelo.CategoriaArticulo</class>
     <class>Modelo.Comunas</class>
+    <class>Modelo.EstadoFactura</class>
+    <class>Modelo.Banco</class>
+    <class>Modelo.EstadoVenta</class>
+    <class>Modelo.CategoriaPack</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mydb?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
