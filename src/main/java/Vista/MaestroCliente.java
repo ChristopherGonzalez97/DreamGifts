@@ -42,7 +42,7 @@ public class MaestroCliente extends javax.swing.JPanel {
     
     public void LlenarTabla()
     {
-         ArrayList<Cliente> clientes = CCliente.ListaClientes();
+        ArrayList<Cliente> clientes = CCliente.ListaClientes();
         Object matriz[][]= new Object[clientes.size()][6];
         btnGroup = new ButtonGroup();
         for (int i = 0; i < clientes.size(); i++) {

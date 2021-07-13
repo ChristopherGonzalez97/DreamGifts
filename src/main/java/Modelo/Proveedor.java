@@ -28,10 +28,12 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
     @NamedQuery(name = "Proveedor.findByProIdProveedor", query = "SELECT p FROM Proveedor p WHERE p.proIdProveedor = :proIdProveedor"),
+    @NamedQuery(name = "Proveedor.findByProRut", query = "SELECT p FROM Proveedor p WHERE p.proRut = :proRut"),
     @NamedQuery(name = "Proveedor.findByProNombre", query = "SELECT p FROM Proveedor p WHERE p.proNombre = :proNombre"),
     @NamedQuery(name = "Proveedor.findByProTelefono", query = "SELECT p FROM Proveedor p WHERE p.proTelefono = :proTelefono"),
     @NamedQuery(name = "Proveedor.findByProCorreo", query = "SELECT p FROM Proveedor p WHERE p.proCorreo = :proCorreo"),
-    @NamedQuery(name = "Proveedor.findByProDireccion", query = "SELECT p FROM Proveedor p WHERE p.proDireccion = :proDireccion")})
+    @NamedQuery(name = "Proveedor.findByProDireccion", query = "SELECT p FROM Proveedor p WHERE p.proDireccion = :proDireccion"),
+    @NamedQuery(name = "Proveedor.findByProRazonSocial", query = "SELECT p FROM Proveedor p WHERE p.proRazonSocial = :proRazonSocial")})
 public class Proveedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,6 +42,11 @@ public class Proveedor implements Serializable {
     @NotNull
     @Column(name = "PRO_ID_PROVEEDOR")
     private Integer proIdProveedor;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "PRO_RUT")
+    private String proRut;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -59,6 +66,11 @@ public class Proveedor implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "PRO_DIRECCION")
     private String proDireccion;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "PRO_RAZON_SOCIAL")
+    private String proRazonSocial;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proIdProveedor")
     private List<Factura> facturaList;
 
@@ -69,12 +81,14 @@ public class Proveedor implements Serializable {
         this.proIdProveedor = proIdProveedor;
     }
 
-    public Proveedor(Integer proIdProveedor, String proNombre, int proTelefono, String proCorreo, String proDireccion) {
+    public Proveedor(Integer proIdProveedor, String proRut, String proNombre, int proTelefono, String proCorreo, String proDireccion, String proRazonSocial) {
         this.proIdProveedor = proIdProveedor;
+        this.proRut = proRut;
         this.proNombre = proNombre;
         this.proTelefono = proTelefono;
         this.proCorreo = proCorreo;
         this.proDireccion = proDireccion;
+        this.proRazonSocial = proRazonSocial;
     }
 
     public Integer getProIdProveedor() {
@@ -83,6 +97,14 @@ public class Proveedor implements Serializable {
 
     public void setProIdProveedor(Integer proIdProveedor) {
         this.proIdProveedor = proIdProveedor;
+    }
+
+    public String getProRut() {
+        return proRut;
+    }
+
+    public void setProRut(String proRut) {
+        this.proRut = proRut;
     }
 
     public String getProNombre() {
@@ -115,6 +137,14 @@ public class Proveedor implements Serializable {
 
     public void setProDireccion(String proDireccion) {
         this.proDireccion = proDireccion;
+    }
+
+    public String getProRazonSocial() {
+        return proRazonSocial;
+    }
+
+    public void setProRazonSocial(String proRazonSocial) {
+        this.proRazonSocial = proRazonSocial;
     }
 
     public List<Factura> getFacturaList() {

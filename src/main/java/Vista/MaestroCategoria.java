@@ -30,11 +30,9 @@ public class MaestroCategoria extends javax.swing.JPanel {
         SubCategoriaV = new javax.swing.JPanel();
         jPanel32 = new javax.swing.JPanel();
         jLabel65 = new javax.swing.JLabel();
-        jLabel66 = new javax.swing.JLabel();
         jButton41 = new javax.swing.JButton();
         jButton42 = new javax.swing.JButton();
         jTextField44 = new javax.swing.JTextField();
-        jTextField45 = new javax.swing.JTextField();
         jPanel33 = new javax.swing.JPanel();
         jScrollPane12 = new javax.swing.JScrollPane();
         jTable9 = new javax.swing.JTable();
@@ -44,13 +42,10 @@ public class MaestroCategoria extends javax.swing.JPanel {
         jTextField46 = new javax.swing.JTextField();
 
         jPanel32.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Categorías De Venta"));
+        jPanel32.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Categorías de Packs"));
 
         jLabel65.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel65.setText("Categorías De Venta");
-
-        jLabel66.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel66.setText("Código Categorías Venta");
+        jLabel65.setText("Categorías de pack");
 
         jButton41.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton41.setText("Guardar");
@@ -67,34 +62,23 @@ public class MaestroCategoria extends javax.swing.JPanel {
                 .addComponent(jLabel65)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField44, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel32Layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
-                        .addComponent(jButton42, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton41, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74))
-                    .addGroup(jPanel32Layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(jLabel66)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField45, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(200, 200, 200)
+                .addComponent(jButton42, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton41, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74))
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel32Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel65)
-                    .addComponent(jLabel66)
                     .addComponent(jTextField44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
-                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton42)
-                    .addComponent(jButton41))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton42)
+                        .addComponent(jButton41)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel33.setBackground(new java.awt.Color(255, 255, 255));
@@ -210,7 +194,7 @@ public class MaestroCategoria extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 592, Short.MAX_VALUE)
+            .addGap(0, 593, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -227,14 +211,12 @@ public class MaestroCategoria extends javax.swing.JPanel {
     private javax.swing.JButton jButton43;
     private javax.swing.JButton jButton44;
     private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JTable jTable9;
     private javax.swing.JTextField jTextField44;
-    private javax.swing.JTextField jTextField45;
     private javax.swing.JTextField jTextField46;
     // End of variables declaration//GEN-END:variables
 }

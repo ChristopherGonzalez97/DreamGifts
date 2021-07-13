@@ -54,16 +54,18 @@ public class Cliente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         PestanaMaestros = new javax.swing.JTabbedPane();
         maestroCategoria1 = new Vista.MaestroCategoria();
-        maestroArticulo1 = new Vista.MaestroArticulo();
         maestroCategoriaArticulo1 = new Vista.MaestroCategoriaArticulo();
         maestroBanco1 = new Vista.MaestroBanco();
         maestroComuna1 = new Vista.MaestroComuna();
-        maestroPack1 = new Vista.MaestroPack();
         maestroProveedor1 = new Vista.MaestroProveedor();
         maestroRRSS1 = new Vista.MaestroRRSS();
         maestroUsuario1 = new Vista.MaestroUsuario();
         jScrollPane2 = new javax.swing.JScrollPane();
         maestroCliente1 = new Vista.MaestroCliente();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        maestroPack2 = new Vista.MaestroPack();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        maestroArticulo2 = new Vista.MaestroArticulo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -195,11 +197,9 @@ public class Cliente extends javax.swing.JFrame {
         PestanaMaestros.setMinimumSize(new java.awt.Dimension(128, 60));
         PestanaMaestros.setPreferredSize(new java.awt.Dimension(912, 590));
         PestanaMaestros.addTab("Categoria venta", maestroCategoria1);
-        PestanaMaestros.addTab("Articulo", maestroArticulo1);
         PestanaMaestros.addTab("Categoria articulo", maestroCategoriaArticulo1);
         PestanaMaestros.addTab("Banco", maestroBanco1);
         PestanaMaestros.addTab("Comuna", maestroComuna1);
-        PestanaMaestros.addTab("Pack", maestroPack1);
         PestanaMaestros.addTab("Proveedor", maestroProveedor1);
         PestanaMaestros.addTab("RRSS", maestroRRSS1);
         PestanaMaestros.addTab("Usuario", maestroUsuario1);
@@ -208,6 +208,14 @@ public class Cliente extends javax.swing.JFrame {
 
         PestanaMaestros.addTab("Cliente", jScrollPane2);
 
+        jScrollPane3.setViewportView(maestroPack2);
+
+        PestanaMaestros.addTab("Pack", jScrollPane3);
+
+        jScrollPane4.setViewportView(maestroArticulo2);
+
+        PestanaMaestros.addTab("Articulo", jScrollPane4);
+
         jScrollPane1.setViewportView(PestanaMaestros);
 
         javax.swing.GroupLayout MaestrosLayout = new javax.swing.GroupLayout(Maestros);
@@ -215,10 +223,10 @@ public class Cliente extends javax.swing.JFrame {
         MaestrosLayout.setHorizontalGroup(
             MaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MaestrosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(413, Short.MAX_VALUE)
                 .addComponent(jLabel23)
                 .addGap(386, 386, 386))
-            .addGroup(MaestrosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MaestrosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE)
                 .addContainerGap())
@@ -228,9 +236,9 @@ public class Cliente extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MaestrosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addGap(57, 57, 57))
         );
 
         Principal.addTab("Maestros", Maestros);
@@ -308,13 +316,15 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private Vista.MaestroArticulo maestroArticulo1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private Vista.MaestroArticulo maestroArticulo2;
     private Vista.MaestroBanco maestroBanco1;
     private Vista.MaestroCategoria maestroCategoria1;
     private Vista.MaestroCategoriaArticulo maestroCategoriaArticulo1;
     private Vista.MaestroCliente maestroCliente1;
     private Vista.MaestroComuna maestroComuna1;
-    private Vista.MaestroPack maestroPack1;
+    private Vista.MaestroPack maestroPack2;
     private Vista.MaestroProveedor maestroProveedor1;
     private Vista.MaestroRRSS maestroRRSS1;
     private Vista.MaestroUsuario maestroUsuario1;
