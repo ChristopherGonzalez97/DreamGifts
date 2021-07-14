@@ -121,5 +121,25 @@ public class ControladorCategoriaArticulo {
             e.getMessage();
         }
     }
+     public ArrayList<CategoriaArticulo> Busqueda(String buscar)
+    {
+        ArrayList<CategoriaArticulo> listaCategoria = new ArrayList();
+        try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         buscar = buscar +"%";
+         List<CategoriaArticulo> categorias = em.createNamedQuery("CategoriaArticulo.buscador").setParameter("buscar", buscar).getResultList();
+         for(CategoriaArticulo cat : categorias)
+         {
+             listaCategoria.add(cat);
+         }
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        return listaCategoria;
+    }
 }
 

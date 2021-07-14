@@ -312,7 +312,7 @@ public class MaestroCategoriaArticulo extends javax.swing.JPanel {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
-        ArrayList<CategoriaArticulo> categorias = cCategoria.ListarCategorias();
+        ArrayList<CategoriaArticulo> categorias = cCategoria.Busqueda(txtBuscar.getText());
         Object matriz[][]= new Object[categorias.size()][3];
         btnGroup = new ButtonGroup();
         for (int i = 0; i < categorias.size(); i++) {
