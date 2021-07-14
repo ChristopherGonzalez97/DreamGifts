@@ -6,6 +6,27 @@
 
 package Vista;
 
+import Controlador.ControladorCategoriaArticulo;
+import Modelo.Articulo;
+import Modelo.CategoriaArticulo;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Enumeration;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+
 /**
  *
  * @author MADICAP
@@ -13,8 +34,12 @@ package Vista;
 public class MaestroCategoriaArticulo extends javax.swing.JPanel {
 
     /** Creates new form MaestroCategoriaArticulo */
+    private ControladorCategoriaArticulo cCategoria = new ControladorCategoriaArticulo();
+    private ButtonGroup btnGroup;
     public MaestroCategoriaArticulo() {
         initComponents();
+        LlenarTabla();
+        btnConfirmarEdicion.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -29,18 +54,16 @@ public class MaestroCategoriaArticulo extends javax.swing.JPanel {
         SubCategoriasA = new javax.swing.JPanel();
         jPanel26 = new javax.swing.JPanel();
         jLabel56 = new javax.swing.JLabel();
-        jLabel57 = new javax.swing.JLabel();
-        jButton29 = new javax.swing.JButton();
-        jButton30 = new javax.swing.JButton();
-        jTextField35 = new javax.swing.JTextField();
-        jTextField36 = new javax.swing.JTextField();
+        btnConfirmarEdicion = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        txtCategoria = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
         jPanel27 = new javax.swing.JPanel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
-        jButton31 = new javax.swing.JButton();
-        jButton32 = new javax.swing.JButton();
+        tblCategoria = new javax.swing.JTable();
+        btnEditar = new javax.swing.JButton();
         jLabel58 = new javax.swing.JLabel();
-        jTextField37 = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
 
         jPanel26.setBackground(new java.awt.Color(255, 255, 255));
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Categorías Artículos"));
@@ -48,36 +71,50 @@ public class MaestroCategoriaArticulo extends javax.swing.JPanel {
         jLabel56.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel56.setText("Categoría Atículo");
 
-        jLabel57.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel57.setText("Código Categoría");
+        btnConfirmarEdicion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnConfirmarEdicion.setText("Confirmar edicion");
+        btnConfirmarEdicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarEdicionActionPerformed(evt);
+            }
+        });
 
-        jButton29.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton29.setText("Guardar");
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
-        jButton30.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton30.setText("Cancelar");
+        btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
         jPanel26Layout.setHorizontalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel56)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField35, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(200, 200, 200)
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel26Layout.createSequentialGroup()
-                        .addComponent(jButton30, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addComponent(jButton29, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74))
-                    .addGroup(jPanel26Layout.createSequentialGroup()
-                        .addComponent(jLabel57)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel56)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField36, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(139, 139, 139))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(btnConfirmarEdicion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,19 +122,18 @@ public class MaestroCategoriaArticulo extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel56)
-                    .addComponent(jLabel57)
-                    .addComponent(jTextField35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton30)
-                    .addComponent(jButton29))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnConfirmarEdicion)
+                    .addComponent(btnGuardar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel27.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        tblCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -129,56 +165,58 @@ public class MaestroCategoriaArticulo extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane9.setViewportView(jTable6);
+        jScrollPane9.setViewportView(tblCategoria);
 
-        jButton31.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton31.setText("Desactivar");
-
-        jButton32.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton32.setText("Editar");
+        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
         jPanel27Layout.setHorizontalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel27Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton32, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton31)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel27Layout.setVerticalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel27Layout.createSequentialGroup()
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton31)
-                    .addComponent(jButton32))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEditar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel58.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel58.setText("Categorías");
+
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout SubCategoriasALayout = new javax.swing.GroupLayout(SubCategoriasA);
         SubCategoriasA.setLayout(SubCategoriasALayout);
         SubCategoriasALayout.setHorizontalGroup(
             SubCategoriasALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SubCategoriasALayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(SubCategoriasALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(SubCategoriasALayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(SubCategoriasALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(SubCategoriasALayout.createSequentialGroup()
-                        .addGap(379, 379, 379)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel58)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField37, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(69, 69, 69)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         SubCategoriasALayout.setVerticalGroup(
@@ -189,7 +227,7 @@ public class MaestroCategoriaArticulo extends javax.swing.JPanel {
                 .addGap(43, 43, 43)
                 .addGroup(SubCategoriasALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel58)
-                    .addComponent(jTextField37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -199,12 +237,12 @@ public class MaestroCategoriaArticulo extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 907, Short.MAX_VALUE)
+            .addGap(0, 926, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 49, Short.MAX_VALUE)
                     .addComponent(SubCategoriasA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 50, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,23 +255,174 @@ public class MaestroCategoriaArticulo extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnConfirmarEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEdicionActionPerformed
+        // TODO add your handling code here:
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=Integer.parseInt(j.getName());
+            }
+        }
+        CategoriaArticulo cat = cCategoria.BuscarPorId(id);
+        cat.setCatNombre(txtCategoria.getText());
+        cCategoria.EditarCategoria(cat);
+         JOptionPane.showMessageDialog(SubCategoriasA.getParent(),"Categoria de articulo modificada","Aviso",JOptionPane.INFORMATION_MESSAGE);
+         LlenarTabla();
+         btnCancelarActionPerformed(evt);
+    }//GEN-LAST:event_btnConfirmarEdicionActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        txtCategoria.setText("");
+        btnConfirmarEdicion.setVisible(false);
+        btnGuardar.setVisible(true);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        String nombre=txtCategoria.getText();
+        int id = cCategoria.CountCategoriasArticulos();
+        CategoriaArticulo categoria = new CategoriaArticulo();
+        categoria.setCatNombre(nombre);
+        categoria.setCategoriaArticulo(id);
+        cCategoria.AgregarCategoria(categoria);
+        JOptionPane.showMessageDialog(SubCategoriasA.getParent(),"Categoria de articulo agregada","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        LlenarTabla();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=Integer.parseInt(j.getName());
+            }
+        }
+        CategoriaArticulo cat = cCategoria.BuscarPorId(id);
+        txtCategoria.setText(cat.getCatNombre());
+        btnConfirmarEdicion.setVisible(true);
+        btnGuardar.setVisible(false);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+        ArrayList<CategoriaArticulo> categorias = cCategoria.ListarCategorias();
+        Object matriz[][]= new Object[categorias.size()][3];
+        btnGroup = new ButtonGroup();
+        for (int i = 0; i < categorias.size(); i++) {
+            matriz[i][0]= categorias.get(i).getCategoriaArticulo();
+            matriz[i][1]= categorias.get(i).getCatNombre();
+            JRadioButton btn = new JRadioButton();
+            btn.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                    if(btn.isSelected())
+                    {
+                        tblCategoria.repaint();
+                    }
+                 }
+             });
+             btn.setName(Integer.toString(categorias.get(i).getCategoriaArticulo()));
+            matriz[i][2]= btn;
+            btnGroup.add((JRadioButton)matriz[i][2]);
+        }
+        tblCategoria.setModel(new javax.swing.table.DefaultTableModel(matriz,new String [] {"Id. categoria", "Nombre", "Acciones"})
+           {
+                boolean[] canEdit = new boolean [] {
+                    false, false, true
+                };
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            }        
+           );
+        String accion = tblCategoria.getColumnName(2);
+        tblCategoria.getColumn(accion).setCellRenderer(new RadioButtonRenderer());
+        tblCategoria.getColumn(accion).setCellEditor(new RadioButtonEditor(new JCheckBox()));
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SubCategoriasA;
-    private javax.swing.JButton jButton29;
-    private javax.swing.JButton jButton30;
-    private javax.swing.JButton jButton31;
-    private javax.swing.JButton jButton32;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConfirmarEdicion;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTable jTable6;
-    private javax.swing.JTextField jTextField35;
-    private javax.swing.JTextField jTextField36;
-    private javax.swing.JTextField jTextField37;
+    private javax.swing.JTable tblCategoria;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCategoria;
     // End of variables declaration//GEN-END:variables
 
+    private void LlenarTabla() {
+         
+        ArrayList<CategoriaArticulo> categorias = cCategoria.ListarCategorias();
+        Object matriz[][]= new Object[categorias.size()][3];
+        btnGroup = new ButtonGroup();
+        for (int i = 0; i < categorias.size(); i++) {
+            matriz[i][0]= categorias.get(i).getCategoriaArticulo();
+            matriz[i][1]= categorias.get(i).getCatNombre();
+            JRadioButton btn = new JRadioButton();
+            btn.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                    if(btn.isSelected())
+                    {
+                        tblCategoria.repaint();
+                    }
+                 }
+             });
+             btn.setName(Integer.toString(categorias.get(i).getCategoriaArticulo()));
+            matriz[i][2]= btn;
+            btnGroup.add((JRadioButton)matriz[i][2]);
+        }
+        tblCategoria.setModel(new javax.swing.table.DefaultTableModel(matriz,new String [] {"Id. categoria", "Nombre", "Acciones"})
+           {
+                boolean[] canEdit = new boolean [] {
+                    false, false, true
+                };
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            }        
+           );
+        String accion = tblCategoria.getColumnName(2);
+        tblCategoria.getColumn(accion).setCellRenderer(new RadioButtonRenderer());
+        tblCategoria.getColumn(accion).setCellEditor(new RadioButtonEditor(new JCheckBox()));
+    }
+class RadioButtonRenderer implements TableCellRenderer {
+   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,        boolean hasFocus, int row, int column) {
+      if (value==null) return null;
+         return (Component)value;
+   }
+}
+class RadioButtonEditor extends DefaultCellEditor implements ItemListener {
+   private JRadioButton button;
+   public RadioButtonEditor(JCheckBox checkBox) {
+      super(checkBox);
+   }
+   public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+      if (value==null) return null;
+      button = (JRadioButton)value;
+      button.addItemListener(this);
+      return (Component)value;
+   }
+   public Object getCellEditorValue() {
+      button.removeItemListener(this);
+      return button;
+   }
+   public void itemStateChanged(ItemEvent e) {
+      super.fireEditingStopped();
+   }
+}
 }

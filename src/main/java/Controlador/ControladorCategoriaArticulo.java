@@ -12,12 +12,47 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
  * @author MADICAP
  */
 public class ControladorCategoriaArticulo {
+    
+    public void AgregarCategoria(CategoriaArticulo categoria)
+    {
+         try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         em.getTransaction().begin();
+         em.persist(categoria);
+         em.getTransaction().commit();
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+    }
+    
+    public int CountCategoriasArticulos()
+    {
+        int id=-1;
+        try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         Query q = em.createQuery("SELECT COUNT(c.categoriaArticulo) FROM CategoriaArticulo c");
+         Object s = q.getSingleResult();
+         id=Integer.parseInt(s.toString());
+        }catch(Exception e)
+                {
+                e.getMessage();
+                }
+        return id+1;
+    }
+    
     public ArrayList<CategoriaArticulo> ListarCategorias()
     {
         ArrayList<CategoriaArticulo> listaCategoria = new ArrayList();
@@ -54,4 +89,37 @@ public class ControladorCategoriaArticulo {
         
         return categoria;
     }
+    public CategoriaArticulo BuscarPorId(int id)
+    {
+        CategoriaArticulo categoria = new CategoriaArticulo();
+        
+         try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         categoria = em.find(CategoriaArticulo.class, id);
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        
+        return categoria;
+    }
+    public void EditarCategoria(CategoriaArticulo categoria)
+    {
+         try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         em.getTransaction().begin();
+         em.merge(categoria);
+         em.getTransaction().commit();
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+    }
 }
+
