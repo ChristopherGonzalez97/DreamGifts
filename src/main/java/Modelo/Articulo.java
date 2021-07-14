@@ -34,9 +34,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Articulo.findByArtStock", query = "SELECT a FROM Articulo a WHERE a.artStock = :artStock"),
     @NamedQuery(name = "Articulo.findByArtFechaVencimiento", query = "SELECT a FROM Articulo a WHERE a.artFechaVencimiento = :artFechaVencimiento"),
     @NamedQuery(name = "Articulo.findByArtMarca", query = "SELECT a FROM Articulo a WHERE a.artMarca = :artMarca"),
-    @NamedQuery(name = "Articulo.findByArtInhabilitado", query = "SELECT a FROM Articulo a WHERE a.artInhabilitado = :artInhabilitado")})
+    @NamedQuery(name = "Articulo.findByArtInhabilitado", query = "SELECT a FROM Articulo a WHERE a.artInhabilitado = :artInhabilitado"),
+    @NamedQuery(name = "Articulo.buscador", query = "SELECT a FROM Articulo a WHERE a.artDescripcion LIKE :buscar")})
 public class Articulo implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)

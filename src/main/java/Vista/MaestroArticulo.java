@@ -84,6 +84,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
             matriz[i][5]=articulos.get(i).getArtMarca();
             matriz[i][6]=articulos.get(i).Habilitado();
             JRadioButton btn = new JRadioButton();
+            btn.setName(Integer.toString(articulos.get(i).getArtIdArticulo()));
             btn.addActionListener(new ActionListener() {
                  @Override
                  public void actionPerformed(ActionEvent e) {
@@ -144,7 +145,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
         btnDesactivar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jLabel46 = new javax.swing.JLabel();
-        jTextField32 = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
         jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Artículos"));
@@ -329,7 +330,12 @@ public class MaestroArticulo extends javax.swing.JPanel {
         jScrollPane4.setViewportView(tblArticulo);
 
         btnDesactivar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnDesactivar.setText("Desactivar");
+        btnDesactivar.setText("Activar/Desactivar");
+        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesactivarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnEditar.setText("Editar");
@@ -355,7 +361,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDesactivar)
                     .addComponent(btnEditar))
@@ -364,6 +370,12 @@ public class MaestroArticulo extends javax.swing.JPanel {
 
         jLabel46.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel46.setText("Artículos");
+
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout SubArticulosLayout = new javax.swing.GroupLayout(SubArticulos);
         SubArticulos.setLayout(SubArticulosLayout);
@@ -378,7 +390,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
                         .addGap(394, 394, 394)
                         .addComponent(jLabel46)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
-                        .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -390,10 +402,10 @@ public class MaestroArticulo extends javax.swing.JPanel {
                 .addGap(31, 31, 31)
                 .addGroup(SubArticulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel46)
-                    .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -409,7 +421,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGap(0, 543, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -446,6 +458,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
         articulo.setCategoriaArticuloCategoriaArticulo(cat);
         cArticulo.AgregarArticulo(articulo);
         JOptionPane.showMessageDialog(SubArticulos.getParent(),"Articulo registrado","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        btnCancelarActionPerformed(evt);
         LlenarTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -464,17 +477,14 @@ public class MaestroArticulo extends javax.swing.JPanel {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         Enumeration enumButtons = btnGroup.getElements();
-        int id=0;
-        int i=1;
-        do{
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
             JRadioButton j = (JRadioButton) enumButtons.nextElement();
             if(j.isSelected())
             {
-                id=i;
+                id=Integer.parseInt(j.getName());
             }
-            i++;
         }
-        while(enumButtons.hasMoreElements()==true);
         Articulo articulo = cArticulo.BuscarPorId(id);
         txtNombre.setText(articulo.getArtDescripcion());
         if(articulo.getArtFechaVencimiento()!=null)
@@ -494,8 +504,123 @@ public class MaestroArticulo extends javax.swing.JPanel {
 
     private void btnConfirmarEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEdicionActionPerformed
         // TODO add your handling code here:
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;
+        while(enumButtons.hasMoreElements()==true){
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=Integer.parseInt(j.getName());
+            }
+        }
+        Articulo articulo = cArticulo.BuscarPorId(id);
+        String nombre,categoria,marca;
+        int unidades;
+        Date fecha;
+        nombre=txtNombre.getText();
+        unidades = Integer.parseInt(txtUnidades.getText());
+        marca = txtMarca.getText();
+        categoria = (String) cbxCategoriaArticulo.getSelectedItem();
+        articulo.setArtDescripcion(nombre);
+        if(cbxSinVencimiento.isSelected())
+        {
+            fecha = null;
+        }
+        else {
+            fecha = txtFecha.getCalendar().getTime();
+        }
+        articulo.setArtFechaVencimiento(fecha);
+        articulo.setArtMarca(marca);
+        articulo.setArtStock(unidades);
+        articulo.setArtInhabilitado((short)0);
+        CategoriaArticulo cat = cCatArticulo.BuscarPorNombre(categoria);
+        articulo.setCategoriaArticuloCategoriaArticulo(cat);
+        cArticulo.EditarArticulo(articulo);
+        JOptionPane.showMessageDialog(SubArticulos.getParent(),"Articulo modificado","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        btnCancelarActionPerformed(evt);
+        LlenarTabla();
         
     }//GEN-LAST:event_btnConfirmarEdicionActionPerformed
+
+    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
+        // TODO add your handling code here:
+         Enumeration enumButtons = btnGroup.getElements();
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=Integer.parseInt(j.getName());
+            }
+        }
+        Articulo articulo = cArticulo.BuscarPorId(id);
+        if(articulo.Habilitado().equals("Si"))
+        {
+            articulo.setArtInhabilitado(Short.parseShort("1"));
+            JOptionPane.showMessageDialog(SubArticulos.getParent(),"Articulo desactivado","Aviso",JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            articulo.setArtInhabilitado(Short.parseShort("0"));
+            JOptionPane.showMessageDialog(SubArticulos.getParent(),"Articulo activado","Aviso",JOptionPane.WARNING_MESSAGE);
+        }     
+        cArticulo.EditarArticulo(articulo);
+        btnCancelarActionPerformed(evt);
+        LlenarTabla();
+    }//GEN-LAST:event_btnDesactivarActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        // TODO add your handling code here:
+         ArrayList<Articulo> articulos = cArticulo.Busqueda(txtBuscar.getText());
+         Object matriz[][]= new Object[articulos.size()][8];
+        btnGroup = new ButtonGroup();
+        for (int i = 0; i < articulos.size(); i++) {
+            matriz[i][0]= articulos.get(i).getArtIdArticulo();
+            matriz[i][1]= articulos.get(i).getArtDescripcion();
+            matriz[i][2]= articulos.get(i).getCategoriaArticuloCategoriaArticulo().getCatNombre();
+            matriz[i][3]= articulos.get(i).getArtStock();
+            if(articulos.get(i).getArtFechaVencimiento() != null){
+            Date date = articulos.get(i).getArtFechaVencimiento();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");  
+            String strDate = dateFormat.format(date);  
+            matriz[i][4]=strDate;
+            }
+            else {
+                matriz[i][4]="S/N";
+            }
+            matriz[i][5]=articulos.get(i).getArtMarca();
+            matriz[i][6]=articulos.get(i).Habilitado();
+            JRadioButton btn = new JRadioButton();
+            btn.setName(Integer.toString(articulos.get(i).getArtIdArticulo()));
+            btn.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                    if(btn.isSelected())
+                    {
+                        tblArticulo.repaint();
+                    }
+                 }
+             });
+            matriz[i][7]= btn;
+            btnGroup.add((JRadioButton)matriz[i][7]);
+        }
+        tblArticulo.setModel(new javax.swing.table.DefaultTableModel(matriz, new String [] {
+                "Código", "Artículo", "Categoría Artículo", "Unidades", "Fecha De Vencimiento", "Marca", "Habilitado", "Acción"})
+           {
+                boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }        
+           });
+                
+                
+        String accion = tblArticulo.getColumnName(7);
+        tblArticulo.getColumn(accion).setCellRenderer(new RadioButtonRenderer());
+        tblArticulo.getColumn(accion).setCellEditor(new RadioButtonEditor(new JCheckBox()));
+        tblArticulo.repaint();
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -516,8 +641,8 @@ public class MaestroArticulo extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField jTextField32;
     private javax.swing.JTable tblArticulo;
+    private javax.swing.JTextField txtBuscar;
     private com.toedter.calendar.JDateChooser txtFecha;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtNombre;

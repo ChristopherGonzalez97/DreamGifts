@@ -87,4 +87,40 @@ public class ControladorArticulo {
         }
         return art;
     }
+    
+    public void EditarArticulo(Articulo articulo)
+    {
+         try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         em.getTransaction().begin();
+         em.merge(articulo);
+         em.getTransaction().commit();}
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+    }
+    public ArrayList<Articulo> Busqueda(String buscar)
+    {
+         ArrayList<Articulo> listaArticulo = new ArrayList();
+        try{
+        EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         buscar = buscar+"%";
+         List<Articulo> articulos = em.createNamedQuery("Articulo.buscador").setParameter("buscar", buscar).getResultList();
+         for(Articulo art : articulos)
+         {
+             listaArticulo.add(art);
+         }
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        
+        return listaArticulo;
+    }
 }

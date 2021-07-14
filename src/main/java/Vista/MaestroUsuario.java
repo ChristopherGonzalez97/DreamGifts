@@ -64,6 +64,7 @@ public class MaestroUsuario extends javax.swing.JPanel {
                     }
                  }
              });
+             btn.setName(Integer.toString(usuarios.get(i).getUsuIdUsuario()));
             matriz[i][2]= btn;
             btnGroup.add((JRadioButton)matriz[i][2]);
         }
@@ -359,17 +360,15 @@ public class MaestroUsuario extends javax.swing.JPanel {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         Enumeration enumButtons = btnGroup.getElements();
-        int id=0;
-        int i=1;
-        do{
+        
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
             JRadioButton j = (JRadioButton) enumButtons.nextElement();
             if(j.isSelected())
             {
-                id=i;
+                id=Integer.parseInt(j.getName());
             }
-            i++;
         }
-        while(enumButtons.hasMoreElements()==true);
 
         Usuario u = CUsuario.BuscarPorId(id);
         txtNombre.setText(u.getUsuNombre());
@@ -382,17 +381,14 @@ public class MaestroUsuario extends javax.swing.JPanel {
     private void btnConfirmarEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEdicionActionPerformed
         // TODO add your handling code here:
          Enumeration enumButtons = btnGroup.getElements();
-        int id=0;
-        int i=1;
-        do{
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
             JRadioButton j = (JRadioButton) enumButtons.nextElement();
             if(j.isSelected())
             {
-                id=i;
+                id=Integer.parseInt(j.getName());
             }
-            i++;
         }
-        while(enumButtons.hasMoreElements()==true);
 
         Usuario u = CUsuario.BuscarPorId(id);
         String pass = new String(txtPassword.getPassword());
@@ -408,17 +404,14 @@ public class MaestroUsuario extends javax.swing.JPanel {
     private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
         // TODO add your handling code here:
          Enumeration enumButtons = btnGroup.getElements();
-        int id=0;
-        int i=1;
-        do{
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
             JRadioButton j = (JRadioButton) enumButtons.nextElement();
             if(j.isSelected())
             {
-                id=i;
+                id=Integer.parseInt(j.getName());
             }
-            i++;
         }
-        while(enumButtons.hasMoreElements()==true);
 
         Usuario u = CUsuario.BuscarPorId(id);
         if(u.Habilitado().equals("Si"))

@@ -61,6 +61,7 @@ public class MaestroProveedor extends javax.swing.JPanel {
                     }
                  }
              });
+             btn.setName(Integer.toString(proveedores.get(i).getProIdProveedor()));
             matriz[i][6]= btn;
             btnGroup.add((JRadioButton)matriz[i][6]);
         }
@@ -415,23 +416,20 @@ public class MaestroProveedor extends javax.swing.JPanel {
     private void btnConfirmarEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEdicionActionPerformed
         // TODO add your handling code here:
         Enumeration enumButtons = btnGroup.getElements();
-        int id=0;
-        int i=1;
-        do{
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
             JRadioButton j = (JRadioButton) enumButtons.nextElement();
             if(j.isSelected())
             {
-                id=i;
+                id=Integer.parseInt(j.getName());
             }
-            i++;
         }
-        while(enumButtons.hasMoreElements()==true);
         Proveedor proveedor = cProveedor.BuscarPorId(id);
         
         String nombreProveedor,rut,dvRut,direccion,razonSocial,email;
         int telefono;
         
-        id =cProveedor.CountProveedor();
+        
         nombreProveedor=txtNombre.getText();
         rut = txtRut.getText();
         dvRut= txtDVRut.getText();
@@ -457,17 +455,14 @@ public class MaestroProveedor extends javax.swing.JPanel {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         Enumeration enumButtons = btnGroup.getElements();
-        int id=0;
-        int i=1;
-        do{
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
             JRadioButton j = (JRadioButton) enumButtons.nextElement();
             if(j.isSelected())
             {
-                id=i;
+                id=Integer.parseInt(j.getName());
             }
-            i++;
         }
-        while(enumButtons.hasMoreElements()==true);
 
         Proveedor p = cProveedor.BuscarPorId(id);
         txtNombre.setText(p.getProNombre());

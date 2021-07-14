@@ -65,6 +65,7 @@ public class MaestroCliente extends javax.swing.JPanel {
                     }
                  }
              });
+            btn.setName(Integer.toString(clientes.get(i).getCliIdCliente()));
             matriz[i][5]= btn;
             btnGroup.add((JRadioButton)matriz[i][5]);
         }
@@ -426,17 +427,14 @@ public class MaestroCliente extends javax.swing.JPanel {
     private void BtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditarActionPerformed
         // TODO add your handling code here:
         Enumeration enumButtons = btnGroup.getElements();
-        int id=0;
-        int i=1;
-        do{
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
             JRadioButton j = (JRadioButton) enumButtons.nextElement();
             if(j.isSelected())
             {
-                id=i;
+                id=Integer.parseInt(j.getName());
             }
-            i++;
         }
-        while(enumButtons.hasMoreElements()==true);
 
         Cliente c = CCliente.BuscarPorId(id);
         txtApellido.setText(c.getCliApellido());
@@ -467,15 +465,13 @@ public class MaestroCliente extends javax.swing.JPanel {
 
     private void btnConfirmarEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEdicionActionPerformed
         Enumeration enumButtons = btnGroup.getElements();
-        int id=0;
-        int i=1;
-        do{
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
             JRadioButton j = (JRadioButton) enumButtons.nextElement();
             if(j.isSelected())
             {
-                id=i;
+                id=Integer.parseInt(j.getName());
             }
-            i++;
         }
         while(enumButtons.hasMoreElements()==true);
         Cliente cliente = CCliente.BuscarPorId(id);
