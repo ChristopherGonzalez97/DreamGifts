@@ -6,7 +6,6 @@
 package Controlador;
 
 import Modelo.Articulo;
-import Modelo.CategoriaArticulo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -80,6 +79,21 @@ public class ControladorArticulo {
          emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
          EntityManager em = emf.createEntityManager();
          art =  em.find(Articulo.class, id);
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        return art;
+    }
+    public Articulo BuscarPorNombre(String nombre)
+    {
+        Articulo art = new Articulo();
+        try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         art =  (Articulo) em.createNamedQuery("Articulo.findByArtDescripcion").setParameter("artDescripcion", nombre).getSingleResult();
         }
         catch(Exception e)
         {

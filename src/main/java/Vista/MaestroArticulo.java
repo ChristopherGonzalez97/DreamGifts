@@ -65,7 +65,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
     
     private void LlenarTabla() {
         ArrayList<Articulo> articulos = cArticulo.ListarArticulos();
-        Object matriz[][]= new Object[articulos.size()][8];
+        Object matriz[][]= new Object[articulos.size()][9];
         btnGroup = new ButtonGroup();
         for (int i = 0; i < articulos.size(); i++) {
             matriz[i][0]= articulos.get(i).getArtIdArticulo();
@@ -82,7 +82,8 @@ public class MaestroArticulo extends javax.swing.JPanel {
                 matriz[i][4]="S/N";
             }
             matriz[i][5]=articulos.get(i).getArtMarca();
-            matriz[i][6]=articulos.get(i).Habilitado();
+            matriz[i][6]=articulos.get(i).getArtPrecio();
+            matriz[i][7]=articulos.get(i).Habilitado();
             JRadioButton btn = new JRadioButton();
             btn.setName(Integer.toString(articulos.get(i).getArtIdArticulo()));
             btn.addActionListener(new ActionListener() {
@@ -94,14 +95,14 @@ public class MaestroArticulo extends javax.swing.JPanel {
                     }
                  }
              });
-            matriz[i][7]= btn;
-            btnGroup.add((JRadioButton)matriz[i][7]);
+            matriz[i][8]= btn;
+            btnGroup.add((JRadioButton)matriz[i][8]);
         }
         tblArticulo.setModel(new javax.swing.table.DefaultTableModel(matriz, new String [] {
-                "Código", "Artículo", "Categoría Artículo", "Unidades", "Fecha De Vencimiento", "Marca", "Habilitado", "Acción"})
+                "Código", "Artículo", "Categoría Artículo", "Unidades", "Fecha De Vencimiento", "Marca","Precio", "Habilitado", "Acción"})
            {
                 boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false, false,false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -110,7 +111,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
            });
                 
                 
-        String accion = tblArticulo.getColumnName(7);
+        String accion = tblArticulo.getColumnName(8);
         tblArticulo.getColumn(accion).setCellRenderer(new RadioButtonRenderer());
         tblArticulo.getColumn(accion).setCellEditor(new RadioButtonEditor(new JCheckBox()));
     }
@@ -133,12 +134,15 @@ public class MaestroArticulo extends javax.swing.JPanel {
         txtNombre = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        txtUnidades = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
         txtMarca = new javax.swing.JTextField();
         cbxCategoriaArticulo = new javax.swing.JComboBox<>();
         txtFecha = new com.toedter.calendar.JDateChooser();
         btnConfirmarEdicion = new javax.swing.JButton();
         cbxSinVencimiento = new javax.swing.JCheckBox();
+        jLabel42 = new javax.swing.JLabel();
+        txtUnidades = new javax.swing.JTextField();
+        jLabel47 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblArticulo = new javax.swing.JTable();
@@ -208,6 +212,12 @@ public class MaestroArticulo extends javax.swing.JPanel {
             }
         });
 
+        jLabel42.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel42.setText("Precio");
+
+        jLabel47.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel47.setText("$");
+
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
@@ -216,30 +226,10 @@ public class MaestroArticulo extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel40)
-                    .addComponent(jLabel43)
-                    .addComponent(jLabel44))
+                    .addComponent(jLabel44, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel43, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
-                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel20Layout.createSequentialGroup()
-                                .addComponent(jLabel45)
-                                .addGap(34, 34, 34)
-                                .addComponent(cbxCategoriaArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel20Layout.createSequentialGroup()
-                                .addComponent(jLabel41)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbxSinVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))))
-                        .addGap(65, 65, 65))
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,7 +237,34 @@ public class MaestroArticulo extends javax.swing.JPanel {
                         .addComponent(btnConfirmarEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45))))
+                        .addGap(45, 45, 45))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel45)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbxCategoriaArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel42)
+                                    .addComponent(jLabel41))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbxSinVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel20Layout.createSequentialGroup()
+                                        .addComponent(jLabel47)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(68, 68, 68))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +279,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
                         .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel44)
                             .addComponent(txtUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19))
+                        .addGap(20, 20, 20))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -273,12 +290,16 @@ public class MaestroArticulo extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel41))
                             .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxSinVencimiento)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel43)
                     .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxSinVencimiento))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                    .addComponent(jLabel42)
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel47))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar)
@@ -290,33 +311,33 @@ public class MaestroArticulo extends javax.swing.JPanel {
 
         tblArticulo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Artículo", "Categoría Artículo", "Unidades", "Fecha De Vencimiento", "Marca", "Habilitado", "Acción"
+                "Código", "Artículo", "Categoría Artículo", "Unidades", "Fecha De Vencimiento", "Marca", "Precio", "Habilitado", "Acción"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, true
+                false, false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -421,7 +442,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 543, Short.MAX_VALUE)
+            .addGap(0, 546, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -433,9 +454,10 @@ public class MaestroArticulo extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         String nombre,categoria,marca;
-        int unidades,id;
+        int unidades,id,precio;
         id=cArticulo.CountClientes();
         Date fecha;
+        precio= Integer.parseInt(txtPrecio.getText());
         nombre=txtNombre.getText();
         unidades = Integer.parseInt(txtUnidades.getText());
         marca = txtMarca.getText();
@@ -451,6 +473,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
         }
         articulo.setArtFechaVencimiento(fecha);
         articulo.setArtIdArticulo(id);
+        articulo.setArtPrecio(precio);
         articulo.setArtMarca(marca);
         articulo.setArtStock(unidades);
         articulo.setArtInhabilitado((short)0);
@@ -467,6 +490,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
         txtNombre.setText("");
         txtFecha.setDate(null);
         txtMarca.setText("");
+        txtPrecio.setText("");
         txtUnidades.setText("");
         cbxSinVencimiento.setSelected(false);
         txtFecha.setEnabled(true);
@@ -497,6 +521,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
         }
         txtMarca.setText(articulo.getArtMarca());
         txtUnidades.setText(Integer.toString(articulo.getArtStock()));
+        txtPrecio.setText(Integer.toString(articulo.getArtPrecio()));
         cbxCategoriaArticulo.setSelectedIndex(articulo.getCategoriaArticuloCategoriaArticulo().getCategoriaArticulo()-1);
         btnConfirmarEdicion.setVisible(true);
         btnGuardar.setVisible(false);
@@ -515,10 +540,11 @@ public class MaestroArticulo extends javax.swing.JPanel {
         }
         Articulo articulo = cArticulo.BuscarPorId(id);
         String nombre,categoria,marca;
-        int unidades;
+        int unidades,precio;
         Date fecha;
         nombre=txtNombre.getText();
         unidades = Integer.parseInt(txtUnidades.getText());
+        precio= Integer.parseInt(txtPrecio.getText());
         marca = txtMarca.getText();
         categoria = (String) cbxCategoriaArticulo.getSelectedItem();
         articulo.setArtDescripcion(nombre);
@@ -532,6 +558,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
         articulo.setArtFechaVencimiento(fecha);
         articulo.setArtMarca(marca);
         articulo.setArtStock(unidades);
+        articulo.setArtPrecio(precio);
         articulo.setArtInhabilitado((short)0);
         CategoriaArticulo cat = cCatArticulo.BuscarPorNombre(categoria);
         articulo.setCategoriaArticuloCategoriaArticulo(cat);
@@ -571,7 +598,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         // TODO add your handling code here:
          ArrayList<Articulo> articulos = cArticulo.Busqueda(txtBuscar.getText());
-         Object matriz[][]= new Object[articulos.size()][8];
+         Object matriz[][]= new Object[articulos.size()][9];
         btnGroup = new ButtonGroup();
         for (int i = 0; i < articulos.size(); i++) {
             matriz[i][0]= articulos.get(i).getArtIdArticulo();
@@ -588,7 +615,8 @@ public class MaestroArticulo extends javax.swing.JPanel {
                 matriz[i][4]="S/N";
             }
             matriz[i][5]=articulos.get(i).getArtMarca();
-            matriz[i][6]=articulos.get(i).Habilitado();
+            matriz[i][6]=articulos.get(i).getArtPrecio();
+            matriz[i][7]=articulos.get(i).Habilitado();
             JRadioButton btn = new JRadioButton();
             btn.setName(Integer.toString(articulos.get(i).getArtIdArticulo()));
             btn.addActionListener(new ActionListener() {
@@ -600,14 +628,14 @@ public class MaestroArticulo extends javax.swing.JPanel {
                     }
                  }
              });
-            matriz[i][7]= btn;
-            btnGroup.add((JRadioButton)matriz[i][7]);
+            matriz[i][8]= btn;
+            btnGroup.add((JRadioButton)matriz[i][8]);
         }
         tblArticulo.setModel(new javax.swing.table.DefaultTableModel(matriz, new String [] {
-                "Código", "Artículo", "Categoría Artículo", "Unidades", "Fecha De Vencimiento", "Marca", "Habilitado", "Acción"})
+                "Código", "Artículo", "Categoría Artículo", "Unidades", "Fecha De Vencimiento", "Marca", "Precio", "Habilitado", "Acción"})
            {
                 boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false, false,false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -616,7 +644,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
            });
                 
                 
-        String accion = tblArticulo.getColumnName(7);
+        String accion = tblArticulo.getColumnName(8);
         tblArticulo.getColumn(accion).setCellRenderer(new RadioButtonRenderer());
         tblArticulo.getColumn(accion).setCellEditor(new RadioButtonEditor(new JCheckBox()));
         tblArticulo.repaint();
@@ -634,10 +662,12 @@ public class MaestroArticulo extends javax.swing.JPanel {
     private javax.swing.JCheckBox cbxSinVencimiento;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JScrollPane jScrollPane4;
@@ -646,6 +676,7 @@ public class MaestroArticulo extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser txtFecha;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtUnidades;
     // End of variables declaration//GEN-END:variables
 class RadioButtonRenderer implements TableCellRenderer {

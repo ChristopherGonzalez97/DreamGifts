@@ -5,6 +5,23 @@
  */
 package Vista;
 
+import Controlador.ControladorCategoria;
+import Modelo.CategoriaPack;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+
 /**
  *
  * @author MADICAP
@@ -14,10 +31,15 @@ public class MaestroCategoria extends javax.swing.JPanel {
     /**
      * Creates new form MaestroCategoria
      */
+    ControladorCategoria cCategoria= new ControladorCategoria();
+    ButtonGroup btnGroup;
     public MaestroCategoria() {
         initComponents();
+        LlenarTabla();
+        btnConfirmarEdicion.setVisible(false);
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,14 +52,14 @@ public class MaestroCategoria extends javax.swing.JPanel {
         SubCategoriaV = new javax.swing.JPanel();
         jPanel32 = new javax.swing.JPanel();
         jLabel65 = new javax.swing.JLabel();
-        jButton41 = new javax.swing.JButton();
-        jButton42 = new javax.swing.JButton();
-        jTextField44 = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        txtNombre = new javax.swing.JTextField();
+        btnConfirmarEdicion = new javax.swing.JButton();
         jPanel33 = new javax.swing.JPanel();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTable9 = new javax.swing.JTable();
-        jButton43 = new javax.swing.JButton();
-        jButton44 = new javax.swing.JButton();
+        tblCategoria = new javax.swing.JTable();
+        btnEditar = new javax.swing.JButton();
         jLabel67 = new javax.swing.JLabel();
         jTextField46 = new javax.swing.JTextField();
 
@@ -47,11 +69,29 @@ public class MaestroCategoria extends javax.swing.JPanel {
         jLabel65.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel65.setText("Categorías de pack");
 
-        jButton41.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton41.setText("Guardar");
+        btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
-        jButton42.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton42.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnConfirmarEdicion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnConfirmarEdicion.setText("Confirmar edicion");
+        btnConfirmarEdicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarEdicionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
         jPanel32.setLayout(jPanel32Layout);
@@ -61,29 +101,33 @@ public class MaestroCategoria extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addComponent(jLabel65)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField44, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(200, 200, 200)
-                .addComponent(jButton42, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton41, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74))
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnConfirmarEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel32Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel65)
-                    .addComponent(jTextField44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton42)
-                        .addComponent(jButton41)))
+                        .addComponent(btnCancelar)
+                        .addComponent(btnGuardar)
+                        .addComponent(btnConfirmarEdicion))
+                    .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel65)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel33.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable9.setModel(new javax.swing.table.DefaultTableModel(
+        tblCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -115,24 +159,24 @@ public class MaestroCategoria extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane12.setViewportView(jTable9);
+        jScrollPane12.setViewportView(tblCategoria);
 
-        jButton43.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton43.setText("Desactivar");
-
-        jButton44.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton44.setText("Editar");
+        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
         jPanel33Layout.setHorizontalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 893, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel33Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton44, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton43)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel33Layout.setVerticalGroup(
@@ -140,30 +184,26 @@ public class MaestroCategoria extends javax.swing.JPanel {
             .addGroup(jPanel33Layout.createSequentialGroup()
                 .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton43)
-                    .addComponent(jButton44))
+                .addComponent(btnEditar)
                 .addContainerGap())
         );
 
         jLabel67.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel67.setText("Categorías De Venta Registradas");
+        jLabel67.setText("Categorías de packs");
 
         javax.swing.GroupLayout SubCategoriaVLayout = new javax.swing.GroupLayout(SubCategoriaV);
         SubCategoriaV.setLayout(SubCategoriaVLayout);
         SubCategoriaVLayout.setHorizontalGroup(
             SubCategoriaVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SubCategoriaVLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(SubCategoriaVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(SubCategoriaVLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(SubCategoriaVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 887, Short.MAX_VALUE)
-                            .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(SubCategoriaVLayout.createSequentialGroup()
-                        .addGap(242, 242, 242)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel67)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(119, 119, 119)
                         .addComponent(jTextField46, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -172,11 +212,11 @@ public class MaestroCategoria extends javax.swing.JPanel {
             .addGroup(SubCategoriaVLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(SubCategoriaVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(24, 24, 24)
+                .addGroup(SubCategoriaVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
                 .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -185,7 +225,7 @@ public class MaestroCategoria extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 907, Short.MAX_VALUE)
+            .addGap(0, 913, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -203,20 +243,142 @@ public class MaestroCategoria extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        String nombre;
+        int id;
+        nombre = txtNombre.getText();
+        id=cCategoria.CountCategoriasPack();
+        CategoriaPack cPack = new CategoriaPack();
+        cPack.setIdCATEGORIAPACK(id);
+        cPack.setNombre(nombre);
+        cCategoria.AgregarCategoriaPack(cPack);
+        JOptionPane.showMessageDialog(SubCategoriaV.getParent(),"Categoria registrada","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        txtNombre.setText("");
+        LlenarTabla();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=Integer.parseInt(j.getName());
+            }
+        }
+        CategoriaPack cPack = cCategoria.BuscarPorId(id);
+        txtNombre.setText(cPack.getNombre());
+        btnGuardar.setVisible(false);
+        btnConfirmarEdicion.setVisible(true);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnConfirmarEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEdicionActionPerformed
+        // TODO add your handling code here:
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=Integer.parseInt(j.getName());
+            }
+        }
+        CategoriaPack cPack = cCategoria.BuscarPorId(id);
+        cPack.setNombre(txtNombre.getText());
+        cCategoria.EditarCategoriaPack(cPack);
+        btnGuardar.setVisible(true);
+        btnConfirmarEdicion.setVisible(false);
+        LlenarTabla();
+    }//GEN-LAST:event_btnConfirmarEdicionActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        txtNombre.setText("");
+        btnGuardar.setVisible(true);
+        btnConfirmarEdicion.setVisible(false);
+        LlenarTabla();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SubCategoriaV;
-    private javax.swing.JButton jButton41;
-    private javax.swing.JButton jButton42;
-    private javax.swing.JButton jButton43;
-    private javax.swing.JButton jButton44;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConfirmarEdicion;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel67;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JScrollPane jScrollPane12;
-    private javax.swing.JTable jTable9;
-    private javax.swing.JTextField jTextField44;
     private javax.swing.JTextField jTextField46;
+    private javax.swing.JTable tblCategoria;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    private void LlenarTabla() {
+        ArrayList<CategoriaPack> catPacks = cCategoria.ListarCategorias();
+        Object matriz[][]= new Object[catPacks.size()][3];
+        btnGroup = new ButtonGroup();
+        for (int i = 0; i < catPacks.size(); i++) {
+            matriz[i][0]= catPacks.get(i).getIdCATEGORIAPACK();
+            matriz[i][1]= catPacks.get(i).getNombre();
+            JRadioButton btn = new JRadioButton();
+            btn.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                    if(btn.isSelected())
+                    {
+                        tblCategoria.repaint();
+                    }
+                 }
+             });
+             btn.setName(Integer.toString(catPacks.get(i).getIdCATEGORIAPACK()));
+            matriz[i][2]= btn;
+            btnGroup.add((JRadioButton)matriz[i][2]);
+        }
+        tblCategoria.setModel(new javax.swing.table.DefaultTableModel(matriz,new String [] {"Id", "Nombre de la categoria", "Acciones"})
+           {
+                boolean[] canEdit = new boolean [] {
+                    false, false, true
+                };
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            }        
+           );
+        String accion = tblCategoria.getColumnName(2);
+        tblCategoria.getColumn(accion).setCellRenderer(new RadioButtonRenderer());
+        tblCategoria.getColumn(accion).setCellEditor(new RadioButtonEditor(new JCheckBox()));
+        
+    }
+    
+    class RadioButtonRenderer implements TableCellRenderer {
+   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,        boolean hasFocus, int row, int column) {
+      if (value==null) return null;
+         return (Component)value;
+   }
+}
+class RadioButtonEditor extends DefaultCellEditor implements ItemListener {
+   private JRadioButton button;
+   public RadioButtonEditor(JCheckBox checkBox) {
+      super(checkBox);
+   }
+   public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+      if (value==null) return null;
+      button = (JRadioButton)value;
+      button.addItemListener(this);
+      return (Component)value;
+   }
+   public Object getCellEditorValue() {
+      button.removeItemListener(this);
+      return button;
+   }
+   public void itemStateChanged(ItemEvent e) {
+      super.fireEditingStopped();
+   }
+}
 }

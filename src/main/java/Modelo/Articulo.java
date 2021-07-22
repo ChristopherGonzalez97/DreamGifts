@@ -35,9 +35,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Articulo.findByArtFechaVencimiento", query = "SELECT a FROM Articulo a WHERE a.artFechaVencimiento = :artFechaVencimiento"),
     @NamedQuery(name = "Articulo.findByArtMarca", query = "SELECT a FROM Articulo a WHERE a.artMarca = :artMarca"),
     @NamedQuery(name = "Articulo.findByArtInhabilitado", query = "SELECT a FROM Articulo a WHERE a.artInhabilitado = :artInhabilitado"),
-    @NamedQuery(name = "Articulo.buscador", query = "SELECT a FROM Articulo a WHERE a.artDescripcion LIKE :buscar")})
+    @NamedQuery(name = "Articulo.buscador", query = "SELECT a FROM Articulo a WHERE a.artDescripcion LIKE :buscar"),
+    @NamedQuery(name = "Articulo.findByArtPrecio", query = "SELECT a FROM Articulo a WHERE a.artPrecio = :artPrecio")})
 public class Articulo implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -65,6 +66,10 @@ public class Articulo implements Serializable {
     @NotNull
     @Column(name = "ART_INHABILITADO")
     private short artInhabilitado;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ART_PRECIO")
+    private int artPrecio;
     @JoinColumn(name = "CATEGORIA_ARTICULO_CATEGORIA_ARTICULO", referencedColumnName = "CATEGORIA_ARTICULO")
     @ManyToOne(optional = false)
     private CategoriaArticulo categoriaArticuloCategoriaArticulo;
@@ -76,12 +81,13 @@ public class Articulo implements Serializable {
         this.artIdArticulo = artIdArticulo;
     }
 
-    public Articulo(Integer artIdArticulo, String artDescripcion, int artStock, String artMarca, short artInhabilitado) {
+    public Articulo(Integer artIdArticulo, String artDescripcion, int artStock, String artMarca, short artInhabilitado, int artPrecio) {
         this.artIdArticulo = artIdArticulo;
         this.artDescripcion = artDescripcion;
         this.artStock = artStock;
         this.artMarca = artMarca;
         this.artInhabilitado = artInhabilitado;
+        this.artPrecio = artPrecio;
     }
 
     public Integer getArtIdArticulo() {
@@ -96,17 +102,6 @@ public class Articulo implements Serializable {
         return artDescripcion;
     }
 
-    public String Habilitado()
-    {
-        boolean myBoolean = false;
-        if(getArtInhabilitado()==Short.valueOf("0"))
-        {
-            myBoolean=true;
-        }
-        String result = myBoolean ? "Si" : "No";
-        return result;
-    }
-    
     public void setArtDescripcion(String artDescripcion) {
         this.artDescripcion = artDescripcion;
     }
@@ -118,7 +113,17 @@ public class Articulo implements Serializable {
     public void setArtStock(int artStock) {
         this.artStock = artStock;
     }
-
+      public String Habilitado()
+    {
+        boolean myBoolean = false;
+        if(getArtInhabilitado()==Short.valueOf("0"))
+        {
+            myBoolean=true;
+        }
+        String result = myBoolean ? "Si" : "No";
+        return result;
+    }
+    
     public Date getArtFechaVencimiento() {
         return artFechaVencimiento;
     }
@@ -141,6 +146,14 @@ public class Articulo implements Serializable {
 
     public void setArtInhabilitado(short artInhabilitado) {
         this.artInhabilitado = artInhabilitado;
+    }
+
+    public int getArtPrecio() {
+        return artPrecio;
+    }
+
+    public void setArtPrecio(int artPrecio) {
+        this.artPrecio = artPrecio;
     }
 
     public CategoriaArticulo getCategoriaArticuloCategoriaArticulo() {
