@@ -11,9 +11,23 @@ import Controlador.ControladorPack;
 import Modelo.Articulo;
 import Modelo.CategoriaPack;
 import Modelo.DetallePack;
+import Modelo.Pack;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -29,12 +43,54 @@ public class MaestroPack extends javax.swing.JPanel {
     private ControladorArticulo cArticulo = new ControladorArticulo();
     private ArrayList<Articulo> articulos = cArticulo.ListarArticulos();
     private ArrayList<DetallePack> articulosLista = new ArrayList();
+    private ButtonGroup btnGroup;
     public MaestroPack() {
         initComponents();
         LlenarComboBox();
         LlenarLista();
+        LlenarTabla();
     }
     
+    public void LlenarTabla(){
+        ArrayList<Pack> packs = cPack.ListarPacks();
+        Object matriz[][]= new Object[packs.size()][7];
+        btnGroup = new ButtonGroup();
+        for (int i = 0; i < packs.size(); i++) {
+           
+            matriz[i][0]=packs.get(i).getPckIdPack();
+            matriz[i][1]=packs.get(i).getPckNombre();
+            matriz[i][2]=packs.get(i).getPckStock();
+            matriz[i][3]=packs.get(i).getPckCosto();
+            matriz[i][4]=packs.get(i).getCATEGORIAPACKidCATEGORIAPACK().getNombre();
+            matriz[i][5]=packs.get(i).Habilitado();
+            JRadioButton btn = new JRadioButton();
+            btn.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                    if(btn.isSelected())
+                    {
+                        tblPacks.repaint();
+                    }
+                 }
+             });
+            btn.setName(Integer.toString(packs.get(i).getPckIdPack()));
+            matriz[i][6]= btn;
+            btnGroup.add((JRadioButton)matriz[i][6]);
+        }
+        tblPacks.setModel(new javax.swing.table.DefaultTableModel(matriz,new String [] { "Código Pack", "Nombre Pack", "Stock", "Precio", "Categoria", "Habilitado", "Acción"})
+           {
+                 boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true
+                };
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            }        
+           );
+        String accion = tblPacks.getColumnName(6);
+        tblPacks.getColumn(accion).setCellRenderer(new RadioButtonRenderer());
+        tblPacks.getColumn(accion).setCellEditor(new RadioButtonEditor(new JCheckBox()));
+    }
     
     public void LlenarLista()
     {
@@ -69,7 +125,7 @@ public class MaestroPack extends javax.swing.JPanel {
         jPanel22 = new javax.swing.JPanel();
         jLabel48 = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
-        jButton19 = new javax.swing.JButton();
+        btnCrearPack = new javax.swing.JButton();
         jButton20 = new javax.swing.JButton();
         jTextField28 = new javax.swing.JTextField();
         lblPrecioEstimado = new javax.swing.JLabel();
@@ -83,9 +139,9 @@ public class MaestroPack extends javax.swing.JPanel {
         tblAddArticulos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        txtNombre1 = new javax.swing.JTextField();
+        txtStock = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtNombre2 = new javax.swing.JTextField();
+        txtValor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cbxCategoria = new javax.swing.JComboBox<>();
@@ -93,8 +149,8 @@ public class MaestroPack extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jPanel23 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
-        jButton23 = new javax.swing.JButton();
+        tblPacks = new javax.swing.JTable();
+        btnDesactivar = new javax.swing.JButton();
         jButton24 = new javax.swing.JButton();
         jLabel51 = new javax.swing.JLabel();
         jTextField33 = new javax.swing.JTextField();
@@ -108,8 +164,13 @@ public class MaestroPack extends javax.swing.JPanel {
         jLabel53.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel53.setText("Precio Pack");
 
-        jButton19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton19.setText("Crear Pack");
+        btnCrearPack.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCrearPack.setText("Crear Pack");
+        btnCrearPack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearPackActionPerformed(evt);
+            }
+        });
 
         jButton20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton20.setText("Confirmar edicion");
@@ -187,12 +248,12 @@ public class MaestroPack extends javax.swing.JPanel {
                         .addComponent(lblPrecioEstimado)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 255, Short.MAX_VALUE)
                         .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCrearPack, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43))))
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,7 +279,7 @@ public class MaestroPack extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(68, 68, 68)
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel22Layout.createSequentialGroup()
@@ -228,8 +289,8 @@ public class MaestroPack extends javax.swing.JPanel {
                             .addGroup(jPanel22Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,64 +317,69 @@ public class MaestroPack extends javax.swing.JPanel {
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(cbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton19)
+                    .addComponent(btnCrearPack)
                     .addComponent(jButton20)
                     .addComponent(jButton25))
-                .addGap(27, 27, 27))
+                .addContainerGap())
         );
 
         jPanel23.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tblPacks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código Pack", "Nombre Pack", "Stock", "Acción"
+                "Código Pack", "Nombre Pack", "Stock", "Precio", "Categoria", "Habilitado", "Acción"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTable4);
+        jScrollPane5.setViewportView(tblPacks);
 
-        jButton23.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton23.setText("Desactivar");
+        btnDesactivar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnDesactivar.setText("Desactivar");
+        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesactivarActionPerformed(evt);
+            }
+        });
 
         jButton24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton24.setText("Editar");
@@ -327,7 +393,7 @@ public class MaestroPack extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton23)
+                .addComponent(btnDesactivar)
                 .addContainerGap())
         );
         jPanel23Layout.setVerticalGroup(
@@ -336,7 +402,7 @@ public class MaestroPack extends javax.swing.JPanel {
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton23)
+                    .addComponent(btnDesactivar)
                     .addComponent(jButton24))
                 .addContainerGap())
         );
@@ -388,7 +454,7 @@ public class MaestroPack extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 592, Short.MAX_VALUE)
+            .addGap(0, 639, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -448,16 +514,61 @@ public class MaestroPack extends javax.swing.JPanel {
         lblPrecioEstimado.setText(Integer.toString(precio));
     }//GEN-LAST:event_btnMenosActionPerformed
 
+    private void btnCrearPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPackActionPerformed
+       String nombre;
+       int valor,stock;
+       String nombreCategoria = cbxCategoria.getSelectedItem().toString();
+       CategoriaPack catPack = cCategoria.BuscarPorNombre(nombreCategoria);
+       nombre= txtNombre.getText();
+       valor = Integer.parseInt(txtValor.getText());
+       stock = Integer.parseInt(txtStock.getText());
+       Pack pack = new Pack();
+       pack.setPckIdPack(cPack.CountPack());
+       pack.setPckNombre(nombre);
+       pack.setPckCosto(valor);
+       pack.setPckStock(stock);
+       pack.setDetallePackList(articulosLista);
+       pack.setPckInhabilitado((Short.parseShort("0")));
+       pack.setCATEGORIAPACKidCATEGORIAPACK(catPack);
+       cPack.AgregarPack(pack);
+       LlenarTabla();
+    }//GEN-LAST:event_btnCrearPackActionPerformed
+
+    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
+        // TODO add your handling code here:
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=Integer.parseInt(j.getName());
+            }
+        }
+        Pack pack = cPack.BuscarPorID(id);
+        if(pack.Habilitado().equals("Si"))
+        {
+            pack.setPckInhabilitado(Short.parseShort("1"));
+            JOptionPane.showMessageDialog(SubPacks.getParent(),"Usuario desactivado","Aviso",JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            pack.setPckInhabilitado(Short.parseShort("0"));
+            JOptionPane.showMessageDialog(SubPacks.getParent(),"Usuario activado","Aviso",JOptionPane.WARNING_MESSAGE);
+        }
+        cPack.EditarPack(pack);
+        LlenarTabla();
+    }//GEN-LAST:event_btnDesactivarActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SubPacks;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnCrearPack;
+    private javax.swing.JButton btnDesactivar;
     private javax.swing.JButton btnMenos;
     private javax.swing.JComboBox<String> cbxCategoria;
-    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton25;
     private javax.swing.JLabel jLabel1;
@@ -474,16 +585,16 @@ public class MaestroPack extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField28;
     private javax.swing.JTextField jTextField33;
     private javax.swing.JLabel lblPrecioEstimado;
     private javax.swing.JList<String> lstArticulos;
     private javax.swing.JTable tblAddArticulos;
+    private javax.swing.JTable tblPacks;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNombre1;
-    private javax.swing.JTextField txtNombre2;
+    private javax.swing.JTextField txtStock;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 
     private void LlenarListaNuevoPack() {
@@ -504,4 +615,31 @@ public class MaestroPack extends javax.swing.JPanel {
             }        
            });
     }
+    
+  class RadioButtonRenderer implements TableCellRenderer {
+   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,        boolean hasFocus, int row, int column) {
+      if (value==null) return null;
+         return (Component)value;
+   }
+}
+class RadioButtonEditor extends DefaultCellEditor implements ItemListener {
+   private JRadioButton button;
+   public RadioButtonEditor(JCheckBox checkBox) {
+      super(checkBox);
+   }
+   public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+      if (value==null) return null;
+      button = (JRadioButton)value;
+      button.addItemListener(this);
+      return (Component)value;
+   }
+   public Object getCellEditorValue() {
+      button.removeItemListener(this);
+      return button;
+   }
+   public void itemStateChanged(ItemEvent e) {
+      super.fireEditingStopped();
+   }
+}
+     
 }

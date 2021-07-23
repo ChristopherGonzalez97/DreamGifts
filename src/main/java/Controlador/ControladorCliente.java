@@ -52,7 +52,6 @@ public class ControladorCliente {
     }
     public ArrayList<Cliente> ListaClientes()
     {
-        
         ArrayList<Cliente> listaClientes = new ArrayList();
         try{
          EntityManagerFactory emf;

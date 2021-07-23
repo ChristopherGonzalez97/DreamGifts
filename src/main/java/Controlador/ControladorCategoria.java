@@ -99,4 +99,22 @@ public class ControladorCategoria {
         }
         return cPack;
     }
+    
+    public CategoriaPack BuscarPorNombre(String nombre)
+    {
+        CategoriaPack categoria = new CategoriaPack();
+        
+         try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         categoria = (CategoriaPack) em.createNamedQuery("CategoriaPack.findByNombre").setParameter("nombre", nombre).getSingleResult();
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        
+        return categoria;
+    }
 }

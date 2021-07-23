@@ -49,9 +49,8 @@ public class Pack implements Serializable {
     private String pckNombre;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
     @Column(name = "PCK_COSTO")
-    private String pckCosto;
+    private int pckCosto;
     @Basic(optional = false)
     @NotNull
     @Column(name = "PCK_STOCK")
@@ -75,7 +74,7 @@ public class Pack implements Serializable {
         this.pckIdPack = pckIdPack;
     }
 
-    public Pack(Integer pckIdPack, String pckNombre, String pckCosto, int pckStock, short pckInhabilitado) {
+    public Pack(Integer pckIdPack, String pckNombre, int pckCosto, int pckStock, short pckInhabilitado) {
         this.pckIdPack = pckIdPack;
         this.pckNombre = pckNombre;
         this.pckCosto = pckCosto;
@@ -99,11 +98,11 @@ public class Pack implements Serializable {
         this.pckNombre = pckNombre;
     }
 
-    public String getPckCosto() {
+    public int getPckCosto() {
         return pckCosto;
     }
 
-    public void setPckCosto(String pckCosto) {
+    public void setPckCosto(int pckCosto) {
         this.pckCosto = pckCosto;
     }
 
@@ -146,7 +145,16 @@ public class Pack implements Serializable {
     public void setDetallePackList(List<DetallePack> detallePackList) {
         this.detallePackList = detallePackList;
     }
-
+    public String Habilitado()
+    {
+        boolean myBoolean = false;
+        if(getPckInhabilitado()==Short.valueOf("0"))
+        {
+            myBoolean=true;
+        }
+        String result = myBoolean ? "Si" : "No";
+        return result;
+    }
     @Override
     public int hashCode() {
         int hash = 0;
