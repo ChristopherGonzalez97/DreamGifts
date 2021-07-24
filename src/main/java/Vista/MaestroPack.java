@@ -48,6 +48,7 @@ public class MaestroPack extends javax.swing.JPanel {
         initComponents();
         LlenarComboBox();
         LlenarLista();
+        btnConfirmarEdicion.setVisible(false);
         LlenarTabla();
     }
     
@@ -126,8 +127,8 @@ public class MaestroPack extends javax.swing.JPanel {
         jLabel48 = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
         btnCrearPack = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
-        jTextField28 = new javax.swing.JTextField();
+        btnConfirmarEdicion = new javax.swing.JButton();
+        txtBuscarArticulo = new javax.swing.JTextField();
         lblPrecioEstimado = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         lstArticulos = new javax.swing.JList<>();
@@ -145,15 +146,15 @@ public class MaestroPack extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cbxCategoria = new javax.swing.JComboBox<>();
-        jButton25 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jPanel23 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblPacks = new javax.swing.JTable();
         btnDesactivar = new javax.swing.JButton();
-        jButton24 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jLabel51 = new javax.swing.JLabel();
-        jTextField33 = new javax.swing.JTextField();
+        BuscarPack = new javax.swing.JTextField();
 
         jPanel22.setBackground(new java.awt.Color(255, 255, 255));
         jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Packs"));
@@ -172,8 +173,13 @@ public class MaestroPack extends javax.swing.JPanel {
             }
         });
 
-        jButton20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton20.setText("Confirmar edicion");
+        btnConfirmarEdicion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnConfirmarEdicion.setText("Confirmar edicion");
+        btnConfirmarEdicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarEdicionActionPerformed(evt);
+            }
+        });
 
         lblPrecioEstimado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblPrecioEstimado.setText("0");
@@ -224,8 +230,13 @@ public class MaestroPack extends javax.swing.JPanel {
 
         cbxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton25.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("$");
 
@@ -239,7 +250,7 @@ public class MaestroPack extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel22Layout.createSequentialGroup()
-                        .addComponent(jTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscarArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(177, 177, 177)
                         .addComponent(jLabel53)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -249,9 +260,9 @@ public class MaestroPack extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
                         .addGap(0, 255, Short.MAX_VALUE)
-                        .addComponent(jButton25, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton20, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnConfirmarEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCrearPack, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43))))
@@ -299,7 +310,7 @@ public class MaestroPack extends javax.swing.JPanel {
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel48)
                     .addComponent(jLabel53)
-                    .addComponent(jTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPrecioEstimado)
                     .addComponent(jLabel5))
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,8 +343,8 @@ public class MaestroPack extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCrearPack)
-                    .addComponent(jButton20)
-                    .addComponent(jButton25))
+                    .addComponent(btnConfirmarEdicion)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -374,25 +385,30 @@ public class MaestroPack extends javax.swing.JPanel {
         jScrollPane5.setViewportView(tblPacks);
 
         btnDesactivar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnDesactivar.setText("Desactivar");
+        btnDesactivar.setText("Activar/Desactivar");
         btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDesactivarActionPerformed(evt);
             }
         });
 
-        jButton24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton24.setText("Editar");
+        btnEditar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton24, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDesactivar)
                 .addContainerGap())
         );
@@ -403,12 +419,18 @@ public class MaestroPack extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDesactivar)
-                    .addComponent(jButton24))
+                    .addComponent(btnEditar))
                 .addContainerGap())
         );
 
         jLabel51.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel51.setText("Tabla Packs");
+
+        BuscarPack.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                BuscarPackKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout SubPacksLayout = new javax.swing.GroupLayout(SubPacks);
         SubPacks.setLayout(SubPacksLayout);
@@ -425,7 +447,7 @@ public class MaestroPack extends javax.swing.JPanel {
                         .addGap(384, 384, 384)
                         .addComponent(jLabel51)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                        .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(BuscarPack, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         SubPacksLayout.setVerticalGroup(
@@ -436,7 +458,7 @@ public class MaestroPack extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(SubPacksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel51)
-                    .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BuscarPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -478,7 +500,7 @@ public class MaestroPack extends javax.swing.JPanel {
                 int precio = dPack.getArticulo().getArtPrecio()*Integer.parseInt(txtCantidad.getText());
                 precio = Integer.parseInt(lblPrecioEstimado.getText())+precio;
                 lblPrecioEstimado.setText(Integer.toString(precio));
-               articuloMenos=art;
+                articuloMenos=art;
             }
         }
          articulos.remove(articuloMenos);
@@ -531,6 +553,7 @@ public class MaestroPack extends javax.swing.JPanel {
        pack.setPckInhabilitado((Short.parseShort("0")));
        pack.setCATEGORIAPACKidCATEGORIAPACK(catPack);
        cPack.AgregarPack(pack);
+       JOptionPane.showMessageDialog(SubPacks.getParent(),"Pack creado correctamente","Aviso",JOptionPane.WARNING_MESSAGE);
        LlenarTabla();
     }//GEN-LAST:event_btnCrearPackActionPerformed
 
@@ -549,28 +572,163 @@ public class MaestroPack extends javax.swing.JPanel {
         if(pack.Habilitado().equals("Si"))
         {
             pack.setPckInhabilitado(Short.parseShort("1"));
-            JOptionPane.showMessageDialog(SubPacks.getParent(),"Usuario desactivado","Aviso",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(SubPacks.getParent(),"Pack desactivado","Aviso",JOptionPane.WARNING_MESSAGE);
         }
         else{
             pack.setPckInhabilitado(Short.parseShort("0"));
-            JOptionPane.showMessageDialog(SubPacks.getParent(),"Usuario activado","Aviso",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(SubPacks.getParent(),"Pack activado","Aviso",JOptionPane.WARNING_MESSAGE);
         }
         cPack.EditarPack(pack);
         LlenarTabla();
     }//GEN-LAST:event_btnDesactivarActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=Integer.parseInt(j.getName());
+            }
+        }
+        Pack pack = cPack.BuscarPorID(id);
+        txtNombre.setText(pack.getPckNombre());
+        txtStock.setText(Integer.toString(pack.getPckStock()));
+        txtValor.setText(Integer.toString(pack.getPckCosto()));
+        
+        DefaultComboBoxModel dml= (DefaultComboBoxModel) cbxCategoria.getModel();
+        for (int i = 0; i < dml.getSize(); i++) {
+            if(pack.getCATEGORIAPACKidCATEGORIAPACK().getNombre().equalsIgnoreCase(dml.getElementAt(i).toString()))
+            {
+                cbxCategoria.setSelectedIndex(i);
+            }
+        }
+        articulosLista = new ArrayList();
+        int precio=0;
+        for(DetallePack dp: pack.getDetallePackList())
+        {
+            precio = precio + (dp.getCantidad()*dp.getArticulo().getArtPrecio());
+            articulosLista.add(dp);
+            articulos.remove(dp.getArticulo());
+        }
+        lblPrecioEstimado.setText(Integer.toString(precio));
+        LlenarListaNuevoPack();
+        LlenarLista();
+        btnConfirmarEdicion.setVisible(true);
+        btnCrearPack.setVisible(false);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        articulos = cArticulo.ListarArticulos();
+        articulosLista = new ArrayList();
+        LlenarLista();
+        LlenarListaNuevoPack();
+        LlenarTabla();
+        btnConfirmarEdicion.setVisible(false);
+        btnCrearPack.setVisible(true);
+        txtCantidad.setText("");
+        txtNombre.setText("");
+        txtStock.setText("");
+        txtValor.setText("");
+        lblPrecioEstimado.setText("0");
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnConfirmarEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarEdicionActionPerformed
+        // TODO add your handling code here:
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=Integer.parseInt(j.getName());
+            }
+        }
+        Pack pack = cPack.BuscarPorID(id);
+        
+        
+        
+       String nombre;
+       int valor,stock;
+       String nombreCategoria = cbxCategoria.getSelectedItem().toString();
+       CategoriaPack catPack = cCategoria.BuscarPorNombre(nombreCategoria);
+       nombre= txtNombre.getText();
+       valor = Integer.parseInt(txtValor.getText());
+       stock = Integer.parseInt(txtStock.getText());
+       
+       
+       pack.setPckNombre(nombre);
+       pack.setPckCosto(valor);
+       pack.setPckStock(stock);
+       pack.setDetallePackList(articulosLista);
+       pack.setCATEGORIAPACKidCATEGORIAPACK(catPack);
+       
+       cPack.EditarPack(pack);
+                   
+       JOptionPane.showMessageDialog(SubPacks.getParent(),"Pack modificado correctamente","Aviso",JOptionPane.WARNING_MESSAGE);
+       LlenarTabla();
+        btnCancelarActionPerformed(evt);
+    }//GEN-LAST:event_btnConfirmarEdicionActionPerformed
+
+    private void BuscarPackKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BuscarPackKeyReleased
+        // TODO add your handling code here:
+        ArrayList<Pack> packs = cPack.Busqueda(BuscarPack.getText());
+        Object matriz[][]= new Object[packs.size()][7];
+        btnGroup = new ButtonGroup();
+        for (int i = 0; i < packs.size(); i++) {
+           
+            matriz[i][0]=packs.get(i).getPckIdPack();
+            matriz[i][1]=packs.get(i).getPckNombre();
+            matriz[i][2]=packs.get(i).getPckStock();
+            matriz[i][3]=packs.get(i).getPckCosto();
+            matriz[i][4]=packs.get(i).getCATEGORIAPACKidCATEGORIAPACK().getNombre();
+            matriz[i][5]=packs.get(i).Habilitado();
+            JRadioButton btn = new JRadioButton();
+            btn.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                    if(btn.isSelected())
+                    {
+                        tblPacks.repaint();
+                    }
+                 }
+             });
+            btn.setName(Integer.toString(packs.get(i).getPckIdPack()));
+            matriz[i][6]= btn;
+            btnGroup.add((JRadioButton)matriz[i][6]);
+        }
+        tblPacks.setModel(new javax.swing.table.DefaultTableModel(matriz,new String [] { "Código Pack", "Nombre Pack", "Stock", "Precio", "Categoria", "Habilitado", "Acción"})
+           {
+                 boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true
+                };
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            }        
+           );
+        String accion = tblPacks.getColumnName(6);
+        tblPacks.getColumn(accion).setCellRenderer(new RadioButtonRenderer());
+        tblPacks.getColumn(accion).setCellEditor(new RadioButtonEditor(new JCheckBox()));
+        tblPacks.repaint();
+    }//GEN-LAST:event_BuscarPackKeyReleased
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField BuscarPack;
     private javax.swing.JPanel SubPacks;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConfirmarEdicion;
     private javax.swing.JButton btnCrearPack;
     private javax.swing.JButton btnDesactivar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnMenos;
     private javax.swing.JComboBox<String> cbxCategoria;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton24;
-    private javax.swing.JButton jButton25;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -585,12 +743,11 @@ public class MaestroPack extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTextField jTextField28;
-    private javax.swing.JTextField jTextField33;
     private javax.swing.JLabel lblPrecioEstimado;
     private javax.swing.JList<String> lstArticulos;
     private javax.swing.JTable tblAddArticulos;
     private javax.swing.JTable tblPacks;
+    private javax.swing.JTextField txtBuscarArticulo;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtStock;

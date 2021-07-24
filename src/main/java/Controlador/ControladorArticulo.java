@@ -119,8 +119,8 @@ public class ControladorArticulo {
     public ArrayList<Articulo> Busqueda(String buscar)
     {
          ArrayList<Articulo> listaArticulo = new ArrayList();
-        try{
-        EntityManagerFactory emf;
+         try{
+         EntityManagerFactory emf;
          emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
          EntityManager em = emf.createEntityManager();
          buscar = buscar+"%";
@@ -134,7 +134,6 @@ public class ControladorArticulo {
         {
             e.getMessage();
         }
-        
         return listaArticulo;
     }
 }

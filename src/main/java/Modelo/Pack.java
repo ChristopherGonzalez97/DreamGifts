@@ -32,6 +32,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Pack.findByPckIdPack", query = "SELECT p FROM Pack p WHERE p.pckIdPack = :pckIdPack"),
     @NamedQuery(name = "Pack.findByPckNombre", query = "SELECT p FROM Pack p WHERE p.pckNombre = :pckNombre"),
     @NamedQuery(name = "Pack.findByPckCosto", query = "SELECT p FROM Pack p WHERE p.pckCosto = :pckCosto"),
+    @NamedQuery(name = "Pack.buscador", query = "SELECT p FROM Pack p WHERE p.pckNombre LIKE :buscar"),
     @NamedQuery(name = "Pack.findByPckStock", query = "SELECT p FROM Pack p WHERE p.pckStock = :pckStock"),
     @NamedQuery(name = "Pack.findByPckInhabilitado", query = "SELECT p FROM Pack p WHERE p.pckInhabilitado = :pckInhabilitado")})
 public class Pack implements Serializable {

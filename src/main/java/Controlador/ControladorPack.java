@@ -103,13 +103,70 @@ public class ControladorPack {
          emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
          EntityManager em = emf.createEntityManager();
          em.getTransaction().begin();
-         em.merge(pack);
-         em.getTransaction().commit();
+         List<DetallePack> det = new ArrayList();
+         Pack pc = em.find(Pack.class, pack.getPckIdPack());
+         for(DetallePack dpck:pack.getDetallePackList())
+        {   
+            DetallePackPK detallePackPK = new DetallePackPK();
+            detallePackPK.setArtIdArticulo(dpck.getArticulo().getArtIdArticulo());
+            detallePackPK.setPckIdPack(pack.getPckIdPack());
+            dpck.setDetallePackPK(detallePackPK);
+            det.add(dpck);
+        }
+         ArrayList<DetallePack> byDP = new ArrayList();
+         List<DetallePack> byDPRecorrido = pc.getDetallePackList();
+        for(DetallePack p:byDPRecorrido)
+        {
+            for(DetallePack d:det)
+            {
+                if(p.getArticulo().getArtIdArticulo()==d.getArticulo().getArtIdArticulo())
+                {
+                    byDP.add(d);
+                }
+            }
+        }
+        for(DetallePack m:det)
+        {
+            byDPRecorrido.remove(m);
+        }
+        
+          pack.setDetallePackList(det);
+          em.merge(pack);
+          
+         for(DetallePack m:byDPRecorrido)
+         {
+             if (!em.contains(m)) {
+                m = em.merge(m);
+            }
+             em.remove(m);
+             em.remove(m);
+         }
+          em.getTransaction().commit();
         }
         catch(Exception e)
         {
             e.getMessage();
         }
         
+    }
+    public ArrayList<Pack> Busqueda(String buscar)
+    {
+         ArrayList<Pack> listaPack = new ArrayList();
+         try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         buscar = buscar+"%";
+         List<Pack> articulos = em.createNamedQuery("Pack.buscador").setParameter("buscar", buscar).getResultList();
+         for(Pack art : articulos)
+         {
+             listaPack.add(art);
+         }
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        return listaPack;
     }
 }
