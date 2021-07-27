@@ -169,4 +169,27 @@ public class ControladorPack {
         }
         return listaPack;
     }
+    
+    public ArrayList<Pack> ListarPacksDisponibles()
+    {
+        ArrayList<Pack> listaPacks = new ArrayList();
+        try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         List<Pack> packs = em.createNamedQuery("Pack.findAll").getResultList();
+         for(Pack pack : packs)
+         {
+             if(!pack.Habilitado().equals("No"))
+             {
+                 listaPacks.add(pack);
+             }
+         }
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        return listaPacks;
+    }
 }

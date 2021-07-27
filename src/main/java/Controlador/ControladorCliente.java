@@ -84,7 +84,21 @@ public class ControladorCliente {
         }
         return cli;
     }
-    
+      public Cliente BuscarPorRut(String rut)
+    {
+        Cliente cli = new Cliente();
+         try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         cli =  (Cliente) em.createNamedQuery("Cliente.findByCliRut").setParameter("cliRut",rut).getSingleResult();
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        return cli;
+    }
     public void EditarCliente(Cliente c)
     {
         try{
