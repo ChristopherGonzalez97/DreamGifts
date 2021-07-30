@@ -31,9 +31,9 @@ public class Cliente extends javax.swing.JFrame {
         Compras = new javax.swing.JPanel();
         Maestros1 = new javax.swing.JPanel();
         PestanaMaestros1 = new javax.swing.JTabbedPane();
-        comprasSolicitudes1 = new Vista.ComprasSolicitudes();
         comprasRevisionFactura1 = new Vista.ComprasRevisionFactura();
         comprasRegistroCompras1 = new Vista.ComprasRegistroCompras();
+        comprasSolicitudes1 = new Vista.ComprasSolicitudes();
         jLabel131 = new javax.swing.JLabel();
         Informes = new javax.swing.JPanel();
         PestanaMaestros2 = new javax.swing.JTabbedPane();
@@ -63,14 +63,20 @@ public class Cliente extends javax.swing.JFrame {
         jLabel50 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         ventasVenta1 = new Vista.VentasVenta();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        ventasConfirmacion1 = new Vista.VentasConfirmacion();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        ventasListaDestinos1 = new Vista.VentasListaDestinos();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         PestanaMaestros1.setMinimumSize(new java.awt.Dimension(128, 60));
         PestanaMaestros1.setPreferredSize(new java.awt.Dimension(912, 590));
-        PestanaMaestros1.addTab("Solicitudes de pedidos", comprasSolicitudes1);
         PestanaMaestros1.addTab("Revision de facturas", comprasRevisionFactura1);
         PestanaMaestros1.addTab("Registro de compras", comprasRegistroCompras1);
+        PestanaMaestros1.addTab("Solicitudes de pedidos", comprasSolicitudes1);
 
         jLabel131.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel131.setText("DREAM GIFTS");
@@ -211,7 +217,37 @@ public class Cliente extends javax.swing.JFrame {
         jLabel50.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel50.setText("DREAM GIFTS");
 
-        jTabbedPane1.addTab("tab1", ventasVenta1);
+        jTabbedPane1.addTab("Nueva venta", ventasVenta1);
+
+        jScrollPane5.setViewportView(ventasConfirmacion1);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1106, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Confirmar pago", jPanel1);
+
+        jScrollPane6.setViewportView(ventasListaDestinos1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1106, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Ventas a despachar", jPanel2);
 
         javax.swing.GroupLayout VentaLayout = new javax.swing.GroupLayout(Venta);
         Venta.setLayout(VentaLayout);
@@ -223,7 +259,7 @@ public class Cliente extends javax.swing.JFrame {
                     .addComponent(jTabbedPane1)
                     .addGroup(VentaLayout.createSequentialGroup()
                         .addComponent(jLabel50)
-                        .addGap(0, 887, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         VentaLayout.setVerticalGroup(
@@ -232,8 +268,7 @@ public class Cliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel50)
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1))
         );
 
         Principal.addTab("Ventas", Venta);
@@ -308,10 +343,14 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel50;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private Vista.MaestroArticulo maestroArticulo2;
     private Vista.MaestroBanco maestroBanco1;
@@ -323,6 +362,8 @@ public class Cliente extends javax.swing.JFrame {
     private Vista.MaestroProveedor maestroProveedor1;
     private Vista.MaestroRRSS maestroRRSS1;
     private Vista.MaestroUsuario maestroUsuario1;
+    private Vista.VentasConfirmacion ventasConfirmacion1;
+    private Vista.VentasListaDestinos ventasListaDestinos1;
     private Vista.VentasVenta ventasVenta1;
     // End of variables declaration//GEN-END:variables
 }

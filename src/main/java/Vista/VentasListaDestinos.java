@@ -5,6 +5,17 @@
  */
 package Vista;
 
+import Controlador.ControladorVenta;
+import Controlador.Exportar;
+import Modelo.Venta;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author MADICAP
@@ -14,8 +25,10 @@ public class VentasListaDestinos extends javax.swing.JPanel {
     /**
      * Creates new form VentasListaDestinos
      */
+    private ControladorVenta cVenta = new ControladorVenta();
     public VentasListaDestinos() {
         initComponents();
+        LlenarTabla();
     }
 
     /**
@@ -32,9 +45,9 @@ public class VentasListaDestinos extends javax.swing.JPanel {
         jTextField56 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane17 = new javax.swing.JScrollPane();
-        jTable14 = new javax.swing.JTable();
+        tblVentas = new javax.swing.JTable();
         jButton54 = new javax.swing.JButton();
-        jButton56 = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
 
         jLabel81.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel81.setText("Ventas Por Despachar");
@@ -42,7 +55,7 @@ public class VentasListaDestinos extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Despacho"));
 
-        jTable14.setModel(new javax.swing.table.DefaultTableModel(
+        tblVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -66,13 +79,18 @@ public class VentasListaDestinos extends javax.swing.JPanel {
                 "Registro Venta", "Pack", "Destinatario", "Fecha Entrega", "Comuna", "Dirección", "Hora Entrega"
             }
         ));
-        jScrollPane17.setViewportView(jTable14);
+        jScrollPane17.setViewportView(tblVentas);
 
         jButton54.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton54.setText("Imprimir");
 
-        jButton56.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton56.setText("Descargar");
+        btnExportar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnExportar.setText("Descargar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -84,7 +102,7 @@ public class VentasListaDestinos extends javax.swing.JPanel {
                     .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton56, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton54, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -93,10 +111,10 @@ public class VentasListaDestinos extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton54)
-                    .addComponent(jButton56))
+                    .addComponent(btnExportar))
                 .addGap(21, 21, 21))
         );
 
@@ -153,15 +171,53 @@ public class VentasListaDestinos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        // TODO add your handling code here:
+        Exportar exp = new Exportar();
+        try {
+            exp.ExportarVentas(cVenta.ListarVentasADespachar());
+        } catch (IOException ex) {
+           ex.getMessage();
+        }
+    }//GEN-LAST:event_btnExportarActionPerformed
+    private void LlenarTabla()
+    {
+        ArrayList<Venta> ventas = cVenta.ListarVentasADespachar();
+        Object matriz[][]= new Object[ventas.size()][7];
+        for (int i = 0; i < ventas.size(); i++) {
+            matriz[i][0]= ventas.get(i).getVtaIdVenta();
+            matriz[i][1]=  ventas.get(i).getPckIdPack().getPckNombre();
+            matriz[i][2]= ventas.get(i).getVtaNombreDestinatario();
+            Date date = ventas.get(i).getVtaFechaEntrega();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");  
+            String strDate = dateFormat.format(date);
+            matriz[i][3]= strDate;
+            matriz[i][4]= ventas.get(i).getComunaIdComuna().getComNombre();
+            matriz[i][5]= ventas.get(i).getVtaDireccionDestinatario();
+            matriz[i][6]= ventas.get(i).getVtaHoraEntregaInicial()+" - "+ ventas.get(i).getVtaHoraEntregaFinal();
+            
+        }
+        tblVentas.setModel(new javax.swing.table.DefaultTableModel(matriz, new String [] {
+                "Registro Venta", "Pack", "Destinatario", "Fecha Entrega", "Comuna", "Dirección", "Hora Entrega"})
+           {
+                boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false,true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }        
+           });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SubListaDestinos;
+    private javax.swing.JButton btnExportar;
     private javax.swing.JButton jButton54;
-    private javax.swing.JButton jButton56;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane17;
-    private javax.swing.JTable jTable14;
     private javax.swing.JTextField jTextField56;
+    private javax.swing.JTable tblVentas;
     // End of variables declaration//GEN-END:variables
 }

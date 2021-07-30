@@ -5,6 +5,33 @@
  */
 package Vista;
 
+import Controlador.ControladorBanco;
+import Controlador.ControladorEstadoVenta;
+import Controlador.ControladorVenta;
+import Modelo.Banco;
+import Modelo.EstadoVenta;
+import Modelo.Venta;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Enumeration;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+import org.apache.commons.lang3.text.StrBuilder;
+
 /**
  *
  * @author MADICAP
@@ -14,10 +41,75 @@ public class VentasConfirmacion extends javax.swing.JPanel {
     /**
      * Creates new form VentasConfirmacion
      */
+    ControladorEstadoVenta cEstadoVenta = new ControladorEstadoVenta();
+    ControladorVenta cVenta = new ControladorVenta();
+    ControladorBanco cBanco = new ControladorBanco();
+    ArrayList<Banco> listaBancos = new ArrayList();
+    ButtonGroup btnGroup ;
     public VentasConfirmacion() {
         initComponents();
+        LlenarTabla();
+        LlenarBancos();
     }
+    
+    private void LlenarBancos()
+    {
+         DefaultComboBoxModel dml= new DefaultComboBoxModel();
+        listaBancos= cBanco.ListarBancos();
+        for(Banco banco:listaBancos)
+        {
+            dml.addElement(banco.getBanNombre());
+        }    
+       cbxBanco.setModel(dml);
+    }
+    
+     private void LlenarTabla() {
+        ArrayList<Venta> ventas = cVenta.ListarVentasSinPagar();
+        Object matriz[][]= new Object[ventas.size()][7];
+        btnGroup = new ButtonGroup();
+        for (int i = 0; i < ventas.size(); i++) {
+            matriz[i][0]= ventas.get(i).getVtaIdVenta();
+            Date date = ventas.get(i).getVtaFechaVenta();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");  
+            String strDate = dateFormat.format(date);
+            matriz[i][1]= strDate;
+            
+            matriz[i][2]= ventas.get(i).getCliIdCliente().getNombreCompleto();
+            matriz[i][3]= ventas.get(i).getVtaTelefono();
+            matriz[i][4]= ventas.get(i).getVtaTotal();
+            matriz[i][5]= ventas.get(i).getPckIdPack().getPckNombre();
+            JRadioButton btn = new JRadioButton();
+            btn.setName(Integer.toString(ventas.get(i).getVtaIdVenta()));
+            btn.addActionListener(new ActionListener() {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                    if(btn.isSelected())
+                    {
+                        tblVenta.repaint();
+                    }
+                 }
+             });
+            matriz[i][6]= btn;
+            btnGroup.add((JRadioButton)matriz[i][6]);
+        }
+        tblVenta.setModel(new javax.swing.table.DefaultTableModel(matriz, new String [] {
+                "Número Pedido", "Fecha Pedido", "Nombre Cliente", "Número Teléfono", "Monto", "Pack", "Selección"})
+           {
+                boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false,true
+            };
 
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }        
+           });
+                
+                
+        String accion = tblVenta.getColumnName(6);
+        tblVenta.getColumn(accion).setCellRenderer(new RadioButtonRenderer());
+        tblVenta.getColumn(accion).setCellEditor(new RadioButtonEditor(new JCheckBox()));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,23 +122,26 @@ public class VentasConfirmacion extends javax.swing.JPanel {
         SubConfirmacion = new javax.swing.JPanel();
         jPanel37 = new javax.swing.JPanel();
         jScrollPane14 = new javax.swing.JScrollPane();
-        jTable11 = new javax.swing.JTable();
-        jButton51 = new javax.swing.JButton();
+        tblVenta = new javax.swing.JTable();
+        btnSeleccionar = new javax.swing.JButton();
+        lblIdVenta = new javax.swing.JLabel();
+        lblFechaVenta = new javax.swing.JLabel();
+        lblCliente = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
         jTextField55 = new javax.swing.JTextField();
         jPanel36 = new javax.swing.JPanel();
         jLabel76 = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
         jLabel78 = new javax.swing.JLabel();
-        jTextField54 = new javax.swing.JTextField();
-        jDateChooser4 = new com.toedter.calendar.JDateChooser();
-        jButton49 = new javax.swing.JButton();
-        jButton50 = new javax.swing.JButton();
-        jComboBox9 = new javax.swing.JComboBox<>();
+        txtCodTransaccion = new javax.swing.JTextField();
+        dtFechaPago = new com.toedter.calendar.JDateChooser();
+        btnConfirmar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        cbxBanco = new javax.swing.JComboBox<>();
 
         jPanel37.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable11.setModel(new javax.swing.table.DefaultTableModel(
+        tblVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -78,10 +173,21 @@ public class VentasConfirmacion extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane14.setViewportView(jTable11);
+        jScrollPane14.setViewportView(tblVenta);
 
-        jButton51.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton51.setText("Seleccionar");
+        btnSeleccionar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
+
+        lblIdVenta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        lblFechaVenta.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
+        lblCliente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
         jPanel37.setLayout(jPanel37Layout);
@@ -89,22 +195,37 @@ public class VentasConfirmacion extends javax.swing.JPanel {
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel37Layout.createSequentialGroup()
                 .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel37Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton51, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel37Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jScrollPane14)))
+                        .addContainerGap()
+                        .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFechaVenta)
+                            .addComponent(lblCliente))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane14))
                 .addContainerGap())
+            .addGroup(jPanel37Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblIdVenta)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel37Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton51)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(lblIdVenta)
+                .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel37Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSeleccionar)
+                        .addContainerGap())
+                    .addGroup(jPanel37Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblFechaVenta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblCliente)
+                        .addContainerGap(22, Short.MAX_VALUE))))
         );
 
         jLabel80.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -115,17 +236,17 @@ public class VentasConfirmacion extends javax.swing.JPanel {
         SubConfirmacionLayout.setHorizontalGroup(
             SubConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SubConfirmacionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(SubConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SubConfirmacionLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jTextField55, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(SubConfirmacionLayout.createSequentialGroup()
                 .addGap(318, 318, 318)
                 .addComponent(jLabel80)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SubConfirmacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SubConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(SubConfirmacionLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jTextField55, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         SubConfirmacionLayout.setVerticalGroup(
             SubConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +256,7 @@ public class VentasConfirmacion extends javax.swing.JPanel {
                 .addGap(1, 1, 1)
                 .addComponent(jTextField55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -151,39 +272,48 @@ public class VentasConfirmacion extends javax.swing.JPanel {
         jLabel78.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel78.setText("Código  Transacción");
 
-        jButton49.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton49.setText("Confirmar");
+        btnConfirmar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
-        jButton50.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton50.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
-        jComboBox9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxBanco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
         jPanel36.setLayout(jPanel36Layout);
         jPanel36Layout.setHorizontalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel36Layout.createSequentialGroup()
-                .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel36Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel76)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel77)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel36Layout.createSequentialGroup()
-                        .addGap(292, 292, 292)
-                        .addComponent(jButton50, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton49, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27)
+                .addContainerGap()
+                .addComponent(jLabel76)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbxBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel77)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dtFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel78)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField54, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addComponent(txtCodTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel36Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel36Layout.setVerticalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,16 +322,16 @@ public class VentasConfirmacion extends javax.swing.JPanel {
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel76)
-                        .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel77))
-                    .addComponent(jDateChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel78)
-                    .addComponent(jTextField54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton50)
-                    .addComponent(jButton49))
-                .addGap(25, 25, 25))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnConfirmar))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -210,7 +340,7 @@ public class VentasConfirmacion extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(SubConfirmacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -218,20 +348,77 @@ public class VentasConfirmacion extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(SubConfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        // TODO add your handling code here:
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=Integer.parseInt(j.getName());
+            }
+        }
+        Venta venta = cVenta.BuscarPorId(id);
+        lblIdVenta.setText("Venta: "+venta.getVtaIdVenta());
+        lblCliente.setText("Cliente: "+venta.getCliIdCliente().getNombreCompleto());
+        Date fechas = venta.getVtaFechaVenta();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");  
+        String strDate = dateFormat.format(fechas);
+        lblFechaVenta.setText("Fecha: "+strDate);
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        // TODO add your handling code here:
+        int codTransferencia = Integer.parseInt(txtCodTransaccion.getText());
+        Date fechaPago = dtFechaPago.getCalendar().getTime();
+        Enumeration enumButtons = btnGroup.getElements();
+        int id=0;       
+        while(enumButtons.hasMoreElements()==true){
+            JRadioButton j = (JRadioButton) enumButtons.nextElement();
+            if(j.isSelected())
+            {
+                id=Integer.parseInt(j.getName());
+            }
+        }
+        Venta venta = cVenta.BuscarPorId(id);
+        Banco banco = cBanco.BuscarBancoPorNombre(cbxBanco.getSelectedItem().toString());
+        venta.setBanIdBanco(banco);
+        venta.setVtaCodigoTransferencia(codTransferencia);
+        venta.setVtaFechaTransferencia(fechaPago);
+        EstadoVenta estadoVenta = cEstadoVenta.BuscarPorID(2);
+        venta.setEstadoVentaIdEstado(estadoVenta);
+        cVenta.EditarVenta(venta);
+        JOptionPane.showMessageDialog(SubConfirmacion.getParent(),"Datos ingresados correctamente","Aviso",JOptionPane.WARNING_MESSAGE);
+        LlenarTabla();
+        lblCliente.setText("");
+        lblFechaVenta.setText("");
+        lblIdVenta.setText("");
+        btnCancelarActionPerformed(evt);
+
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        cbxBanco.setSelectedIndex(0);
+        dtFechaPago.setDate(null);
+        txtCodTransaccion.setText("");
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SubConfirmacion;
-    private javax.swing.JButton jButton49;
-    private javax.swing.JButton jButton50;
-    private javax.swing.JButton jButton51;
-    private javax.swing.JComboBox<String> jComboBox9;
-    private com.toedter.calendar.JDateChooser jDateChooser4;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JComboBox<String> cbxBanco;
+    private com.toedter.calendar.JDateChooser dtFechaPago;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
@@ -239,8 +426,36 @@ public class VentasConfirmacion extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel36;
     private javax.swing.JPanel jPanel37;
     private javax.swing.JScrollPane jScrollPane14;
-    private javax.swing.JTable jTable11;
-    private javax.swing.JTextField jTextField54;
     private javax.swing.JTextField jTextField55;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblFechaVenta;
+    private javax.swing.JLabel lblIdVenta;
+    private javax.swing.JTable tblVenta;
+    private javax.swing.JTextField txtCodTransaccion;
     // End of variables declaration//GEN-END:variables
+class RadioButtonRenderer implements TableCellRenderer {
+   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,        boolean hasFocus, int row, int column) {
+      if (value==null) return null;
+         return (Component)value;
+   }
+}
+class RadioButtonEditor extends DefaultCellEditor implements ItemListener {
+   private JRadioButton button;
+   public RadioButtonEditor(JCheckBox checkBox) {
+      super(checkBox);
+   }
+   public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+      if (value==null) return null;
+      button = (JRadioButton)value;
+      button.addItemListener(this);
+      return (Component)value;
+   }
+   public Object getCellEditorValue() {
+      button.removeItemListener(this);
+      return button;
+   }
+   public void itemStateChanged(ItemEvent e) {
+      super.fireEditingStopped();
+   }
+}
 }
