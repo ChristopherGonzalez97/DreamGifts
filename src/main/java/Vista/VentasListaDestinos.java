@@ -46,7 +46,6 @@ public class VentasListaDestinos extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane17 = new javax.swing.JScrollPane();
         tblVentas = new javax.swing.JTable();
-        jButton54 = new javax.swing.JButton();
         btnExportar = new javax.swing.JButton();
 
         jLabel81.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -81,11 +80,8 @@ public class VentasListaDestinos extends javax.swing.JPanel {
         ));
         jScrollPane17.setViewportView(tblVentas);
 
-        jButton54.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton54.setText("Imprimir");
-
         btnExportar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnExportar.setText("Descargar");
+        btnExportar.setText("Exportar a excel");
         btnExportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportarActionPerformed(evt);
@@ -102,20 +98,16 @@ public class VentasListaDestinos extends javax.swing.JPanel {
                     .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton54, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton54)
-                    .addComponent(btnExportar))
-                .addGap(21, 21, 21))
+                .addGap(18, 18, 18)
+                .addComponent(btnExportar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout SubListaDestinosLayout = new javax.swing.GroupLayout(SubListaDestinos);
@@ -146,7 +138,7 @@ public class VentasListaDestinos extends javax.swing.JPanel {
                         .addComponent(jTextField56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(66, 66, 66))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -213,7 +205,6 @@ public class VentasListaDestinos extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SubListaDestinos;
     private javax.swing.JButton btnExportar;
-    private javax.swing.JButton jButton54;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane17;
