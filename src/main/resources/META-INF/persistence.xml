@@ -2,25 +2,25 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>Modelo.DetallePack</class>
-    <class>Modelo.Usuario</class>
-    <class>Modelo.EstadosVenta</class>
+    <class>Modelo.EstadoVenta</class>
+    <class>Modelo.CategoriaArticulo</class>
     <class>Modelo.Comuna</class>
-    <class>Modelo.Articulo</class>
-    <class>Modelo.Rrss</class>
-    <class>Modelo.Proveedor</class>
+    <class>Modelo.Comunas</class>
     <class>Modelo.Cliente</class>
     <class>Modelo.Venta</class>
+    <class>Modelo.CategoriaPack</class>
+    <class>Modelo.Usuario</class>
+    <class>Modelo.DetallePack</class>
     <class>Modelo.DetalleFactura</class>
+    <class>Modelo.Banco</class>
+    <class>Modelo.EstadoFactura</class>
+    <class>Modelo.Proveedor</class>
+    <class>Modelo.Articulo</class>
+    <class>Modelo.Rrss</class>
+    <class>Modelo.EstadosVenta</class>
+    <class>Modelo.Bancos</class>
     <class>Modelo.Pack</class>
     <class>Modelo.Factura</class>
-    <class>Modelo.Bancos</class>
-    <class>Modelo.CategoriaArticulo</class>
-    <class>Modelo.Comunas</class>
-    <class>Modelo.EstadoFactura</class>
-    <class>Modelo.Banco</class>
-    <class>Modelo.EstadoVenta</class>
-    <class>Modelo.CategoriaPack</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mydb?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
