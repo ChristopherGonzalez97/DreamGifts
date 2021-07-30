@@ -5,54 +5,46 @@
  */
 package Controlador;
 
-import Modelo.Comuna;
-import java.util.ArrayList;
-import java.util.List;
+import Modelo.Venta;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
  * @author MADICAP
  */
-public class ControladorComuna {
-    public ArrayList<Comuna> ListarComunas()
+public class ControladorVenta {
+    public void AgregarVenta(Venta venta)
     {
-        
-         ArrayList<Comuna> listaComuna = new ArrayList();
         try{
          EntityManagerFactory emf;
          emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
          EntityManager em = emf.createEntityManager();
-         List<Comuna> comunas = em.createNamedQuery("Comuna.findAll").getResultList();
-         for(Comuna comuna : comunas)
-         {
-             listaComuna.add(comuna);
-         }
+         em.getTransaction().begin();
+         em.persist(venta);
+         em.getTransaction().commit();
         }
         catch(Exception e)
         {
             e.getMessage();
         }
-        return listaComuna;
     }
     
-    public Comuna BuscarPorNombre(String nombre)
-    {
-        Comuna comuna= new Comuna();
-        
-         try{
+    public int CountPack(){
+        int id=0;
+        try{
          EntityManagerFactory emf;
          emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
          EntityManager em = emf.createEntityManager();
-         comuna = (Comuna) em.createNamedQuery("Comuna.findByComNombre").setParameter("comNombre", nombre).getSingleResult();
-        }
-        catch(Exception e)
-        {
-            e.getMessage();
-        }
-        
-        return comuna;
+         Query q = em.createQuery("SELECT COUNT(v.vtaIdVenta) FROM Venta v");
+         Object s = q.getSingleResult();
+         id=Integer.parseInt(s.toString());
+        }catch(Exception e)
+                {
+                e.getMessage();
+                }
+        return id+1;
     }
 }

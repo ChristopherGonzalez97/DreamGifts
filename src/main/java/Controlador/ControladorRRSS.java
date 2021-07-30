@@ -37,4 +37,22 @@ public class ControladorRRSS {
         }
         return listaRrss;
     }
+    
+     public Rrss BuscarPorNombre(String nombre)
+    {
+        Rrss rrss= new Rrss();
+        
+         try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         rrss = (Rrss) em.createNamedQuery("Rrss.findByRrsNombre").setParameter("rrsNombre", nombre).getSingleResult();
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        
+        return rrss;
+    }
 }

@@ -59,15 +59,11 @@ public class Venta implements Serializable {
     @Column(name = "VTA_FECHA_VENTA")
     @Temporal(TemporalType.DATE)
     private Date vtaFechaVenta;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "VTA_FECHA_TRANSFERENCIA")
     @Temporal(TemporalType.DATE)
     private Date vtaFechaTransferencia;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "VTA_CODIGO_TRANSFERENCIA")
-    private int vtaCodigoTransferencia;
+    private Integer vtaCodigoTransferencia;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -94,12 +90,12 @@ public class Venta implements Serializable {
     private Date vtaFechaEntrega;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 4)
+    @Size(min = 1, max = 5)
     @Column(name = "VTA_HORA_ENTREGA_INICIAL")
     private String vtaHoraEntregaInicial;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 4)
+    @Size(min = 1, max = 5)
     @Column(name = "VTA_HORA_ENTREGA_FINAL")
     private String vtaHoraEntregaFinal;
     @Basic(optional = false)
@@ -108,7 +104,7 @@ public class Venta implements Serializable {
     @Column(name = "VTA_SALUDO")
     private String vtaSaludo;
     @JoinColumn(name = "BAN_ID_BANCO", referencedColumnName = "BAN_ID_BANCO")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Banco banIdBanco;
     @JoinColumn(name = "CLI_ID_CLIENTE", referencedColumnName = "CLI_ID_CLIENTE")
     @ManyToOne(optional = false)
@@ -133,12 +129,10 @@ public class Venta implements Serializable {
         this.vtaIdVenta = vtaIdVenta;
     }
 
-    public Venta(Integer vtaIdVenta, int vtaTotal, Date vtaFechaVenta, Date vtaFechaTransferencia, int vtaCodigoTransferencia, String vtaNombreDestinatario, String vtaDireccionDestinatario, int vtaTelefono, String vtaCorreo, Date vtaFechaEntrega, String vtaHoraEntregaInicial, String vtaHoraEntregaFinal, String vtaSaludo) {
+    public Venta(Integer vtaIdVenta, int vtaTotal, Date vtaFechaVenta, String vtaNombreDestinatario, String vtaDireccionDestinatario, int vtaTelefono, String vtaCorreo, Date vtaFechaEntrega, String vtaHoraEntregaInicial, String vtaHoraEntregaFinal, String vtaSaludo) {
         this.vtaIdVenta = vtaIdVenta;
         this.vtaTotal = vtaTotal;
         this.vtaFechaVenta = vtaFechaVenta;
-        this.vtaFechaTransferencia = vtaFechaTransferencia;
-        this.vtaCodigoTransferencia = vtaCodigoTransferencia;
         this.vtaNombreDestinatario = vtaNombreDestinatario;
         this.vtaDireccionDestinatario = vtaDireccionDestinatario;
         this.vtaTelefono = vtaTelefono;
@@ -176,16 +170,18 @@ public class Venta implements Serializable {
     public Date getVtaFechaTransferencia() {
         return vtaFechaTransferencia;
     }
-
+    
+    
+    
     public void setVtaFechaTransferencia(Date vtaFechaTransferencia) {
         this.vtaFechaTransferencia = vtaFechaTransferencia;
     }
 
-    public int getVtaCodigoTransferencia() {
+    public Integer getVtaCodigoTransferencia() {
         return vtaCodigoTransferencia;
     }
 
-    public void setVtaCodigoTransferencia(int vtaCodigoTransferencia) {
+    public void setVtaCodigoTransferencia(Integer vtaCodigoTransferencia) {
         this.vtaCodigoTransferencia = vtaCodigoTransferencia;
     }
 

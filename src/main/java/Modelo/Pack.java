@@ -95,6 +95,16 @@ public class Pack implements Serializable {
         return pckNombre;
     }
 
+    public int getIVA()
+    {
+        int iva = (int) (getPckCosto()*0.19);
+        return iva;
+    }
+    public int getSubtotal()
+    {
+        int iva = (int) (getPckCosto()*0.81);
+        return iva;
+    }
     public void setPckNombre(String pckNombre) {
         this.pckNombre = pckNombre;
     }

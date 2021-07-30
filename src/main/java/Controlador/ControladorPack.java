@@ -192,4 +192,22 @@ public class ControladorPack {
         }
         return listaPacks;
     }
+    
+     public Pack BuscarPorNombre(String nombre)
+    {
+        Pack pack= new Pack();
+        
+         try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         pack = (Pack) em.createNamedQuery("Pack.findByPckNombre").setParameter("pckNombre", nombre).getSingleResult();
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        
+        return pack;
+    }
 }

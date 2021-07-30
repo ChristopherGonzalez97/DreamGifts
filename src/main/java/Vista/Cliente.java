@@ -28,13 +28,6 @@ public class Cliente extends javax.swing.JFrame {
     private void initComponents() {
 
         Principal = new javax.swing.JTabbedPane();
-        Venta = new javax.swing.JPanel();
-        PestanasVentas = new javax.swing.JTabbedPane();
-        ventasVenta1 = new Vista.VentasVenta();
-        ventasConfirmacion1 = new Vista.VentasConfirmacion();
-        ventasListaDestinos1 = new Vista.VentasListaDestinos();
-        ventasActualizacionDespacho1 = new Vista.VentasActualizacionDespacho();
-        jLabel22 = new javax.swing.JLabel();
         Compras = new javax.swing.JPanel();
         Maestros1 = new javax.swing.JPanel();
         PestanaMaestros1 = new javax.swing.JTabbedPane();
@@ -66,40 +59,12 @@ public class Cliente extends javax.swing.JFrame {
         maestroPack2 = new Vista.MaestroPack();
         jScrollPane4 = new javax.swing.JScrollPane();
         maestroArticulo2 = new Vista.MaestroArticulo();
+        Venta = new javax.swing.JPanel();
+        jLabel50 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        ventasVenta1 = new Vista.VentasVenta();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        PestanasVentas.addTab("Venta", ventasVenta1);
-        PestanasVentas.addTab("Confirmación", ventasConfirmacion1);
-        PestanasVentas.addTab("Lista Destinos", ventasListaDestinos1);
-        PestanasVentas.addTab("Actualizacion Despacho", ventasActualizacionDespacho1);
-
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel22.setText("DREAM GIFTS");
-
-        javax.swing.GroupLayout VentaLayout = new javax.swing.GroupLayout(Venta);
-        Venta.setLayout(VentaLayout);
-        VentaLayout.setHorizontalGroup(
-            VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(VentaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PestanasVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VentaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel22)
-                .addGap(347, 347, 347))
-        );
-        VentaLayout.setVerticalGroup(
-            VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(VentaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22)
-                .addGap(29, 29, 29)
-                .addComponent(PestanasVentas))
-        );
-
-        Principal.addTab("Ventas", Venta);
 
         PestanaMaestros1.setMinimumSize(new java.awt.Dimension(128, 60));
         PestanaMaestros1.setPreferredSize(new java.awt.Dimension(912, 590));
@@ -128,7 +93,7 @@ public class Cliente extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Maestros1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel131)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PestanaMaestros1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -137,7 +102,7 @@ public class Cliente extends javax.swing.JFrame {
         Compras.setLayout(ComprasLayout);
         ComprasLayout.setHorizontalGroup(
             ComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1023, Short.MAX_VALUE)
+            .addGap(0, 1131, Short.MAX_VALUE)
             .addGroup(ComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ComprasLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -146,7 +111,7 @@ public class Cliente extends javax.swing.JFrame {
         );
         ComprasLayout.setVerticalGroup(
             ComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 710, Short.MAX_VALUE)
+            .addGap(0, 692, Short.MAX_VALUE)
             .addGroup(ComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ComprasLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -184,7 +149,7 @@ public class Cliente extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InformesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel122)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PestanaMaestros2, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81))
         );
@@ -223,12 +188,12 @@ public class Cliente extends javax.swing.JFrame {
         MaestrosLayout.setHorizontalGroup(
             MaestrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MaestrosLayout.createSequentialGroup()
-                .addContainerGap(413, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel23)
                 .addGap(386, 386, 386))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MaestrosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         MaestrosLayout.setVerticalGroup(
@@ -238,20 +203,50 @@ public class Cliente extends javax.swing.JFrame {
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
+                .addContainerGap())
         );
 
         Principal.addTab("Maestros", Maestros);
+
+        jLabel50.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel50.setText("DREAM GIFTS");
+
+        jTabbedPane1.addTab("tab1", ventasVenta1);
+
+        javax.swing.GroupLayout VentaLayout = new javax.swing.GroupLayout(Venta);
+        Venta.setLayout(VentaLayout);
+        VentaLayout.setHorizontalGroup(
+            VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VentaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1)
+                    .addGroup(VentaLayout.createSequentialGroup()
+                        .addComponent(jLabel50)
+                        .addGap(0, 887, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        VentaLayout.setVerticalGroup(
+            VentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VentaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel50)
+                .addGap(18, 18, 18)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(86, Short.MAX_VALUE))
+        );
+
+        Principal.addTab("Ventas", Venta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Principal, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(Principal)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Principal, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(Principal, javax.swing.GroupLayout.PREFERRED_SIZE, 633, Short.MAX_VALUE)
         );
 
         pack();
@@ -300,7 +295,6 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JTabbedPane PestanaMaestros;
     private javax.swing.JTabbedPane PestanaMaestros1;
     private javax.swing.JTabbedPane PestanaMaestros2;
-    private javax.swing.JTabbedPane PestanasVentas;
     private javax.swing.JTabbedPane Principal;
     private javax.swing.JPanel Venta;
     private Vista.ComprasRegistroCompras comprasRegistroCompras1;
@@ -312,12 +306,13 @@ public class Cliente extends javax.swing.JFrame {
     private Vista.InformeVentas informeVentas1;
     private javax.swing.JLabel jLabel122;
     private javax.swing.JLabel jLabel131;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel50;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private Vista.MaestroArticulo maestroArticulo2;
     private Vista.MaestroBanco maestroBanco1;
     private Vista.MaestroCategoria maestroCategoria1;
@@ -328,9 +323,6 @@ public class Cliente extends javax.swing.JFrame {
     private Vista.MaestroProveedor maestroProveedor1;
     private Vista.MaestroRRSS maestroRRSS1;
     private Vista.MaestroUsuario maestroUsuario1;
-    private Vista.VentasActualizacionDespacho ventasActualizacionDespacho1;
-    private Vista.VentasConfirmacion ventasConfirmacion1;
-    private Vista.VentasListaDestinos ventasListaDestinos1;
     private Vista.VentasVenta ventasVenta1;
     // End of variables declaration//GEN-END:variables
 }

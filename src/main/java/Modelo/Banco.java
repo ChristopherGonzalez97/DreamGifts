@@ -8,7 +8,6 @@ package Modelo;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -42,7 +41,7 @@ public class Banco implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "BAN_NOMBRE")
     private String banNombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "banIdBanco")
+    @OneToMany(mappedBy = "banIdBanco")
     private List<Venta> ventaList;
 
     public Banco() {

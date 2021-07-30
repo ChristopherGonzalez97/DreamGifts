@@ -7,7 +7,9 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -70,9 +73,13 @@ public class Articulo implements Serializable {
     @NotNull
     @Column(name = "ART_PRECIO")
     private int artPrecio;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private List<DetalleFactura> detalleFacturaList;
     @JoinColumn(name = "CATEGORIA_ARTICULO_CATEGORIA_ARTICULO", referencedColumnName = "CATEGORIA_ARTICULO")
     @ManyToOne(optional = false)
     private CategoriaArticulo categoriaArticuloCategoriaArticulo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulo")
+    private List<DetallePack> detallePackList;
 
     public Articulo() {
     }
@@ -123,7 +130,7 @@ public class Articulo implements Serializable {
         String result = myBoolean ? "Si" : "No";
         return result;
     }
-    
+
     public Date getArtFechaVencimiento() {
         return artFechaVencimiento;
     }
@@ -156,12 +163,28 @@ public class Articulo implements Serializable {
         this.artPrecio = artPrecio;
     }
 
+    public List<DetalleFactura> getDetalleFacturaList() {
+        return detalleFacturaList;
+    }
+
+    public void setDetalleFacturaList(List<DetalleFactura> detalleFacturaList) {
+        this.detalleFacturaList = detalleFacturaList;
+    }
+
     public CategoriaArticulo getCategoriaArticuloCategoriaArticulo() {
         return categoriaArticuloCategoriaArticulo;
     }
 
     public void setCategoriaArticuloCategoriaArticulo(CategoriaArticulo categoriaArticuloCategoriaArticulo) {
         this.categoriaArticuloCategoriaArticulo = categoriaArticuloCategoriaArticulo;
+    }
+
+    public List<DetallePack> getDetallePackList() {
+        return detallePackList;
+    }
+
+    public void setDetallePackList(List<DetallePack> detallePackList) {
+        this.detallePackList = detallePackList;
     }
 
     @Override
