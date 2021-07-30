@@ -120,6 +120,11 @@ public class Cliente implements Serializable {
     public String getCliNombre() {
         return cliNombre;
     }
+    
+    public String getNombreCompleto()
+    {
+        return cliNombre+" "+cliApellido;
+    }
 
     public void setCliNombre(String cliNombre) {
         this.cliNombre = cliNombre;
