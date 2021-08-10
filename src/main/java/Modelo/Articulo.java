@@ -36,6 +36,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Articulo.findByArtDescripcion", query = "SELECT a FROM Articulo a WHERE a.artDescripcion = :artDescripcion"),
     @NamedQuery(name = "Articulo.findByArtStock", query = "SELECT a FROM Articulo a WHERE a.artStock = :artStock"),
     @NamedQuery(name = "Articulo.findByArtFechaVencimiento", query = "SELECT a FROM Articulo a WHERE a.artFechaVencimiento = :artFechaVencimiento"),
+    @NamedQuery(name = "Articulo.BetweenFecha", query = "SELECT a FROM Articulo a WHERE a.artFechaVencimiento BETWEEN :fechaInicio AND :fechaFinal"),
     @NamedQuery(name = "Articulo.findByArtMarca", query = "SELECT a FROM Articulo a WHERE a.artMarca = :artMarca"),
     @NamedQuery(name = "Articulo.findByArtInhabilitado", query = "SELECT a FROM Articulo a WHERE a.artInhabilitado = :artInhabilitado"),
     @NamedQuery(name = "Articulo.buscador", query = "SELECT a FROM Articulo a WHERE a.artDescripcion LIKE :buscar"),

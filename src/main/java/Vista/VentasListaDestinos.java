@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -47,6 +48,7 @@ public class VentasListaDestinos extends javax.swing.JPanel {
         jScrollPane17 = new javax.swing.JScrollPane();
         tblVentas = new javax.swing.JTable();
         btnExportar = new javax.swing.JButton();
+        btnRefrescar = new javax.swing.JButton();
 
         jLabel81.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel81.setText("Ventas Por Despachar");
@@ -110,6 +112,13 @@ public class VentasListaDestinos extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnRefrescar.setText("Refrescar");
+        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefrescarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout SubListaDestinosLayout = new javax.swing.GroupLayout(SubListaDestinos);
         SubListaDestinos.setLayout(SubListaDestinosLayout);
         SubListaDestinosLayout.setHorizontalGroup(
@@ -121,8 +130,13 @@ public class VentasListaDestinos extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SubListaDestinosLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel81)
-                        .addGap(84, 84, 84)
-                        .addComponent(jTextField56, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(SubListaDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(SubListaDestinosLayout.createSequentialGroup()
+                                .addGap(84, 84, 84)
+                                .addComponent(jTextField56, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(SubListaDestinosLayout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(btnRefrescar)))))
                 .addContainerGap())
         );
         SubListaDestinosLayout.setVerticalGroup(
@@ -130,11 +144,13 @@ public class VentasListaDestinos extends javax.swing.JPanel {
             .addGroup(SubListaDestinosLayout.createSequentialGroup()
                 .addGroup(SubListaDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SubListaDestinosLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addGap(20, 20, 20)
                         .addComponent(jLabel81)
                         .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SubListaDestinosLayout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(btnRefrescar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -168,10 +184,16 @@ public class VentasListaDestinos extends javax.swing.JPanel {
         Exportar exp = new Exportar();
         try {
             exp.ExportarVentas(cVenta.ListarVentasADespachar());
+            JOptionPane.showMessageDialog(SubListaDestinos.getParent(),"Datos exportados correctamente","Aviso",JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
            ex.getMessage();
         }
     }//GEN-LAST:event_btnExportarActionPerformed
+
+    private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
+        // TODO add your handling code here:
+        LlenarTabla();
+    }//GEN-LAST:event_btnRefrescarActionPerformed
     private void LlenarTabla()
     {
         ArrayList<Venta> ventas = cVenta.ListarVentasADespachar();
@@ -205,6 +227,7 @@ public class VentasListaDestinos extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SubListaDestinos;
     private javax.swing.JButton btnExportar;
+    private javax.swing.JButton btnRefrescar;
     private javax.swing.JLabel jLabel81;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane17;

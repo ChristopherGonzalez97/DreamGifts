@@ -41,6 +41,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Venta.findByVtaFechaEntrega", query = "SELECT v FROM Venta v WHERE v.vtaFechaEntrega = :vtaFechaEntrega"),
     @NamedQuery(name = "Venta.findByVtaHoraEntregaInicial", query = "SELECT v FROM Venta v WHERE v.vtaHoraEntregaInicial = :vtaHoraEntregaInicial"),
     @NamedQuery(name = "Venta.findByVtaHoraEntregaFinal", query = "SELECT v FROM Venta v WHERE v.vtaHoraEntregaFinal = :vtaHoraEntregaFinal"),
+    @NamedQuery(name = "Venta.findBetweenFechas", query = "SELECT v FROM Venta v WHERE v.vtaFechaVenta BETWEEN :fechaInicial AND :fechaFinal"),
     @NamedQuery(name = "Venta.findByVtaSaludo", query = "SELECT v FROM Venta v WHERE v.vtaSaludo = :vtaSaludo")})
 public class Venta implements Serializable {
 

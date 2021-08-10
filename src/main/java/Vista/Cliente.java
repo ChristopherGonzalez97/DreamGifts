@@ -37,10 +37,11 @@ public class Cliente extends javax.swing.JFrame {
         jLabel131 = new javax.swing.JLabel();
         Informes = new javax.swing.JPanel();
         PestanaMaestros2 = new javax.swing.JTabbedPane();
-        informeVentas1 = new Vista.InformeVentas();
         informeInventario1 = new Vista.InformeInventario();
         informeClientes1 = new Vista.InformeClientes();
         informeDevolucionYCambio1 = new Vista.InformeDevolucionYCambio();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        informeVentas3 = new Vista.InformeVentas();
         jLabel122 = new javax.swing.JLabel();
         Maestros = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
@@ -108,7 +109,7 @@ public class Cliente extends javax.swing.JFrame {
         Compras.setLayout(ComprasLayout);
         ComprasLayout.setHorizontalGroup(
             ComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1131, Short.MAX_VALUE)
+            .addGap(0, 1004, Short.MAX_VALUE)
             .addGroup(ComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(ComprasLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -129,10 +130,13 @@ public class Cliente extends javax.swing.JFrame {
 
         PestanaMaestros2.setMinimumSize(new java.awt.Dimension(128, 60));
         PestanaMaestros2.setPreferredSize(new java.awt.Dimension(912, 590));
-        PestanaMaestros2.addTab("Informe ventas", informeVentas1);
         PestanaMaestros2.addTab("Informe inventario", informeInventario1);
         PestanaMaestros2.addTab("Informe clientes", informeClientes1);
         PestanaMaestros2.addTab("Informe Dev. & Cambios", informeDevolucionYCambio1);
+
+        jScrollPane8.setViewportView(informeVentas3);
+
+        PestanaMaestros2.addTab("Informe de ventas", jScrollPane8);
 
         jLabel122.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel122.setText("DREAM GIFTS");
@@ -141,23 +145,23 @@ public class Cliente extends javax.swing.JFrame {
         Informes.setLayout(InformesLayout);
         InformesLayout.setHorizontalGroup(
             InformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InformesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PestanaMaestros2, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InformesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(428, Short.MAX_VALUE)
                 .addComponent(jLabel122)
                 .addGap(352, 352, 352))
+            .addGroup(InformesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PestanaMaestros2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         InformesLayout.setVerticalGroup(
             InformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InformesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel122)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(PestanaMaestros2, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
+                .addGap(18, 18, 18)
+                .addComponent(PestanaMaestros2, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         Principal.addTab("Informes", Informes);
@@ -217,6 +221,11 @@ public class Cliente extends javax.swing.JFrame {
         jLabel50.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel50.setText("DREAM GIFTS");
 
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
         jTabbedPane1.addTab("Nueva venta", ventasVenta1);
 
         jScrollPane5.setViewportView(ventasConfirmacion1);
@@ -225,11 +234,11 @@ public class Cliente extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1106, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 979, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Confirmar pago", jPanel1);
@@ -240,11 +249,11 @@ public class Cliente extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1106, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 979, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Ventas a despachar", jPanel2);
@@ -286,6 +295,11 @@ public class Cliente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        ventasConfirmacion1.revalidate();
+        ventasConfirmacion1.repaint();
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -338,7 +352,7 @@ public class Cliente extends javax.swing.JFrame {
     private Vista.InformeClientes informeClientes1;
     private Vista.InformeDevolucionYCambio informeDevolucionYCambio1;
     private Vista.InformeInventario informeInventario1;
-    private Vista.InformeVentas informeVentas1;
+    private Vista.InformeVentas informeVentas3;
     private javax.swing.JLabel jLabel122;
     private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel23;
@@ -351,6 +365,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private Vista.MaestroArticulo maestroArticulo2;
     private Vista.MaestroBanco maestroBanco1;

@@ -5,6 +5,13 @@
  */
 package Vista;
 
+import Controlador.ControladorVenta;
+import Modelo.Venta;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  *
  * @author MADICAP
@@ -14,10 +21,42 @@ public class InformeDevolucionYCambio extends javax.swing.JPanel {
     /**
      * Creates new form InformeDevolucionYCambio
      */
+    private ControladorVenta cVenta= new ControladorVenta();
+    private ArrayList<Venta> ventasDeplegar = cVenta.ListarVentasCanceladas();
     public InformeDevolucionYCambio() {
         initComponents();
+        LlenarTabla();
+        
     }
 
+    private void LlenarTabla()
+    {
+        Object matriz[][]= new Object[ventasDeplegar.size()][8];
+        for (int i = 0; i < ventasDeplegar.size(); i++) {
+            matriz[i][0]= ventasDeplegar.get(i).getVtaIdVenta();
+            matriz[i][1]= ventasDeplegar.get(i).getPckIdPack().getPckNombre();
+            matriz[i][2]= ventasDeplegar.get(i).getVtaNombreDestinatario();
+            Date date = ventasDeplegar.get(i).getVtaFechaEntrega();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");  
+            String strDate = dateFormat.format(date);
+            matriz[i][3]= strDate;
+            matriz[i][4]= ventasDeplegar.get(i).getComunaIdComuna().getComNombre();
+            matriz[i][5]= ventasDeplegar.get(i).getVtaHoraEntregaInicial()+" - "+ventasDeplegar.get(i).getVtaHoraEntregaFinal();
+            matriz[i][6]= ventasDeplegar.get(i).getEstadoVentaIdEstado().getEstDescripcion();
+        }
+        tblVentas.setModel(new javax.swing.table.DefaultTableModel(matriz, new String [] {
+                "Id Venta", "Pack", "Destinatario", "Fecha Entrega", "Comuna", "Horario Entrega", "Estado"})
+           {
+                boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false,false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }        
+           });
+    }    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,19 +71,13 @@ public class InformeDevolucionYCambio extends javax.swing.JPanel {
         jLabel121 = new javax.swing.JLabel();
         jLabel123 = new javax.swing.JLabel();
         jLabel124 = new javax.swing.JLabel();
-        jDateChooser15 = new com.toedter.calendar.JDateChooser();
-        jButton82 = new javax.swing.JButton();
-        jDateChooser16 = new com.toedter.calendar.JDateChooser();
-        jLabel125 = new javax.swing.JLabel();
-        jTextField69 = new javax.swing.JTextField();
-        jLabel126 = new javax.swing.JLabel();
-        jTextField70 = new javax.swing.JTextField();
+        dtHasta = new com.toedter.calendar.JDateChooser();
+        btnBuscar = new javax.swing.JButton();
+        dtDesde = new com.toedter.calendar.JDateChooser();
         jPanel51 = new javax.swing.JPanel();
         jScrollPane29 = new javax.swing.JScrollPane();
-        jTable22 = new javax.swing.JTable();
-        jButton83 = new javax.swing.JButton();
-        jButton84 = new javax.swing.JButton();
-        jButton85 = new javax.swing.JButton();
+        tblVentas = new javax.swing.JTable();
+        btnExportar = new javax.swing.JButton();
         jLabel127 = new javax.swing.JLabel();
 
         jPanel50.setBackground(new java.awt.Color(255, 255, 255));
@@ -59,43 +92,33 @@ public class InformeDevolucionYCambio extends javax.swing.JPanel {
         jLabel124.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel124.setText("Hasta");
 
-        jButton82.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton82.setText("Buscar");
-
-        jLabel125.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel125.setText("Búsqueda Por RUT");
-
-        jLabel126.setText("-");
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);
         jPanel50.setLayout(jPanel50Layout);
         jPanel50Layout.setHorizontalGroup(
             jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel50Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel125)
-                    .addComponent(jLabel121))
+                .addGap(166, 166, 166)
+                .addComponent(jLabel121)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel50Layout.createSequentialGroup()
-                        .addComponent(jDateChooser16, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(150, 150, 150)
-                        .addComponent(jLabel124)
-                        .addGap(18, 18, 18)
-                        .addComponent(jDateChooser15, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel50Layout.createSequentialGroup()
-                        .addComponent(jTextField69, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel126)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField70, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addComponent(dtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(150, 150, 150)
+                .addComponent(jLabel124)
+                .addGap(18, 18, 18)
+                .addComponent(dtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel50Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(330, Short.MAX_VALUE)
                 .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel50Layout.createSequentialGroup()
-                        .addComponent(jButton82, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel50Layout.createSequentialGroup()
                         .addComponent(jLabel123)
@@ -111,109 +134,88 @@ public class InformeDevolucionYCambio extends javax.swing.JPanel {
                     .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel121, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel124))
-                    .addComponent(jDateChooser15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
-                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel125)
-                    .addComponent(jTextField69, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel126)
-                    .addComponent(jTextField70, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addComponent(jButton82)
+                    .addComponent(dtHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addComponent(btnBuscar)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jPanel51.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable22.setModel(new javax.swing.table.DefaultTableModel(
+        tblVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Registro Venta", "Pack", "Destinatario", "Fecha Entrega", "Comuna", "Horario Entrega", "Devolucion", "Ver"
+                "Id Venta", "Pack", "Destinatario", "Fecha Entrega", "Comuna", "Horario Entrega", "Estado"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true, false
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane29.setViewportView(jTable22);
+        jScrollPane29.setViewportView(tblVentas);
 
-        jButton83.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton83.setText("Desactivar");
-
-        jButton84.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton84.setText("Editar");
-
-        jButton85.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton85.setText("Venta");
+        btnExportar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnExportar.setText("Exportar");
 
         javax.swing.GroupLayout jPanel51Layout = new javax.swing.GroupLayout(jPanel51);
         jPanel51.setLayout(jPanel51Layout);
         jPanel51Layout.setHorizontalGroup(
             jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane29, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane29, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel51Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton85, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton84, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton83)
+                .addComponent(btnExportar)
                 .addContainerGap())
         );
         jPanel51Layout.setVerticalGroup(
             jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel51Layout.createSequentialGroup()
-                .addComponent(jScrollPane29, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel51Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton83)
-                    .addComponent(jButton84)
-                    .addComponent(jButton85))
+                .addComponent(jScrollPane29, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(btnExportar)
                 .addContainerGap())
         );
 
         jLabel127.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel127.setText("Detalle De Devoluciones Y Cambios");
+        jLabel127.setText("Detalle de ventas canceladas");
 
         javax.swing.GroupLayout SubClientes5Layout = new javax.swing.GroupLayout(SubClientes5);
         SubClientes5.setLayout(SubClientes5Layout);
         SubClientes5Layout.setHorizontalGroup(
             SubClientes5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SubClientes5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(SubClientes5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SubClientes5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(SubClientes5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel51, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(SubClientes5Layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(jLabel127)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel51, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(SubClientes5Layout.createSequentialGroup()
+                .addGap(238, 238, 238)
+                .addComponent(jLabel127)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         SubClientes5Layout.setVerticalGroup(
             SubClientes5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,8 +225,8 @@ public class InformeDevolucionYCambio extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addComponent(jLabel127)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -234,41 +236,43 @@ public class InformeDevolucionYCambio extends javax.swing.JPanel {
             .addGap(0, 907, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 16, Short.MAX_VALUE)
                     .addComponent(SubClientes5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 17, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 493, Short.MAX_VALUE)
+            .addGap(0, 525, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(SubClientes5, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 16, Short.MAX_VALUE)
+                    .addComponent(SubClientes5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 17, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        Date desde = dtDesde.getDate();
+        Date hasta = dtHasta.getDate();
+        ventasDeplegar=cVenta.BuscarPorFechasCanceladas(desde, hasta);
+        LlenarTabla();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SubClientes5;
-    private javax.swing.JButton jButton82;
-    private javax.swing.JButton jButton83;
-    private javax.swing.JButton jButton84;
-    private javax.swing.JButton jButton85;
-    private com.toedter.calendar.JDateChooser jDateChooser15;
-    private com.toedter.calendar.JDateChooser jDateChooser16;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnExportar;
+    private com.toedter.calendar.JDateChooser dtDesde;
+    private com.toedter.calendar.JDateChooser dtHasta;
     private javax.swing.JLabel jLabel121;
     private javax.swing.JLabel jLabel123;
     private javax.swing.JLabel jLabel124;
-    private javax.swing.JLabel jLabel125;
-    private javax.swing.JLabel jLabel126;
     private javax.swing.JLabel jLabel127;
     private javax.swing.JPanel jPanel50;
     private javax.swing.JPanel jPanel51;
     private javax.swing.JScrollPane jScrollPane29;
-    private javax.swing.JTable jTable22;
-    private javax.swing.JTextField jTextField69;
-    private javax.swing.JTextField jTextField70;
+    private javax.swing.JTable tblVentas;
     // End of variables declaration//GEN-END:variables
 }

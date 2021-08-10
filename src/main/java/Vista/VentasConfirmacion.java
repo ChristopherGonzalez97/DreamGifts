@@ -129,6 +129,7 @@ public class VentasConfirmacion extends javax.swing.JPanel {
         lblCliente = new javax.swing.JLabel();
         jLabel80 = new javax.swing.JLabel();
         jTextField55 = new javax.swing.JTextField();
+        btnRefrescar = new javax.swing.JButton();
         jPanel36 = new javax.swing.JPanel();
         jLabel76 = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
@@ -231,19 +232,27 @@ public class VentasConfirmacion extends javax.swing.JPanel {
         jLabel80.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel80.setText("Ventas Pendientes De Pago");
 
+        btnRefrescar.setText("Refrescar");
+        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefrescarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout SubConfirmacionLayout = new javax.swing.GroupLayout(SubConfirmacion);
         SubConfirmacion.setLayout(SubConfirmacionLayout);
         SubConfirmacionLayout.setHorizontalGroup(
             SubConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SubConfirmacionLayout.createSequentialGroup()
-                .addGap(318, 318, 318)
-                .addComponent(jLabel80)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SubConfirmacionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(SubConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(SubConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SubConfirmacionLayout.createSequentialGroup()
+                        .addComponent(btnRefrescar)
+                        .addGap(235, 235, 235)
+                        .addComponent(jLabel80)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel37, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SubConfirmacionLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jTextField55, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -252,7 +261,9 @@ public class VentasConfirmacion extends javax.swing.JPanel {
             SubConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SubConfirmacionLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jLabel80)
+                .addGroup(SubConfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel80)
+                    .addComponent(btnRefrescar))
                 .addGap(1, 1, 1)
                 .addComponent(jTextField55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -411,11 +422,17 @@ public class VentasConfirmacion extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
+        // TODO add your handling code here:
+        LlenarTabla();
+    }//GEN-LAST:event_btnRefrescarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SubConfirmacion;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnRefrescar;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxBanco;
     private com.toedter.calendar.JDateChooser dtFechaPago;

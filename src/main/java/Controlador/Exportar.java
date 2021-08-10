@@ -185,13 +185,32 @@ public class Exportar {
                   cell.setCellValue(v.getVtaDireccionDestinatario());
                   cell=row.createCell(10);
                   cell.setCellStyle(cellStyle2);
-                  cell.setCellValue(v.getBanIdBanco().getBanNombre());  
+                  if(v.getBanIdBanco()!=null)
+                  {
+                      cell.setCellValue(v.getBanIdBanco().getBanNombre());  
+                    
+                  }
+                  else {
+                      cell.setCellValue("S/N");  
+                  }
                   cell=row.createCell(11);
                   cell.setCellStyle(cellStyle2);
-                  cell.setCellValue(dateFormat.format(v.getVtaFechaTransferencia()));
+                  if (v.getVtaFechaTransferencia()!=null) {
+                      cell.setCellValue(dateFormat.format(v.getVtaFechaTransferencia()));
+                  }
+                  else
+                  {
+                      cell.setCellValue("S/N");
+                  }
+                  
                   cell=row.createCell(12);
                   cell.setCellStyle(cellStyle2);
-                  cell.setCellValue(v.getVtaCodigoTransferencia());
+                  if (v.getVtaCodigoTransferencia()!=null) {
+                        cell.setCellValue(v.getVtaCodigoTransferencia());
+                  }else
+                  {
+                      cell.setCellValue("S/N");
+                  }
                   cell=row.createCell(13);
                   cell.setCellStyle(cellStyle2);
                   cell.setCellValue(v.getEstadoVentaIdEstado().getEstDescripcion());

@@ -7,6 +7,7 @@ package Controlador;
 
 import Modelo.Articulo;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -135,5 +136,29 @@ public class ControladorArticulo {
             e.getMessage();
         }
         return listaArticulo;
+    }
+    
+    public ArrayList<Articulo> BuscarPorFechas(Date desde, Date hasta)
+    {
+        ArrayList<Articulo> articulos = new ArrayList();
+        try{
+         EntityManagerFactory emf;
+         emf = Persistence.createEntityManagerFactory("com.mycompany_AppDreamGifts_jar_1.0-SNAPSHOTPU");
+         EntityManager em = emf.createEntityManager();
+         Query q = em.createNamedQuery("Articulo.BetweenFecha");
+         q.setParameter("fechaInicio", desde);
+         q.setParameter("fechaFinal", hasta);
+         List<Articulo> articulo = q.getResultList();
+         for(Articulo a: articulo)
+         {
+             articulos.add(a);
+         }
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        return articulos;
+        
     }
 }

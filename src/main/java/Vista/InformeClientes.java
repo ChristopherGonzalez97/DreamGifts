@@ -5,6 +5,16 @@
  */
 package Vista;
 
+import Controlador.ControladorCliente;
+import Controlador.ControladorVenta;
+import Controlador.Exportar;
+import Modelo.Venta;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author MADICAP
@@ -14,8 +24,12 @@ public class InformeClientes extends javax.swing.JPanel {
     /**
      * Creates new form InformeClientes
      */
+    private ControladorVenta cVenta= new ControladorVenta();
+    private ControladorCliente cCliente= new ControladorCliente();
+    private ArrayList<Venta> ventasDeplegar = cVenta.ListarVentas();
     public InformeClientes() {
         initComponents();
+        LlenarTabla();
     }
 
     /**
@@ -29,38 +43,31 @@ public class InformeClientes extends javax.swing.JPanel {
 
         SubClientes4 = new javax.swing.JPanel();
         jPanel48 = new javax.swing.JPanel();
-        jLabel95 = new javax.swing.JLabel();
         jLabel112 = new javax.swing.JLabel();
-        jLabel117 = new javax.swing.JLabel();
-        jDateChooser13 = new com.toedter.calendar.JDateChooser();
-        jButton78 = new javax.swing.JButton();
-        jDateChooser14 = new com.toedter.calendar.JDateChooser();
+        btnBuscar = new javax.swing.JButton();
         jLabel118 = new javax.swing.JLabel();
-        jTextField67 = new javax.swing.JTextField();
+        txtRut = new javax.swing.JTextField();
         jLabel119 = new javax.swing.JLabel();
-        jTextField68 = new javax.swing.JTextField();
+        txtDVRut = new javax.swing.JTextField();
         jPanel49 = new javax.swing.JPanel();
         jScrollPane28 = new javax.swing.JScrollPane();
-        jTable21 = new javax.swing.JTable();
-        jButton79 = new javax.swing.JButton();
-        jButton80 = new javax.swing.JButton();
-        jButton81 = new javax.swing.JButton();
+        tblClientes = new javax.swing.JTable();
+        btnExportar = new javax.swing.JButton();
         jLabel120 = new javax.swing.JLabel();
 
         jPanel48.setBackground(new java.awt.Color(255, 255, 255));
         jPanel48.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Búsqueda Ventas"));
 
-        jLabel95.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel95.setText("Desde");
-
         jLabel112.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel112.setText("Búsqueda Rango Fecha Venta");
 
-        jLabel117.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel117.setText("Hasta");
-
-        jButton78.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton78.setText("Buscar");
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel118.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel118.setText("Búsqueda Por RUT");
@@ -72,61 +79,44 @@ public class InformeClientes extends javax.swing.JPanel {
         jPanel48Layout.setHorizontalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel48Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel118)
-                    .addComponent(jLabel95))
+                .addGap(168, 168, 168)
+                .addComponent(jLabel118)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel48Layout.createSequentialGroup()
-                        .addComponent(jDateChooser14, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(150, 150, 150)
-                        .addComponent(jLabel117)
-                        .addGap(18, 18, 18)
-                        .addComponent(jDateChooser13, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel112)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel48Layout.createSequentialGroup()
-                        .addComponent(jTextField67, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel119)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField68, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(169, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
-                        .addComponent(jButton78, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
-                        .addComponent(jLabel112)
-                        .addGap(348, 348, 348))))
+                        .addComponent(txtDVRut, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59))))
         );
         jPanel48Layout.setVerticalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel48Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel112)
-                .addGap(28, 28, 28)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel95, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel117))
-                    .addComponent(jDateChooser13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel118)
-                    .addComponent(jTextField67, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel119)
-                    .addComponent(jTextField68, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addComponent(jButton78)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel48Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(btnBuscar))
+                    .addGroup(jPanel48Layout.createSequentialGroup()
+                        .addComponent(jLabel112)
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel118)
+                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel119)
+                            .addComponent(txtDVRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel49.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable21.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -147,48 +137,48 @@ public class InformeClientes extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Código Pack", "Pack", "Fecha Registro", "Cliente", "Estado", "Comuna"
+                "Código Pack", "Pack", "Cliente", "Rut cliente", "Estado", "Comuna"
             }
-        ));
-        jScrollPane28.setViewportView(jTable21);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false, false
+            };
 
-        jButton79.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton79.setText("Desactivar");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane28.setViewportView(tblClientes);
 
-        jButton80.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton80.setText("Editar");
-
-        jButton81.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton81.setText("Venta");
+        btnExportar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnExportar.setText("Exportar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
         jPanel49.setLayout(jPanel49Layout);
         jPanel49Layout.setHorizontalGroup(
             jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane28, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane28)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel49Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton81, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton80, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton79)
+                .addContainerGap(737, Short.MAX_VALUE)
+                .addComponent(btnExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel49Layout.setVerticalGroup(
             jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel49Layout.createSequentialGroup()
-                .addComponent(jScrollPane28, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton79)
-                    .addComponent(jButton80)
-                    .addComponent(jButton81))
-                .addContainerGap())
+                .addComponent(jScrollPane28, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnExportar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel120.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel120.setText("Detalle De Ventas Realizadas");
+        jLabel120.setText("Detalle de ventas por cliente");
 
         javax.swing.GroupLayout SubClientes4Layout = new javax.swing.GroupLayout(SubClientes4);
         SubClientes4.setLayout(SubClientes4Layout);
@@ -214,21 +204,21 @@ public class InformeClientes extends javax.swing.JPanel {
                 .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(jLabel120)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 907, Short.MAX_VALUE)
+            .addGap(0, 1090, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 110, Short.MAX_VALUE)
                     .addComponent(SubClientes4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 110, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,31 +226,73 @@ public class InformeClientes extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(SubClientes4, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SubClientes4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        String rut = txtRut.getText()+"-"+txtDVRut.getText();
+        Modelo.Cliente cli = cCliente.BuscarPorRut(rut);
+        ventasDeplegar.clear();
+        for(Venta v : cli.getVentaList())
+        {
+            ventasDeplegar.add(v);
+        }
+        LlenarTabla();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        // TODO add your handling code here:
+        Exportar exp = new Exportar();
+        try {
+            exp.ExportarVentas(ventasDeplegar);
+             JOptionPane.showMessageDialog(SubClientes4.getParent(),"Datos exportados correctamente","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException ex) {
+            Logger.getLogger(InformeClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnExportarActionPerformed
+
+private void LlenarTabla()
+    {
+        Object matriz[][]= new Object[ventasDeplegar.size()][6];
+        for (int i = 0; i < ventasDeplegar.size(); i++) {
+            matriz[i][0]= ventasDeplegar.get(i).getPckIdPack().getPckIdPack();
+            matriz[i][1]=  ventasDeplegar.get(i).getPckIdPack().getPckNombre();
+            matriz[i][2]= ventasDeplegar.get(i).getCliIdCliente().getNombreCompleto();
+            matriz[i][3]= ventasDeplegar.get(i).getCliIdCliente().getCliRut();
+            matriz[i][4]= ventasDeplegar.get(i).getEstadoVentaIdEstado().getEstDescripcion();
+            matriz[i][5]= ventasDeplegar.get(i).getComunaIdComuna().getComNombre();
+            
+        }
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(matriz, new String [] {
+                "Código Pack", "Pack", "Cliente", "Rut cliente", "Estado", "Comuna"})
+           {
+                boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }        
+           });
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SubClientes4;
-    private javax.swing.JButton jButton78;
-    private javax.swing.JButton jButton79;
-    private javax.swing.JButton jButton80;
-    private javax.swing.JButton jButton81;
-    private com.toedter.calendar.JDateChooser jDateChooser13;
-    private com.toedter.calendar.JDateChooser jDateChooser14;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnExportar;
     private javax.swing.JLabel jLabel112;
-    private javax.swing.JLabel jLabel117;
     private javax.swing.JLabel jLabel118;
     private javax.swing.JLabel jLabel119;
     private javax.swing.JLabel jLabel120;
-    private javax.swing.JLabel jLabel95;
     private javax.swing.JPanel jPanel48;
     private javax.swing.JPanel jPanel49;
     private javax.swing.JScrollPane jScrollPane28;
-    private javax.swing.JTable jTable21;
-    private javax.swing.JTextField jTextField67;
-    private javax.swing.JTextField jTextField68;
+    private javax.swing.JTable tblClientes;
+    private javax.swing.JTextField txtDVRut;
+    private javax.swing.JTextField txtRut;
     // End of variables declaration//GEN-END:variables
 }
